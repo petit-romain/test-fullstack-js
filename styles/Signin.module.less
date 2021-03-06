@@ -1,3 +1,74 @@
-.ant-card {
-    background: lightgrey;
+.auth-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+
+  .ant {
+    &-card {
+      display: flex;
+      flex-direction: column;
+      width: 500px;
+
+      &-head {
+        display: flex;
+        justify-content: center;
+
+        &-title {
+          text-align: center;
+
+          img {
+            object-fit: contain;
+            margin-bottom: 12px !important;
+          }
+        }
+      }
+
+      &-body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 1em;
+
+        .auth {
+          &-socials {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            margin-bottom: 10px;
+
+            .social-logo {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              width: 80px;
+              padding: 0.3em;
+              margin: 0.5em;
+              border-radius: 30px;
+              color: white;
+              cursor: pointer;
+
+              img {
+                width: 20px;
+                height: 20px;
+                object-fit: contain;
+              }
+            }
+          }
+
+          &-email {
+            .ant-form {
+              display: flex;
+              flex-direction: column;
+
+              .login-button {
+                align-self: center;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }

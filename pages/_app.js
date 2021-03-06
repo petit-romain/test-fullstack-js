@@ -4,6 +4,8 @@ import {Layout} from 'antd'
 
 const {Content, Footer, Header, Sider} = Layout
 
+import '../styles/App.module.less'
+
 function MyApp({Component, pageProps}) {
     const isUserLogged = false
 
