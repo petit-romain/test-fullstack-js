@@ -8,7 +8,7 @@ const Signin = ({socialsAuth = []}) => {
     const [form] = Form.useForm()
 
     const onFinish = values => {
-        console.log({ values })
+        message.success("Connexion réussie")
     }
 
     return <div className="auth-screen">
@@ -63,7 +63,7 @@ const Signin = ({socialsAuth = []}) => {
                 {socialsAuth.map(({name, color}) => (
                     <div
                         className="social-logo"
-                        onClick={() => message.success(`Connexion par ${name} réussi`)}
+                        onClick={() => message.success(`Connexion par ${name} réussie`)}
                         style={{backgroundColor: color}}
                     >
                         <img src={`/assets/images/${name.toLowerCase()}.png`} alt={name}/>

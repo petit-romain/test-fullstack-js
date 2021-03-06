@@ -1,29 +1,20 @@
+import {Fragment} from 'react'
 import {Provider} from 'next-auth/client'
 
-import {Layout} from 'antd'
-
-const {Content, Footer, Header, Sider} = Layout
+import Layout from '../components/layout'
 
 import '../styles/App.module.less'
 
 function MyApp({Component, pageProps}) {
-    const isUserLogged = false
+    const isUserLogged = true
+
+    const Container = isUserLogged ? Layout : Fragment
 
     return (
         <Provider session={pageProps.session}>
-            {isUserLogged ?
-                <Layout>
-                    <Header>Header</Header>
-                    <Layout>
-                        <Sider>Sider</Sider>
-                        <Content>
-                            <Component {...pageProps} />
-                        </Content>
-                    </Layout>
-                    <Footer>Footer</Footer>
-                </Layout>
-                :
-                <Component {...pageProps} />}
+            <Container>
+                <Component {...pageProps} />
+            </Container>
         </Provider>
     )
 }
