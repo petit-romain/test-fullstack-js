@@ -1,14 +1,14 @@
-import { Fragment, useEffect } from 'react'
-import Router from 'next/router'
+import {useEffect} from 'react'
+import { useRouter} from 'next/router'
 
 const Home = () => {
-    const isUserLogged = false
+    const router = useRouter()
 
     useEffect(() => {
-        isUserLogged ? Router.push('/dashboard') : Router.push('/auth/signin')
-    }, [])
+        router.push('/users')
+    })
 
-    return <Fragment />
+    return <div> Home page </div>
 }
 
 export default Home

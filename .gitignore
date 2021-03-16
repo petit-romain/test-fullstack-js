@@ -1,6 +1,13 @@
-.next/
 .idea/
 
 node_modules/
-
 yarn.lock
+.next/
+
+.npmrc
+
+yarn-error.log
+lerna-debug.log
+
+migrations/
+dev.db
