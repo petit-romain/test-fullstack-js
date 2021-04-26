@@ -1,176 +1,98 @@
-import {useEffect, useState} from 'react'
-import {Button, Form, Input, message, Modal, Table} from "antd"
-import {PlusOutlined, SyncOutlined} from "@ant-design/icons"
-import {defaultTo, get} from "lodash"
-import axios from "axios"
+import {defaultTo, find, map} from 'lodash'
+import {Tag} from 'antd'
 
-const Users = () => {
-    const [form] = Form.useForm()
+import TableLayout from '../../components/table'
 
-    const [users, setUsers] = useState([])
-    const [isLoading, setLoading] = useState(false)
-    const [isCreating, setCreating] = useState(false)
-    const [isResetting, setResetting] = useState(false)
-    const [isModalVisible, setModalVisible] = useState(false)
+import prisma from '../../lib/prisma'
 
-    useEffect(() => {
-        fetchUsers()
-    }, [])
-
+const Users = ({model = {}}) => {
     const columns = [
         {
-            title: "Id",
+            title: "Identifiant",
             dataIndex: "id",
-            key: "id",
-            sorter: true,
-            showSorterTooltip: false
+            key: "id"
         },
         {
-            title: "First name",
-            dataIndex: "firstName",
-            key: "firstName",
-            sorter: true,
-            showSorterTooltip: false
-        },
-        {
-            title: "Last name",
+            title: "Nom",
             dataIndex: "lastName",
             key: "lastName",
-            sorter: true,
-            showSorterTooltip: false
+            sorter: (a, b) => (
+                defaultTo(a?.lastName, '').localeCompare(defaultTo(b?.lastName, ''))
+            )
+        },
+        {
+            title: "Prénom",
+            dataIndex: "firstName",
+            key: "firstName",
+            sorter: (a, b) => (
+                defaultTo(a?.firstName, '').localeCompare(defaultTo(b?.firstName, ''))
+            )
         },
         {
             title: "Email",
             dataIndex: "email",
             key: "email",
-            sorter: true,
-            showSorterTooltip: false
+            sorter: (a, b) => (
+                defaultTo(a?.email, '').localeCompare(defaultTo(b?.email, ''))
+            )
         },
         {
-            title: "Action",
-            render: (action, user) => (
-                <Button
-                    icon={<SyncOutlined />}
-                    type="danger"
-                    loading={isResetting}
-                    onClick={() => resetUser(user)}
-                >
-                    Reset
-                </Button>
+            title: "Rôles",
+            dataIndex: "roles",
+            key: "roles",
+            filters: map(defaultTo(find(model?.fields, ['name', 'roles']).choices, []), choice => ({
+                text: choice,
+                value: choice
+            })),
+            render: roles => (
+                <div className="column-roles">
+                    {map(roles, (role, index) => (
+                        <Tag key={index}>
+                            {role}
+                        </Tag>
+                    ))}
+                </div>
             )
         }
     ]
 
-    const fetchUsers = () => {
-        setLoading(true)
-        axios.get('/api/users?select=id,lastName,firstName,email')
-            .then(body => {
-                setUsers(defaultTo(get(body, 'data'), []))
-            })
-            .catch(() => (
-                message.error("An error occurred on user creation")
-            ))
-            .finally(() => {
-                setLoading(false)
-            })
+    return <TableLayout
+        model={model}
+        columns={columns}
+    />
+}
+
+export const getServerSideProps = async () => {
+    const prismaModels = prisma._dmmf.datamodel.models
+    const prismaEnums = prisma._dmmf.datamodel.enums
+
+
+    const modelName = 'User'
+    const model = find(prismaModels, ['name', modelName])
+
+    const fields = map(defaultTo(model?.fields, []), ({kind, type, ...field}) => {
+        const choices = kind === 'enum' ? find(prismaEnums, ['name', type]).values : []
+
+        return {
+            ...field,
+            kind,
+            type,
+            choices: kind === 'enum' ? map(choices, 'name') : []
+        }
+
+    })
+
+    return {
+        props: {
+            model: {
+                name: modelName,
+                fields,
+                blackListFields: []
+            }
+
+        }
     }
 
-    const createUser = user => {
-        setCreating(true)
-        axios.post('/api/users', user)
-            .then(() => {
-                form.resetFields()
-                setModalVisible(false)
-                message.success("User created with success")
-                fetchUsers()
-            })
-            .catch(() => message.error("An error occurred on user creation"))
-            .finally(() => {
-                setCreating(false)
-            })
-    }
-
-    const resetUser = user => {
-        setResetting(true)
-        console.log(user)
-        axios.patch('/api/users/reset', user)
-            .then(() => {
-                message.success("User reset with success")
-                fetchUsers()
-            })
-            .catch(() => message.error("An error occurred on user reset"))
-            .finally(() => {
-                setResetting(false)
-            })
-    }
-
-    return <div>
-        <h1>{`Users page (${defaultTo(get(users, 'length'), 0)})`}</h1>
-        <Button
-            icon={<PlusOutlined/>}
-            type="primary"
-            onClick={() => setModalVisible(true)}
-        >
-            Create
-        </Button>
-        <Table
-            rowKey="id"
-            loading={isLoading}
-            columns={columns}
-            pagination={{position: "bottomRight"}}
-            onChange={(pagination, filters, sorter) => {
-                console.warn({
-                    pagination, filters, sorter
-                })
-            }}
-            dataSource={users}
-        />
-        <Modal
-            visible={isModalVisible}
-            title="User creation"
-            okText="Create"
-            okButtonProps={{
-                loading: isCreating,
-                onClick: () => form.validateFields()
-                    .then(formValues => createUser(formValues))
-            }}
-            onCancel={() => {
-                form.resetFields()
-                setModalVisible(false)
-            }}
-        >
-            <Form
-                form={form}
-                layout="vertical"
-            >
-                <Form.Item
-                    label="Last name"
-                    name="lastName"
-                    rules={[
-                        {
-                            required: true,
-                            message: "Please input your lastname"
-                        }
-                    ]}
-                >
-                    <Input placeholder="Insert a lastname"/>
-                </Form.Item>
-
-                <Form.Item
-                    label="First name"
-                    name="firstName"
-                    rules={[
-                        {
-                            required: true,
-                            message: "Please input your firstname"
-                        }
-                    ]}
-                >
-                    <Input placeholder="Insert a firstname"/>
-                </Form.Item>
-            </Form>
-        </Modal>
-    </div>
 }
 
 export default Users

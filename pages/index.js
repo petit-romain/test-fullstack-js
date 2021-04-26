@@ -5,7 +5,7 @@ const Home = () => {
     const router = useRouter()
 
     useEffect(() => {
-        router.push('/users')
+        router.push('/dashboard')
     })
 
     return <div> Home page </div>
