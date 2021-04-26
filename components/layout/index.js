@@ -1,6 +1,7 @@
-import {useState} from 'react'
+import {useCallback, useState} from 'react'
 import {useRouter} from 'next/router'
-import {Layout, Menu} from 'antd'
+import {signOut} from 'next-auth/client'
+import {Button, Layout, Menu} from 'antd'
 
 import {DashboardOutlined, TeamOutlined} from '@ant-design/icons'
 import './Layout.less'
@@ -8,15 +9,14 @@ import './Layout.less'
 const {Header, Content, Sider} = Layout
 
 
-const CustomLayout = ({children}) => {
+const CustomLayout = ({children, session}) => {
     const [menuSelectedKey, setMenuSelectedKey] = useState('dashboard')
-
     const router = useRouter()
 
-    const handleOnClick = screen => {
+    const handleOnClick = useCallback(screen => {
         setMenuSelectedKey(screen)
         router.push(`/${screen}`)
-    }
+    }, [])
 
     return (
         <Layout>
@@ -55,6 +55,12 @@ const CustomLayout = ({children}) => {
             </Sider>
             <Layout>
                 <Header className="header">
+                    <p> {session?.user?.name}</p>
+                    <p> {session?.user?.email}</p>
+
+                    <Button onClick={() => signOut()}>
+                        Déconnexion
+                    </Button>
 
                 </Header>
 

@@ -1,13 +1,13 @@
-import Layout from '../components/layout'
+import {Provider} from 'next-auth/client'
 
 import '../styles/App.module.less'
 
 function App({Component, pageProps}) {
 
     return (
-        <Layout>
-            <Component {...pageProps} />
-        </Layout>
+        <Provider session={pageProps.session}>
+            <Component {...pageProps}/>
+        </Provider>
     )
 }
 

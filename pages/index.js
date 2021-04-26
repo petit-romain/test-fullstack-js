@@ -1,14 +1,22 @@
 import {useEffect} from 'react'
-import { useRouter} from 'next/router'
+import {useRouter} from 'next/router'
+import {isNil} from 'lodash'
+import {Spin} from 'antd'
 
-const Home = () => {
+import '../styles/App.module.less'
+
+const Home = ({session}) => {
     const router = useRouter()
 
     useEffect(() => {
-        router.push('/dashboard')
-    })
+        const redirectRoute = isNil(session) ? '/auth/signin' : '/dashboard'
 
-    return <div> Home page </div>
+        router.push(redirectRoute)
+    }, [])
+
+    return <div className='home-screen'>
+        <Spin tip='Loading...'/>
+    </div>
 }
 
 export default Home
