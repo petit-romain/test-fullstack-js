@@ -1,5 +1,5 @@
 import {useCallback} from 'react'
-import {signIn, useSession} from 'next-auth/client'
+import {signIn} from 'next-auth/client'
 import {Button, Card, Form, Input, message} from 'antd'
 import {defaultTo, isNil} from 'lodash'
 

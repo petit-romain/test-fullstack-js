@@ -1,22 +1,13 @@
-import {useEffect} from 'react'
 import {useSession} from 'next-auth/client'
-import {useRouter} from 'next/router'
 
-import {isNil} from 'lodash'
+const Dashboard = ({ session }) => {
+    // const [session, loading] = useSession()
 
-import Layout from '../components/layout'
+    console.warn(session)
 
-const Dashboard = () => {
-    const router = useRouter()
-    const [session] = useSession()
-
-    useEffect(() => {
-        router.push(isNil(session) ? '/auth/signin' : '/dashboard')
-    }, [session])
-
-    return <Layout session={session}>
+    return <div>
         Dashboard page
-    </Layout>
+    </div>
 }
 
 export default Dashboard
