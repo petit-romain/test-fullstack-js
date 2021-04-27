@@ -11,44 +11,5 @@ body {
       align-items: center;
       height: 100%;
     }
-
-    .ant-layout {
-      height: 100%;
-
-      &-header {
-        display: flex;
-        justify-content: flex-end;
-        padding: 0;
-        background: white;
-      }
-
-      &-sider {
-        &-trigger {
-          background: @primary-color;
-        }
-
-        .ant-menu {
-          color: white;
-          height: 100%;
-          background: lighten(@primary-color, 10%);
-
-          &-item-selected {
-            background: @primary-color;
-
-            &::after {
-              display: none;
-            }
-          }
-
-          span, &-submenu-arrow {
-            color: white;
-          }
-        }
-      }
-
-      &-content {
-        padding: 1em;
-      }
-    }
   }
 }

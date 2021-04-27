@@ -1,12 +1,11 @@
-import {useSession} from 'next-auth/client'
+import {getSession} from 'next-auth/client'
+import {defaultTo} from 'lodash'
 
-const Dashboard = ({ session }) => {
+const Dashboard = ({session}) => {
     // const [session, loading] = useSession()
 
-    console.warn(session)
-
     return <div>
-        Dashboard page
+        {defaultTo(session?.user?.name, 'DEFAULT')}
     </div>
 }
 

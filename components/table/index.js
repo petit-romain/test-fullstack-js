@@ -25,7 +25,7 @@ const TableLayout = ({model, columns}) => {
 
     useEffect(() => {
         !isNil(error) && message.error(`${error?.response?.data?.key} ${error?.response?.data?.message}`)
-    }, error)
+    }, [error])
 
     const searchModel = useCallback(searchText => {
         message.info(searchText)

@@ -13,19 +13,11 @@ const Users = ({model = {}}) => {
             key: "id"
         },
         {
-            title: "Nom",
-            dataIndex: "lastName",
-            key: "lastName",
+            title: "Nom / Prénom",
+            dataIndex: "name",
+            key: "name",
             sorter: (a, b) => (
-                defaultTo(a?.lastName, '').localeCompare(defaultTo(b?.lastName, ''))
-            )
-        },
-        {
-            title: "Prénom",
-            dataIndex: "firstName",
-            key: "firstName",
-            sorter: (a, b) => (
-                defaultTo(a?.firstName, '').localeCompare(defaultTo(b?.firstName, ''))
+                defaultTo(a?.name, '').localeCompare(defaultTo(b?.name, ''))
             )
         },
         {
@@ -87,7 +79,7 @@ export const getServerSideProps = async () => {
             model: {
                 name: modelName,
                 fields,
-                blackListFields: []
+                blackListFields: ['email', 'emailVerified', 'image', 'createdAt', 'updatedAt']
             }
 
         }

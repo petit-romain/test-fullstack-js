@@ -28,8 +28,8 @@ const SignInPage = () => {
 
     return <div className='login-page'>
         <div className='description'>
-            <h1> Bienvenue sur UBITRACK </h1>
-            <h2> Outils de suivi de déchargement de VRAC </h2>
+            <h1> {`Bienvenue sur ${process.env.NEXT_PUBLIC_APP_NAME}`} </h1>
+            <h2> {process.env.NEXT_PUBLIC_APP_DESCRIPTION} </h2>
         </div>
         <Card
             actions={[
