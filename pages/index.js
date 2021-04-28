@@ -4,7 +4,7 @@ import {useRouter} from 'next/router'
 import {Spin} from 'antd'
 import {isNil} from 'lodash'
 
-import '../styles/App.module.less'
+// import './App.module.less'
 
 const Home = ({session}) => {
     const router = useRouter()

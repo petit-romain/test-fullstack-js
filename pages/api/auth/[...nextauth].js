@@ -3,7 +3,7 @@ import Providers from 'next-auth/providers'
 import Adapters from 'next-auth/adapters'
 import {isNil} from 'lodash'
 
-import prisma from '../../../lib/prisma'
+import prisma from 'lib/prisma'
 
 
 export default NextAuth({

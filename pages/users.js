@@ -1,9 +1,9 @@
 import {defaultTo, find, map} from 'lodash'
 import {Tag} from 'antd'
 
-import TableLayout from '../../components/table'
+import {TableLayout} from 'components'
 
-import prisma from '../../lib/prisma'
+import prisma from 'lib/prisma'
 
 const Users = ({model = {}}) => {
     const columns = [

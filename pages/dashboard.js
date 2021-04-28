@@ -1,12 +1,7 @@
-import {getSession} from 'next-auth/client'
-import {defaultTo} from 'lodash'
+import React from 'react'
 
-const Dashboard = ({session}) => {
-    // const [session, loading] = useSession()
-
-    return <div>
-        {defaultTo(session?.user?.name, 'DEFAULT')}
-    </div>
+const Dashboard = () => {
+  return <div>Dashboard Page</div>
 }
 
 export default Dashboard

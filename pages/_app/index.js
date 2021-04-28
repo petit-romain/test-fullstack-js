@@ -1,12 +1,12 @@
-import {Fragment, useEffect, useRef, useState} from 'react'
-import {getSession, Provider, useSession} from 'next-auth/client'
+import {Fragment, useEffect, useState} from 'react'
+import {getSession, Provider} from 'next-auth/client'
 import {useRouter} from 'next/router'
 import Head from 'next/head'
-import {isNil, replace, capitalize} from 'lodash'
+import {capitalize, isNil, replace} from 'lodash'
 
-import Layout from '../components/layout'
+import {Layout} from 'components'
 
-import '../styles/App.module.less'
+import './_app.less'
 
 const App = ({Component, pageProps}) => {
     const router = useRouter()

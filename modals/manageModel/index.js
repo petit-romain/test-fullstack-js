@@ -3,12 +3,12 @@ import {useCallback, useEffect} from 'react'
 import {Form, Input, message, Modal, Select} from 'antd'
 import {defaultTo, filter, includes, map} from 'lodash'
 
-import {creater} from '../lib/swr'
+import {creater} from 'lib/swr'
 
 // Components
 const {Option} = Select
 
-const ManageModel = ({visible, model, modelItem, mutate, onVisibleChange}) => {
+const Index = ({visible, model, modelItem, mutate, onVisibleChange}) => {
     const [form] = Form.useForm()
 
     const modelFields = filter(defaultTo(model?.fields, []), ({name}) => (
@@ -126,7 +126,7 @@ const ManageModel = ({visible, model, modelItem, mutate, onVisibleChange}) => {
     )
 }
 
-ManageModel.defaultProps = {
+Index.defaultProps = {
     visible: false,
     model: {},
     modelItem: {},
@@ -136,4 +136,4 @@ ManageModel.defaultProps = {
     },
 }
 
-export default ManageModel
+export default Index

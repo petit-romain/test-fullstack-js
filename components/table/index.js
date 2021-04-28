@@ -1,10 +1,10 @@
 import {useCallback, useEffect, useState} from 'react'
-import {Button, Input, Table, message} from 'antd'
-import {defaultTo, isEmpty, isNil, omitBy, some} from 'lodash'
+import {Button, Input, message, Table} from 'antd'
+import {defaultTo, isNil, omitBy, some} from 'lodash'
 import useSWR from 'swr'
 
-import {fetcher} from '../../lib/swr'
-import ManageModel from '../../modals/manageModel'
+import {fetcher} from 'lib/swr'
+import {ManageModel} from 'modals'
 
 import {PlusOutlined} from '@ant-design/icons'
 import './Table.less'

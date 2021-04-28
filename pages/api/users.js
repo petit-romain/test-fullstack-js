@@ -2,7 +2,7 @@ import nextConnect from 'next-connect'
 import {getSession} from 'next-auth/client'
 import {defaultTo, isNil, isArray, forEach, isEmpty, merge, replace} from 'lodash'
 
-import prisma from '../../lib/prisma'
+import prisma from 'lib/prisma'
 
 export default nextConnect({
     attachParams: true

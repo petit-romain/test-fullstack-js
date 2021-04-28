@@ -29,7 +29,7 @@ const CustomSider = () => {
                     selectable={false}
                 >
                     <img
-                        src="/assets/images/logo_white.png"
+                        src="/assets/images/logo.svg"
                         alt="Logo de l'application"
                         onClick={() => handleOnClick('dashboard')}
                     />
