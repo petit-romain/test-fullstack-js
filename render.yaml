@@ -1,0 +1,9 @@
+previewsEnabled: true
+services:
+  # Fullstack JS PROD
+  - type: web
+    name: Fullstack JS - Back
+    branch: master
+    env: node
+    buildCommand: yarn install && yarn build:production
+    startCommand: yarn serve

@@ -3,6 +3,7 @@
 node_modules/
 yarn.lock
 .next/
+out/
 
 .npmrc
 
@@ -10,4 +11,3 @@ yarn-error.log
 lerna-debug.log
 
 migrations/
-dev.db
