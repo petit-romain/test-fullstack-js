@@ -18,8 +18,6 @@ export default nextConnect({
   .use(async (req, res, next) => {
     const session = await getSession({ req })
 
-    console.log(req.method)
-
     if (isNil(session)) {
       res.writeHead(302, { Location: '/auth/signin' })
       res.end()

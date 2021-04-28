@@ -13,16 +13,13 @@
     "registry": "https://npm.pkg.github.com/"
   },
   "scripts": {
-    "start": "env-cmd -f .env next dev",
-    "premigration:dev": "env-cmd -f .env.dev prisma migrate dev --preview-feature",
-    "migration:dev": "env-cmd -f .env.dev prisma migrate deploy --preview-feature",
+    "start:dev": "env-cmd -f .env.dev next dev",
     "build:dev": "env-cmd -f .env.dev next build",
-    "premigration:staging": "env-cmd -f .env.staging prisma migrate dev --preview-feature",
-    "migration:staging": "env-cmd -f .env.staging prisma migrate deploy --preview-feature",
+    "start:staging": "env-cmd -f .env.staging next dev",
     "build:staging": "env-cmd -f .env.staging next build",
-    "premigration:production": "env-cmd -f .env.production prisma migrate dev --preview-feature",
-    "migration:production": "env-cmd -f .env.production prisma migrate deploy --preview-feature",
+    "start:production": "env-cmd -f .env.production next dev",
     "build:production": "env-cmd -f .env.production next build",
+    "serve": "next start",
     "lint": "eslint --ext .js .",
     "lint:fix": "eslint --ext .js . --fix --quiet"
   },
