@@ -1,13 +1,25 @@
 previewsEnabled: true
 services:
-  # A static site
+  # Fullstack JS DEV
   - type: web
-    name: Fullstack JS
+    name: Fullstack JS - Back
+    branch: dev
     env: node
     buildCommand: yarn install && yarn build:dev
-    staticPublishPath: ./out
+    startCommand: yarn start
 
-databases:
-  - name: nextjs
-    databaseName: mydb          # optional (Render may add a suffix)
-    user: whazzark                # optional
+    # Fullstack JS STAGING
+  - type: web
+    name: Fullstack JS - Back
+    branch: staging
+    env: node
+    buildCommand: yarn install && yarn build:staging
+    startCommand: yarn start
+
+  # Fullstack JS PROD
+  - type: web
+    name: Fullstack JS - Back
+    branch: master
+    env: node
+    buildCommand: yarn install && yarn build:master
+    startCommand: yarn start
