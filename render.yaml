@@ -1,0 +1,13 @@
+previewsEnabled: true
+services:
+  # A static site
+  - type: web
+    name: Fullstack JS
+    env: node
+    buildCommand: yarn install && yarn build:dev
+    staticPublishPath: ./out
+
+databases:
+  - name: nextjs
+    databaseName: mydb          # optional (Render may add a suffix)
+    user: whazzark                # optional
