@@ -1,80 +1,102 @@
 import nextConnect from 'next-connect'
-import {getSession} from 'next-auth/client'
-import {defaultTo, isNil, isArray, forEach, isEmpty, merge, replace} from 'lodash'
+import { getSession } from 'next-auth/client'
+import {
+  defaultTo,
+  forEach,
+  isArray,
+  isEmpty,
+  isNil,
+  merge,
+  replace
+} from 'lodash'
 
 import prisma from 'lib/prisma'
 
 export default nextConnect({
-    attachParams: true
+  attachParams: true
 })
-    .use(async (req, res, next) => {
-        const session = await getSession({req})
+  .use(async (req, res, next) => {
+    const session = await getSession({ req })
 
-        console.log(req.method)
+    console.log(req.method)
 
-        if (isNil(session)) {
-            res.writeHead(302, {'Location': '/auth/signin'})
-            res.end()
-            return
-        }
+    if (isNil(session)) {
+      res.writeHead(302, { Location: '/auth/signin' })
+      res.end()
+      return
+    }
 
-        console.log("test")
+    console.log('test')
 
-        req.user = defaultTo(session?.user, {})
-        next()
-    })
-    .get('api/users', async (req, res) => {
-        const {query} = req
+    req.user = defaultTo(session?.user, {})
+    next()
+  })
+  .get('api/users', async (req, res) => {
+    const { query } = req
 
-        const filters = JSON.parse(defaultTo(query?.filters, '{}'))
+    const filters = JSON.parse(defaultTo(query?.filters, '{}'))
 
-        let formattedFilters = []
+    let formattedFilters = []
 
-        forEach(filters, (value, key) => {
-            if (isArray(value)) {
-                forEach(value, v => {
-                    formattedFilters = [...formattedFilters, {
-                        [key]: {
-                            equals: v
-                        }
-                    }]
-                })
+    forEach(filters, (value, key) => {
+      if (isArray(value)) {
+        forEach(value, (v) => {
+          formattedFilters = [
+            ...formattedFilters,
+            {
+              [key]: {
+                equals: v
+              }
             }
+          ]
         })
+      }
+    })
 
-
-        const conditions = merge(isEmpty(formattedFilters) ? {} : {
+    const conditions = merge(
+      isEmpty(formattedFilters)
+        ? {}
+        : {
             OR: formattedFilters
-        }, {
-            AND: [{
-                email: {
-                    not: req?.user?.email
-                }
-            }]
-        })
+          },
+      {
+        AND: [
+          {
+            email: {
+              not: req?.user?.email
+            }
+          }
+        ]
+      }
+    )
 
-        const [usersCount, users] = await prisma.$transaction([
-            prisma.user.count({where: conditions}),
-            prisma.user.findMany({
-                take: parseInt(defaultTo(query?.limit, '10')),
-                skip: parseInt(defaultTo(query?.offset, '0')),
-                where: conditions,
-                orderBy: isNil(query?.sortField) ? {} : {
-                    [query?.sortField]: replace(defaultTo(query?.sortOrder, 'ascend'), 'end', '')
-                },
+    const [usersCount, users] = await prisma.$transaction([
+      prisma.user.count({ where: conditions }),
+      prisma.user.findMany({
+        take: parseInt(defaultTo(query?.limit, '10')),
+        skip: parseInt(defaultTo(query?.offset, '0')),
+        where: conditions,
+        orderBy: isNil(query?.sortField)
+          ? {}
+          : {
+              [query?.sortField]: replace(
+                defaultTo(query?.sortOrder, 'ascend'),
+                'end',
+                ''
+              )
+            }
+      })
+    ])
 
-            }),
-        ])
-
-        res.status(206).json({
-            total: usersCount,
-            results: users
-        })
+    res.status(206).json({
+      total: usersCount,
+      results: users
     })
-    .post('api/users', async (req, res, next) => {
-        const user = await prisma.user.create({
-            data: req?.body
-        })
-
-        res.status(201).json(user)
+  })
+  .post('api/users', async (req, res, next) => {
+    const user = await prisma.user.create({
+      data: req?.body
     })
+
+    res.status(201).json(user)
+  })

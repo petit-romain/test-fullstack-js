@@ -1,5 +1,3 @@
 import ManageModel from './manageModel'
 
-export {
-    ManageModel
-}
+export { ManageModel }
