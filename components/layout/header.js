@@ -12,7 +12,7 @@ const CustomHeader = () => {
 
   const handleOnSignOut = useCallback(() => {
     signOut({
-      callbackUrl: 'http://localhost:3000/auth/signin'
+      callbackUrl: window.location.origin + '/auth/signin'
     }).catch(() => {
       message.error('api.error.signout')
     })

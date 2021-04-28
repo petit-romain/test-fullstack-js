@@ -13,7 +13,7 @@ const SignInPage = () => {
       signIn('credentials', {
         login,
         password,
-        callbackUrl: 'http://127.0.0.1:3000/dashboard'
+        callbackUrl: window.location.origin + '/dashboard'
       })
         .then((body) => {
           if (!isNil(body?.error)) throw new Error(body?.error)
