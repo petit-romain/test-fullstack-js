@@ -1,21 +1,20 @@
 services:
-  # Fullstack JS PROD
   - type: web
-    name: Fullstack JS [PROD]
+    name: Fullstack JS [DEV]
     region: frankfurt
     plan: starter
     branch: master
     env: node
-    buildCommand: yarn install && yarn build:production
+    buildCommand: yarn install && yarn build:dev
     startCommand: yarn serve
     envVars:
       - key: DATABASE_URL
         fromDatabase:
-          name: fullstackjs-prod
+          name: fullstackjs-dev
           property: connectionString
 
 databases:
-  - name: fullstackjs-prod
+  - name: fullstackjs-dev
     region: frankfurt
     plan: starter
     user: ubidreams
