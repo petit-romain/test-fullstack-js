@@ -1,9 +1,21 @@
-previewsEnabled: true
 services:
   # Fullstack JS PROD
   - type: web
-    name: Fullstack JS - Back
+    name: Fullstack JS [PROD]
+    region: frankfurt
+    plan: starter
     branch: master
     env: node
     buildCommand: yarn install && yarn build:production
     startCommand: yarn serve
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: fullstackjs-prod
+          property: connectionString
+
+databases:
+  - name: fullstackjs-prod
+    region: frankfurt
+    plan: starter
+    user: ubidreams
