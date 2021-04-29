@@ -15,10 +15,13 @@
   "scripts": {
     "start:dev": "env-cmd -f .env.dev next dev",
     "build:dev": "env-cmd -f .env.dev next build",
+    "postbuild:dev": "env-cmd -f .env.dev yarn prisma migrate reset",
     "start:staging": "env-cmd -f .env.staging next dev",
     "build:staging": "env-cmd -f .env.staging next build",
+    "postbuild:staging": "env-cmd -f .env.staging yarn prisma migrate deploy",
     "start:production": "env-cmd -f .env.production next dev",
     "build:production": "env-cmd -f .env.production next build",
+    "postbuild:production": "env-cmd -f .env.production yarn prisma migrate deploy",
     "serve": "next start",
     "lint": "eslint --ext .js .",
     "lint:fix": "eslint --ext .js . --fix --quiet"

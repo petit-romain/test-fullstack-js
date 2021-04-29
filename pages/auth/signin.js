@@ -12,8 +12,7 @@ const SignInPage = () => {
     form.validateFields().then(({ login, password }) => {
       signIn('credentials', {
         login,
-        password,
-        callbackUrl: window.location.origin + '/dashboard'
+        password
       })
         .then((body) => {
           if (!isNil(body?.error)) throw new Error(body?.error)
