@@ -1,4 +1,6 @@
 const withAntdLess = require('next-plugin-antd-less')
+const { merge } = require('lodash')
+const path = require('path')
 
 module.exports = withAntdLess({
   // optional
@@ -11,6 +13,15 @@ module.exports = withAntdLess({
   // Other Config Here...
 
   webpack(config) {
-    return config
+    return merge(config, {
+      resolve: {
+        alias: {
+          lib: path.resolve(__dirname, 'lib'),
+          components: path.resolve(__dirname, 'components'),
+          modals: path.resolve(__dirname, 'modals'),
+          helpers: path.resolve(__dirname, 'helpers')
+        }
+      }
+    })
   }
 })
