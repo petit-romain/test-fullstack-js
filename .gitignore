@@ -7,7 +7,6 @@ build/
 out/
 
 .npmrc
-.env.*local
 
 yarn-error.log
 lerna-debug.log
