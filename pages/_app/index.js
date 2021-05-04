@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { Provider, useSession } from 'next-auth/client'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
-import { capitalize, replace, includes } from 'lodash'
+import { capitalize, isEmpty, filter } from 'lodash'
 
 import { Layout } from 'components'
 
@@ -16,17 +16,25 @@ const App = ({ Component, pageProps }) => {
   //   console.log(pageProps, session)
   // }, [])
 
-  const pageTitle = capitalize(replace(router.route, '/', ''))
-
-  // console.log(pageTitle, router, pageTitle)
+  const pageTitle = filter(
+    router.route.split('/'),
+    (path) => !isEmpty(path)
+  ).pop()
 
   return (
     <Provider session={pageProps.session}>
       <Layout>
         <Head>
-          <title>{`${pageTitle}`}</title>
+          <title>{`${process.env.NEXT_PUBLIC_APP_NAME} | ${capitalize(
+            pageTitle
+          )}`}</title>
         </Head>
         <Component {...pageProps} />
+        <style>
+          {`#__next {
+              height: 100%;
+            }`}
+        </style>
       </Layout>
     </Provider>
   )
