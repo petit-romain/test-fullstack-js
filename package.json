@@ -15,7 +15,7 @@
   "scripts": {
     "start:dev": "env-cmd -f .env.dev next dev",
     "build:dev": "env-cmd -f .env.dev next build",
-    "postbuild:dev": "env-cmd -f .env.dev yarn prisma db seed --preview-feature",
+    "postbuild:dev": "env-cmd -f .env.dev yarn prisma migrate reset --force",
     "start:staging": "env-cmd -f .env.staging next dev",
     "build:staging": "env-cmd -f .env.staging next build",
     "postbuild:staging": "env-cmd -f .env.staging yarn prisma migrate deploy",
