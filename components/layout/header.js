@@ -44,6 +44,13 @@ const CustomHeader = () => {
 
   return (
     <Header>
+      <div className='logo'>
+        <img
+          src='/assets/images/logo.svg'
+          alt="Logo de l'application"
+          onClick={() => router.push('/dashboard')}
+        />
+      </div>
       <Dropdown trigger={['click']} overlay={overlay}>
         <span>
           <Avatar

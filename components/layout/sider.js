@@ -23,13 +23,6 @@ const CustomSider = () => {
         selectedKeys={[menuSelectedKey]}
         onClick={({ key }) => handleOnClick(key)}
       >
-        <Menu.Item className='logo' selectable={false}>
-          <img
-            src='/assets/images/logo.svg'
-            alt="Logo de l'application"
-            onClick={() => handleOnClick('dashboard')}
-          />
-        </Menu.Item>
         <Menu.Item key='dashboard' icon={<DashboardOutlined />}>
           Dashboard
         </Menu.Item>

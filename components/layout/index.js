@@ -11,9 +11,9 @@ const { Content } = Layout
 const CustomLayout = ({ children }) => {
   return (
     <Layout>
-      <Sider />
+      <Header />
       <Layout>
-        <Header />
+        <Sider />
         <Content>{children}</Content>
       </Layout>
     </Layout>
