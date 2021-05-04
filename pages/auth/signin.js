@@ -4,18 +4,22 @@ import { Button, Card, Form, Input, message } from 'antd'
 import { defaultTo, isNil } from 'lodash'
 
 import './signin.module.less'
+import { useRouter } from 'next/router'
 
 const SignInPage = () => {
+  const router = useRouter()
   const [form] = Form.useForm()
 
   const handleOnClick = useCallback(() => {
     form.validateFields().then(({ login, password }) => {
       signIn('credentials', {
         login,
-        password
+        password,
+        redirect: false
       })
         .then((body) => {
           if (!isNil(body?.error)) throw new Error(body?.error)
+          router.push('/dashboard')
           message.success('success.login')
         })
         .catch((error) => {
