@@ -19,7 +19,9 @@ const SignInPage = () => {
       })
         .then((body) => {
           if (!isNil(body?.error)) throw new Error(body?.error)
-          router.push('/dashboard')
+          router.push(
+            defaultTo(process.env.NEXT_PUBLIC_APP_HOME_PAGE, '/dashboard')
+          )
           message.success('success.login')
         })
         .catch((error) => {
@@ -50,7 +52,7 @@ const SignInPage = () => {
           form={form}
           layout='vertical'
           initialValues={{
-            login: 'romain.petit@ubidreams.com',
+            login: 'alice@prisma.io',
             password: 'azerty1234!'
           }}
         >

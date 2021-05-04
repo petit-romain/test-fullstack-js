@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { signOut, useSession } from 'next-auth/client'
 import { Avatar, Dropdown, Layout, Menu, message } from 'antd'
 import { DownOutlined, LogoutOutlined, UserOutlined } from '@ant-design/icons'
+import { defaultTo } from 'lodash'
 
 const { Header } = Layout
 
@@ -48,7 +49,11 @@ const CustomHeader = () => {
         <img
           src='/assets/images/logo.svg'
           alt="Logo de l'application"
-          onClick={() => router.push('/dashboard')}
+          onClick={() =>
+            router.push(
+              defaultTo(process.env.NEXT_PUBLIC_APP_HOME_PAGE, '/dashboard')
+            )
+          }
         />
       </div>
       <Dropdown trigger={['click']} overlay={overlay}>

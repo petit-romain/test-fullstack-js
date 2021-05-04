@@ -1,36 +1,33 @@
-import React, { Fragment, useEffect, useState } from 'react'
-import { getSession, Provider } from 'next-auth/client'
+import React, { useEffect } from 'react'
+import { Provider, useSession } from 'next-auth/client'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
-import { capitalize, isNil, replace } from 'lodash'
+import { capitalize, replace, includes } from 'lodash'
 
 import { Layout } from 'components'
 
-import './_app.less'
+import './_app.module.less'
 
 const App = ({ Component, pageProps }) => {
   const router = useRouter()
-  const [isUserLogged, setIsUserLogged] = useState(false)
+  const [session] = useSession()
 
-  const Container = isUserLogged && router.route !== '/' ? Layout : Fragment
+  // useEffect(() => {
+  //   console.log(pageProps, session)
+  // }, [])
 
-  useEffect(async () => {
-    const session = await getSession()
-    setIsUserLogged(!isNil(session))
-  }, [])
+  const pageTitle = capitalize(replace(router.route, '/', ''))
+
+  // console.log(pageTitle, router, pageTitle)
 
   return (
-    <Provider>
-      <Container>
+    <Provider session={pageProps.session}>
+      <Layout>
         <Head>
-          <title>
-            {`${process.env.NEXT_PUBLIC_APP_NAME} | ${capitalize(
-              replace(router.route, '/', '')
-            )}`}
-          </title>
+          <title>{`${pageTitle}`}</title>
         </Head>
         <Component {...pageProps} />
-      </Container>
+      </Layout>
     </Provider>
   )
 }
