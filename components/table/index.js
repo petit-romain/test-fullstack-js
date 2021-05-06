@@ -32,7 +32,9 @@ const TableLayout = ({ model, columns }) => {
   }, [error])
 
   const searchModel = useCallback((searchText) => {
-    message.info(searchText)
+    if (!isEmpty(searchText)) {
+      setQueryParams(`?search=${searchText}`)
+    }
   }, [])
 
   const sortedColumns = map(columns, (column) => {
@@ -102,9 +104,10 @@ const TableLayout = ({ model, columns }) => {
       </div>
       <ManageModel
         visible={isManageModalVisible}
-        model={model}
+        model={{ ...model, modelName }}
         modelItem={modelItem}
         mutate={mutate}
+        url={apiUrl}
         onVisibleChange={(visible) => setManageModalVisible(visible)}
       />
     </div>
