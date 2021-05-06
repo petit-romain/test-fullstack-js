@@ -1,18 +1,15 @@
 import React from 'react'
-import { defaultTo, find, map } from 'lodash'
+import { defaultTo, find, map, reject } from 'lodash'
 import { Tag } from 'antd'
 
 import { TableLayout } from 'components/index'
 
-import prisma from 'lib/prisma'
+import { getModelMetaData } from 'helpers/prisma'
 
 const Users = ({ model = {} }) => {
+  const roles = find(model?.fields, ['name', 'roles']).choices
+
   const columns = [
-    {
-      title: 'Identifiant',
-      dataIndex: 'id',
-      key: 'id'
-    },
     {
       title: 'Nom / Prénom',
       dataIndex: 'name',
@@ -32,10 +29,10 @@ const Users = ({ model = {} }) => {
       dataIndex: 'roles',
       key: 'roles',
       filters: map(
-        defaultTo(find(model?.fields, ['name', 'roles']).choices, []),
-        (choice) => ({
-          text: choice,
-          value: choice
+        reject(defaultTo(roles, []), (role) => role === 'UBIADMIN'),
+        (role) => ({
+          text: role,
+          value: role
         })
       ),
       render: (roles) => (
@@ -52,32 +49,12 @@ const Users = ({ model = {} }) => {
 }
 
 export const getServerSideProps = async () => {
-  const prismaModels = prisma._dmmf.datamodel.models
-  const prismaEnums = prisma._dmmf.datamodel.enums
-
-  const modelName = 'User'
-  const model = find(prismaModels, ['name', modelName])
-
-  const fields = map(
-    defaultTo(model?.fields, []),
-    ({ kind, type, ...field }) => {
-      const choices =
-        kind === 'enum' ? find(prismaEnums, ['name', type]).values : []
-
-      return {
-        ...field,
-        kind,
-        type,
-        choices: kind === 'enum' ? map(choices, 'name') : []
-      }
-    }
-  )
+  const userMetadata = getModelMetaData('User')
 
   return {
     props: {
       model: {
-        name: modelName,
-        fields,
+        ...userMetadata,
         blackListFields: [
           'email',
           'emailVerified',
