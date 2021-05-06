@@ -1,26 +1,19 @@
 import React from 'react'
-import { defaultTo } from 'lodash'
 
 import { TableLayout } from 'components/index'
-import { getModelMetaData } from '../../helpers/prisma'
+import { getModelMetadata } from 'helpers/prisma'
 
 const Trailers = ({ model = {} }) => {
   const columns = [
     {
       title: 'Nom du transporteur',
       dataIndex: 'name',
-      key: 'name',
-      sorter: (a, b) =>
-        defaultTo(a?.name, '').localeCompare(defaultTo(b?.name, ''))
+      key: 'name'
     },
     {
       title: "N° d'immatriculation",
       dataIndex: 'immatriculation',
-      key: 'immatriculation',
-      sorter: (a, b) =>
-        defaultTo(a?.immatriculation, '').localeCompare(
-          defaultTo(b?.immatriculation, '')
-        )
+      key: 'immatriculation'
     }
   ]
 
@@ -28,7 +21,7 @@ const Trailers = ({ model = {} }) => {
 }
 
 export const getServerSideProps = async () => {
-  const trailerMetadata = getModelMetaData('Trailer')
+  const trailerMetadata = getModelMetadata('Trailer')
 
   return {
     props: {

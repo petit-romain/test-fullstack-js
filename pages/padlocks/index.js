@@ -1,24 +1,19 @@
 import React from 'react'
-import { defaultTo } from 'lodash'
 
 import { TableLayout } from 'components/index'
-import { getModelMetaData } from '../../helpers/prisma'
+import { getModelMetadata } from 'helpers/prisma'
 
 const Padlocks = ({ model = {} }) => {
   const columns = [
     {
       title: 'Nom',
       dataIndex: 'name',
-      key: 'name',
-      sorter: (a, b) =>
-        defaultTo(a?.name, '').localeCompare(defaultTo(b?.name, ''))
+      key: 'name'
     },
     {
       title: 'Référence',
       dataIndex: 'reference',
-      key: 'reference',
-      sorter: (a, b) =>
-        defaultTo(a?.reference, '').localeCompare(defaultTo(b?.reference, ''))
+      key: 'reference'
     }
   ]
 
@@ -26,7 +21,7 @@ const Padlocks = ({ model = {} }) => {
 }
 
 export const getServerSideProps = async () => {
-  const padlockMetadata = getModelMetaData('Padlock')
+  const padlockMetadata = getModelMetadata('Padlock')
 
   return {
     props: {

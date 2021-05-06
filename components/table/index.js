@@ -1,12 +1,22 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { Button, Input, message, Table } from 'antd'
-import { defaultTo, isNil, omitBy, some } from 'lodash'
+import {
+  defaultTo,
+  find,
+  includes,
+  isEmpty,
+  isNil,
+  map,
+  omitBy,
+  some
+} from 'lodash'
 import useSWR from 'swr'
+import { PlusOutlined } from '@ant-design/icons'
 
 import { fetcher } from 'lib/swr'
 import { ManageModel } from 'modals'
+import { sorter, filter } from 'helpers/tableLayout'
 
-import { PlusOutlined } from '@ant-design/icons'
 import './Table.less'
 
 const { Search } = Input
@@ -37,6 +47,19 @@ const TableLayout = ({ model, columns }) => {
     message.info(searchText)
   }, [])
 
+  const sortedColumns = map(columns, (column) => {
+    const field = find(model?.fields, ['name', column?.key])
+
+    const isFieldSortable = includes(['String', 'Integer'], field?.type)
+    const isFieldFilterable = !isEmpty(field?.choices) && field?.kind === 'enum'
+
+    return {
+      ...column,
+      sorter: isFieldSortable ? (a, b) => sorter(a, b, field) : null,
+      filters: isFieldFilterable ? filter(field) : null
+    }
+  })
+
   return (
     <div className='table-layout'>
       <div className='table-layout-headers'>
@@ -66,7 +89,7 @@ const TableLayout = ({ model, columns }) => {
         <Table
           rowKey='id'
           loading={isNil(data) && isNil(error)}
-          columns={columns}
+          columns={sortedColumns}
           dataSource={defaultTo(data?.results, [])}
           pagination={{
             showSizeChanger: true,

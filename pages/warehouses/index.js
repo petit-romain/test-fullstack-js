@@ -1,23 +1,19 @@
 import React from 'react'
-import { defaultTo } from 'lodash'
 
 import { TableLayout } from 'components/index'
-import { getModelMetaData } from '../../helpers/prisma'
+import { getModelMetadata } from 'helpers/prisma'
 
 const Warehouses = ({ model = {} }) => {
   const columns = [
     {
       title: 'Nom',
       dataIndex: 'name',
-      key: 'name',
-      sorter: (a, b) =>
-        defaultTo(a?.name, '').localeCompare(defaultTo(b?.name, ''))
+      key: 'name'
     },
     {
       title: 'Portes',
       dataIndex: 'gates',
-      key: 'gates',
-      sorter: (a, b) => defaultTo(a?.gates, 0) - defaultTo(b?.gates, 0)
+      key: 'gates'
     }
   ]
 
@@ -25,7 +21,7 @@ const Warehouses = ({ model = {} }) => {
 }
 
 export const getServerSideProps = async () => {
-  const warehouseMetadata = getModelMetaData('Warehouse')
+  const warehouseMetadata = getModelMetadata('Warehouse')
 
   return {
     props: {

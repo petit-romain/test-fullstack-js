@@ -1,35 +1,24 @@
 import React from 'react'
-import { defaultTo } from 'lodash'
 
 import { TableLayout } from 'components/index'
-import { getModelMetaData } from '../../helpers/prisma'
+import { getModelMetadata } from 'helpers/prisma'
 
 const Boxes = ({ model = {} }) => {
   const columns = [
     {
       title: 'Numéro de série',
       dataIndex: 'serialNumber',
-      key: 'serialNumber',
-      sorter: (a, b) =>
-        defaultTo(a?.serialNumber, '').localeCompare(
-          defaultTo(b?.serialNumber, '')
-        )
+      key: 'serialNumber'
     },
     {
       title: 'Identifiant Lora',
       dataIndex: 'deviceAddress',
-      key: 'deviceAddress',
-      sorter: (a, b) =>
-        defaultTo(a?.deviceAddress, '').localeCompare(
-          defaultTo(b?.deviceAddress, '')
-        )
+      key: 'deviceAddress'
     },
     {
       title: 'Lieu associé',
       dataIndex: 'box',
-      key: 'box',
-      sorter: (a, b) =>
-        defaultTo(a?.box, '').localeCompare(defaultTo(b?.box, ''))
+      key: 'box'
     }
   ]
 
@@ -37,7 +26,7 @@ const Boxes = ({ model = {} }) => {
 }
 
 export const getServerSideProps = async () => {
-  const boxMetadata = getModelMetaData('Boxe')
+  const boxMetadata = getModelMetadata('Boxe')
 
   return {
     props: {

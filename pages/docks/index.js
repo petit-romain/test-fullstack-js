@@ -1,24 +1,19 @@
 import React from 'react'
-import { defaultTo } from 'lodash'
 
 import { TableLayout } from 'components/index'
-import { getModelMetaData } from '../../helpers/prisma'
+import { getModelMetadata } from 'helpers/prisma'
 
 const Docks = ({ model = {} }) => {
   const columns = [
     {
       title: 'Nom',
       dataIndex: 'name',
-      key: 'name',
-      sorter: (a, b) =>
-        defaultTo(a?.name, '').localeCompare(defaultTo(b?.name, ''))
+      key: 'name'
     },
     {
       title: 'Boîtier',
       dataIndex: 'box',
-      key: 'box',
-      sorter: (a, b) =>
-        defaultTo(a?.box, '').localeCompare(defaultTo(b?.box, ''))
+      key: 'box'
     }
   ]
 
@@ -26,7 +21,7 @@ const Docks = ({ model = {} }) => {
 }
 
 export const getServerSideProps = async () => {
-  const dockMetadata = getModelMetaData('Dock')
+  const dockMetadata = getModelMetadata('Dock')
 
   return {
     props: {
