@@ -25,7 +25,7 @@ const routes = [
         icon: TeamOutlined
       },
       {
-        key: 'weighings',
+        key: 'weighingsArea',
         title: 'Zones de pesée',
         icon: TeamOutlined
       },
@@ -35,12 +35,12 @@ const routes = [
         icon: TeamOutlined
       },
       {
-        key: 'timeslot',
+        key: 'timeslots',
         title: 'Plages horaires',
         icon: ClockCircleOutlined
       },
       {
-        key: 'quay',
+        key: 'docks',
         title: 'Quais',
         icon: TeamOutlined
       },
