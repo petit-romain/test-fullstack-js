@@ -1,14 +1,21 @@
 // Librairies
 import React, { useCallback, useEffect } from 'react'
 import { Form, Input, message, Modal, Select } from 'antd'
-import { defaultTo, filter, includes, map } from 'lodash'
+import { defaultTo, filter, includes, isEmpty, map } from 'lodash'
 
-import { creater } from 'lib/swr'
+import { creater, updater } from 'lib/swr'
 
 // Components
 const { Option } = Select
 
-const Index = ({ visible, model, modelItem, mutate, onVisibleChange }) => {
+const ManageModel = ({
+  visible,
+  model,
+  modelItem,
+  mutate,
+  url,
+  onVisibleChange
+}) => {
   const [form] = Form.useForm()
 
   const modelFields = filter(
@@ -16,12 +23,11 @@ const Index = ({ visible, model, modelItem, mutate, onVisibleChange }) => {
     ({ name }) =>
       !includes(['id', ...defaultTo(model?.blackListFields, [])], name)
   )
-  const modelName = defaultTo(model?.name, '').toLowerCase()
-  const apiModelUrl = `/api/${modelName}s`
-
   useEffect(() => {
     form.setFieldsValue(modelItem)
   }, [modelItem])
+
+  const isCreating = isEmpty(modelItem)
 
   const renderField = useCallback(
     ({ fieldName, choices, isList, ...field }) => {
@@ -47,33 +53,47 @@ const Index = ({ visible, model, modelItem, mutate, onVisibleChange }) => {
     []
   )
 
-  const createModel = useCallback(async (formData) => {
-    mutate(apiModelUrl, formData, false)
+  const manageModel = useCallback(async (formData) => {
+    mutate(url, formData, false)
 
-    creater(apiModelUrl, formData)
-      .then(() => message.success())
-      .catch(() => message.error())
-    // console.log(test)
+    const manageMethods = {
+      create: {
+        promise: creater,
+        messages: {
+          success: model?.modelName + ' créé(e) avec succès',
+          error: "Erreur lors de la création de/d'un " + model?.modelName
+        }
+      },
+      update: {
+        promise: updater,
+        messages: {
+          success: model?.modelName + ' modifié(e) avec succès',
+          error: "Erreur lors de la modification de/d'un " + model?.modelName
+        }
+      }
+    }
 
-    mutate(apiModelUrl)
-    /* .then((...props) => {
-            console.log(props)
-            // onVisibleChange(false)
-            // form.resetFields()
-            message.success(`SUCCESS -> ${modelName}`)
-        })
-        .catch(() => message.error(`ERROR -> ${modelName}`)) */
+    const manageMethod = !isCreating
+      ? manageMethods?.update
+      : manageMethods?.create
+
+    manageMethod
+      ?.promise(url, formData)
+      .then(() => message.success(manageMethod?.messages?.success))
+      .catch(() => message.error(manageMethod?.messages?.error))
+
+    mutate(url)
   }, [])
 
   return (
     <Modal
       visible={visible}
       forceRender
-      title={`Créer un(e) ${modelName}`}
-      okText='Créer'
+      title={`${isCreating ? 'Créer' : 'Modifier'} un(e) ${model?.modelName}`}
+      okText={isCreating ? 'Créer' : 'Modifier'}
       onOk={() => {
         form.validateFields().then((formData) => {
-          createModel(formData)
+          manageModel(formData)
         })
       }}
       cancelText='Annuler'
@@ -128,7 +148,7 @@ const Index = ({ visible, model, modelItem, mutate, onVisibleChange }) => {
   )
 }
 
-Index.defaultProps = {
+ManageModel.defaultProps = {
   visible: false,
   model: {},
   modelItem: {},
@@ -136,4 +156,4 @@ Index.defaultProps = {
   onVisibleChange: () => {}
 }
 
-export default Index
+export default ManageModel
