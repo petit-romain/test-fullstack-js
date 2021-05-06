@@ -11,24 +11,12 @@ import {
 } from 'lodash'
 
 import prisma from 'lib/prisma'
+import AuthenticationMiddleware from 'middlewares/authorizations'
 
 export default nextConnect({
   attachParams: true
 })
-  .use(async (req, res, next) => {
-    const session = await getSession({ req })
-
-    if (isNil(session)) {
-      res.writeHead(302, { Location: '/auth/signin' })
-      res.end()
-      return
-    }
-
-    console.log('test')
-
-    req.user = defaultTo(session?.user, {})
-    next()
-  })
+  .use(AuthenticationMiddleware)
   .get('api/users', async (req, res) => {
     const { query } = req
 

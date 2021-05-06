@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react'
+import React, { Fragment } from 'react'
 import { Provider, useSession } from 'next-auth/client'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
-import { capitalize, isEmpty, filter } from 'lodash'
+import { capitalize, isEmpty, filter, isNil } from 'lodash'
 
 import { Layout } from 'components'
 
@@ -12,9 +12,7 @@ const App = ({ Component, pageProps }) => {
   const router = useRouter()
   const [session] = useSession()
 
-  // useEffect(() => {
-  //   console.log(pageProps, session)
-  // }, [])
+  const Container = isNil(session) ? Fragment : Layout
 
   const pageTitle = filter(
     router.route.split('/'),
@@ -22,8 +20,8 @@ const App = ({ Component, pageProps }) => {
   ).pop()
 
   return (
-    <Provider session={pageProps.session}>
-      <Layout>
+    <Provider session={session}>
+      <Container>
         <Head>
           <title>{`${process.env.NEXT_PUBLIC_APP_NAME} | ${capitalize(
             pageTitle
@@ -35,7 +33,7 @@ const App = ({ Component, pageProps }) => {
               height: 100%;
             }`}
         </style>
-      </Layout>
+      </Container>
     </Provider>
   )
 }

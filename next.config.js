@@ -8,15 +8,13 @@ module.exports = withAntdLess({
   // optional
   lessVarsFilePathAppendToEndOfContent: false,
   // optional https://github.com/webpack-contrib/css-loader#object
-  cssLoaderOptions: {},
-
-  // Other Config Here...
 
   webpack(config) {
     return merge(config, {
       resolve: {
         alias: {
           lib: path.resolve(__dirname, 'lib'),
+          middlewares: path.resolve(__dirname, 'middlewares'),
           components: path.resolve(__dirname, 'components'),
           modals: path.resolve(__dirname, 'modals'),
           helpers: path.resolve(__dirname, 'helpers')
