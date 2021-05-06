@@ -1,21 +1,14 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { Button, Input, message, Table } from 'antd'
-import {
-  defaultTo,
-  find,
-  includes,
-  isEmpty,
-  isNil,
-  map,
-  omitBy,
-  some
-} from 'lodash'
+import { defaultTo, find, includes, isEmpty, isNil, map } from 'lodash'
 import useSWR from 'swr'
 import { PlusOutlined } from '@ant-design/icons'
 
 import { fetcher } from 'lib/swr'
 import { ManageModel } from 'modals'
+
 import { sorter, filter } from 'helpers/tableLayout'
+import { paginationQueryParams } from 'helpers/swr'
 
 import './Table.less'
 
@@ -23,18 +16,13 @@ const { Search } = Input
 
 const TableLayout = ({ model, columns }) => {
   const [isManageModalVisible, setManageModalVisible] = useState(false)
-  const [paginationParams, setPaginationParams] = useState(`&offset=0&limit=10`)
-  const [filtersParams, setFiltersParams] = useState('')
-  const [sorterParam, setSorterParam] = useState('')
+  const [queryParams, setQueryParams] = useState('')
   const [modelItem, setModelItem] = useState({})
 
   const modelName = defaultTo(model?.name, '').toLowerCase()
 
   const apiUrl = `/api/${modelName}s`
-  const { data, error, mutate } = useSWR(
-    [apiUrl, '?', paginationParams, sorterParam, filtersParams],
-    fetcher
-  )
+  const { data, error, mutate } = useSWR([apiUrl, queryParams], fetcher)
 
   useEffect(() => {
     !isNil(error) &&
@@ -96,20 +84,13 @@ const TableLayout = ({ model, columns }) => {
             total: defaultTo(data?.total, 0),
             position: ['bottomRight']
           }}
-          onChange={({ current, pageSize, ...props }, filters, sorter) => {
-            const formattedFiltersParams = some(filters, isNil)
-              ? ''
-              : `&filters=${JSON.stringify(omitBy(filters, isNil))}`
-            setFiltersParams(formattedFiltersParams)
-
-            const formattedSorterParam = isNil(sorter?.column)
-              ? ''
-              : `&sortField=${sorter?.field}&sortOrder=${sorter?.order}`
-            setSorterParam(formattedSorterParam)
-
-            setPaginationParams(
-              `&offset=${(current - 1) * pageSize}&limit=${pageSize}`
+          onChange={(pagination, filters, sorter) => {
+            const formattedQueryParams = paginationQueryParams(
+              pagination,
+              filters,
+              sorter
             )
+            setQueryParams(formattedQueryParams)
           }}
           onRow={(record, index) => ({
             onClick: () => {
