@@ -4,19 +4,21 @@ import { useRouter } from 'next/router'
 import { Spin } from 'antd'
 import { defaultTo, isNil } from 'lodash'
 
+import styles from './Home.module.css'
+
 const Home = ({ session }) => {
   const router = useRouter()
 
   useEffect(() => {
     router.push(
       isNil(session)
-        ? '/auth/signin'
+        ? defaultTo(process.env.NEXT_PUBLIC_APP_SIGNIN_PAGE, '/auth/signin')
         : defaultTo(process.env.NEXT_PUBLIC_APP_HOME_PAGE, '/dashboard')
     )
   }, [])
 
   return (
-    <div className='page'>
+    <div id={styles.page}>
       <Spin tip='Chargement en cours...' />
     </div>
   )

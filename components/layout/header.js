@@ -13,7 +13,9 @@ const CustomHeader = () => {
 
   const handleOnSignOut = useCallback(() => {
     signOut({
-      callbackUrl: window.location.origin + '/auth/signin'
+      callbackUrl:
+        window.location.origin +
+        defaultTo(process.env.NEXT_PUBLIC_APP_SIGNIN_PAGE, '/auth/signin')
     }).catch(() => {
       message.error('api.error.signout')
     })
