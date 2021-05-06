@@ -27,5 +27,18 @@ export default NextAuth({
   session: {
     jwt: true
   },
+  callbacks: {
+    session: async (session, userToken) => {
+      const user = await prisma.user.findUnique({
+        where: {
+          email: session?.user?.email
+        }
+      })
+      return {
+        ...session,
+        user
+      }
+    }
+  },
   adapter: Adapters.Prisma.Adapter({ prisma })
 })
