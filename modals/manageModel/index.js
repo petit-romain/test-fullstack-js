@@ -27,7 +27,7 @@ const ManageModel = ({
     form.setFieldsValue(modelItem)
   }, [modelItem])
 
-  const isCreating = isEmpty(modelItem)
+  const isUpdating = !isEmpty(modelItem)
 
   const renderField = useCallback(
     ({ fieldName, choices, isList, ...field }) => {
@@ -73,7 +73,7 @@ const ManageModel = ({
       }
     }
 
-    const manageMethod = !isCreating
+    const manageMethod = isUpdating
       ? manageMethods?.update
       : manageMethods?.create
 
@@ -89,8 +89,8 @@ const ManageModel = ({
     <Modal
       visible={visible}
       forceRender
-      title={`${isCreating ? 'Créer' : 'Modifier'} un(e) ${model?.modelName}`}
-      okText={isCreating ? 'Créer' : 'Modifier'}
+      title={`${isUpdating ? 'Modifier' : 'Créer'} un(e) ${model?.modelName}`}
+      okText={isUpdating ? 'Modifier' : 'Créer'}
       onOk={() => {
         form.validateFields().then((formData) => {
           manageModel(formData)
