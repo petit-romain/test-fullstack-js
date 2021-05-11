@@ -64,17 +64,69 @@ enum Role {
     READER
 }
 
-model Gate {
-  id            Int         @default(autoincrement()) @id
+model Box {
+  id            Int             @default(autoincrement()) @id
   name          String
-  place         String      @default("GATE")
-  store         Warehouse   @relation(fields: [id], references: [id])
+  devEUI        String          @unique
+  serialNumber  String          @unique
+  weighingArea  WeighingArea?   @relation("weighingBox")
+  quay          Quay?           @relation("quayBox")
+  beginRT       RotationTime?   @relation("beginPlaceBox")
+  endingRT      RotationTime?   @relation("endingPlaceBox")
+}
+
+model Gate {
+  id            Int             @default(autoincrement()) @id
+  name          String
+  place         String          @default("GATE")
+  store         Warehouse       @relation(fields: [storeId], references: [id])
+  storeId       Int
 }
 
 model Warehouse {
-  id            Int         @default(autoincrement()) @id
+  id            Int             @default(autoincrement()) @id
   name          String
   gates         Gate[]
+}
+
+model WeighingArea {
+  id            Int             @default(autoincrement()) @id
+  name          String
+  boxId         Int
+  box           Box             @relation("weighingBox", fields: [boxId], references: [id])
+}
+
+model Trailer {
+ id             Int             @default(autoincrement()) @id
+ licensePlate   String          @unique
+ transporter    String
+}
+
+model TimeSlot {
+ id             Int             @default(autoincrement()) @id
+ beginTime      DateTime
+ endTIme        DateTime
+}
+
+model Quay {
+  id            Int             @default(autoincrement()) @id
+  name          String
+  boxId         Int
+  box           Box             @relation("quayBox", fields: [boxId], references: [id])
+}
+
+model RotationTime {
+  id            Int             @default(autoincrement()) @id
+  beginPlaceId  Int
+  beginPlace    Box             @relation("beginPlaceBox", fields: [beginPlaceId], references: [id])
+  endingPlaceId Int
+  endingPlace   Box             @relation("endingPlaceBox", fields: [endingPlaceId], references: [id])
+}
+
+model Padlock {
+  id            Int             @default(autoincrement()) @id
+  name          String
+  reference     String
 }
 
 
