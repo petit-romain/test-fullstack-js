@@ -1,11 +1,18 @@
+// Libraries
 import React, { Fragment } from 'react'
 import { Provider } from 'next-auth/client'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
+import { appWithTranslation } from 'next-i18next'
 import { capitalize, isEmpty, filter, defaultTo, includes } from 'lodash'
 
+// I18n
+import i18nConfig from 'configs/i18n.config'
+
+// Components
 import Layout from 'components/layout'
 
+// Styles
 import './_app.module.less'
 
 const App = ({ Component, pageProps }) => {
@@ -42,4 +49,4 @@ const App = ({ Component, pageProps }) => {
   )
 }
 
-export default App
+export default appWithTranslation(App, i18nConfig)
