@@ -70,7 +70,7 @@ model Box {
   devEUI        String          @unique
   serialNumber  String          @unique
   weighingArea  WeighingArea?   @relation("weighingBox")
-  quay          Quay?           @relation("quayBox")
+  dock          Dock?           @relation("dockBox")
   beginRT       RotationTime?   @relation("beginPlaceBox")
   endingRT      RotationTime?   @relation("endingPlaceBox")
 }
@@ -102,17 +102,18 @@ model Trailer {
  transporter    String
 }
 
-model TimeSlot {
+model Timeslot {
  id             Int             @default(autoincrement()) @id
+ name           String
  beginTime      DateTime
- endTIme        DateTime
+ endTime        DateTime
 }
 
-model Quay {
+model Dock {
   id            Int             @default(autoincrement()) @id
   name          String
   boxId         Int
-  box           Box             @relation("quayBox", fields: [boxId], references: [id])
+  box           Box             @relation("dockBox", fields: [boxId], references: [id])
 }
 
 model RotationTime {
