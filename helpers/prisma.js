@@ -1,5 +1,5 @@
 import prisma from 'lib/prisma'
-import { defaultTo, find, map } from 'lodash'
+import { defaultTo, find, forEach, map } from 'lodash'
 
 const prismaModels = prisma._dmmf.datamodel.models
 const prismaEnums = prisma._dmmf.datamodel.enums
@@ -25,7 +25,7 @@ export const getModelFieldMetadata = (model, fieldName) => {
       ? find(prismaEnums, ['name', field?.type]).values
       : []
 
-  const object = field?.kind === 'object' ? test(field) : {}
+  const object = field?.kind === 'object' ? {} : {}
 
   return {
     ...field,
@@ -36,8 +36,14 @@ export const getModelFieldMetadata = (model, fieldName) => {
   }
 }
 
-export const test = (field) => {
-  const objectModel = find(prismaModels, [])
+export const formatSerializer = (service, serializers) => {
+  let selectedFields = {}
 
-  return ''
+  forEach(defaultTo(serializers?.[service], []), (field) => {
+    selectedFields = {
+      ...selectedFields,
+      [field]: true
+    }
+  })
+  return selectedFields
 }

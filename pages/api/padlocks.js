@@ -5,13 +5,14 @@ import nextConnect from 'next-connect'
 import { Authentication, Pagination } from 'middlewares'
 
 const serializers = {
-  list: ['id', 'firstName', 'lastName', 'email']
+  list: ['id', 'name'],
+  retrieve: ['id', 'name', 'reference']
 }
 
 export default nextConnect({
   attachParams: true
 })
   .use(Authentication)
-  .get('api/users', (req, res, next) =>
-    Pagination(req, res, next, 'user', serializers)
+  .get('api/padlocks', (req, res, next) =>
+    Pagination(req, res, next, 'padlock', serializers)
   )
