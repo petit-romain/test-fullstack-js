@@ -5,10 +5,10 @@
       "title": "Nom"
     },
     "devEUI": {
-      "title": "Nom"
+      "title": "Identifiant LoRa"
     },
     "serialNumber": {
-      "title": "Nom"
+      "title": "Numéro de série"
     },
     "box": {
       "title": "Boîtier"
