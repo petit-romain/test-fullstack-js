@@ -1,23 +1,33 @@
+// Libraries
 import React, { useCallback, useEffect, useState } from 'react'
 import { Button, Input, message, Table } from 'antd'
 import { defaultTo, find, includes, isEmpty, isNil, map } from 'lodash'
 import useSWR from 'swr'
 import { PlusOutlined } from '@ant-design/icons'
+import { useTranslation } from 'next-i18next'
 
 import { fetcher } from 'lib/swr'
+
+// Modals
 import { ManageModel } from 'modals'
 
+// Helpers
 import { sorter, filter } from 'helpers/tableLayout'
 import { paginationQueryParams } from 'helpers/swr'
 
+// Styles
 import './Table.less'
 
+// Components
 const { Search } = Input
 
 const TableLayout = ({ model, columns }) => {
   const [isManageModalVisible, setManageModalVisible] = useState(false)
   const [queryParams, setQueryParams] = useState('')
   const [modelItem, setModelItem] = useState({})
+
+  // I18n
+  const { t } = useTranslation('Common')
 
   const modelName = defaultTo(model?.name, '').toLowerCase()
 
@@ -68,7 +78,7 @@ const TableLayout = ({ model, columns }) => {
             setManageModalVisible(!isManageModalVisible)
           }}
         >
-          Créer
+          {t(['Common:create', 'Create'])}
         </Button>
       </div>
 

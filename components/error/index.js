@@ -1,3 +1,4 @@
+// Libraries
 import Head from 'next/head'
 import React, { Fragment } from 'react'
 import { Button, Result } from 'antd'
@@ -6,6 +7,7 @@ import { defaultTo } from 'lodash'
 
 const ErrorPage = ({ statusCode }) => {
   const router = useRouter()
+
   return (
     <Fragment>
       <Head>

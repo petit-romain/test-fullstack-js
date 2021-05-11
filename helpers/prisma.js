@@ -1,9 +1,10 @@
 import prisma from 'lib/prisma'
 import { defaultTo, find, map } from 'lodash'
 
-export const getModelMetadata = (modelName) => {
-  const prismaModels = prisma._dmmf.datamodel.models
+const prismaModels = prisma._dmmf.datamodel.models
+const prismaEnums = prisma._dmmf.datamodel.enums
 
+export const getModelMetadata = (modelName) => {
   const model = find(prismaModels, ['name', modelName])
 
   const fields = map(defaultTo(model?.fields, []), (field) =>
@@ -17,8 +18,6 @@ export const getModelMetadata = (modelName) => {
 }
 
 export const getModelFieldMetadata = (model, fieldName) => {
-  const prismaEnums = prisma._dmmf.datamodel.enums
-
   const field = find(model?.fields, ['name', fieldName])
 
   const choices =
@@ -26,10 +25,19 @@ export const getModelFieldMetadata = (model, fieldName) => {
       ? find(prismaEnums, ['name', field?.type]).values
       : []
 
+  const object = field?.kind === 'object' ? test(field) : {}
+
   return {
     ...field,
     kind: field?.kind,
     type: field?.type,
-    choices: field?.kind === 'enum' ? map(choices, 'name') : []
+    choices: field?.kind === 'enum' ? map(choices, 'name') : [],
+    object
   }
+}
+
+export const test = (field) => {
+  const objectModel = find(prismaModels, [])
+
+  return ''
 }

@@ -1,10 +1,13 @@
+// Libraries
 import React from 'react'
 import { Layout } from 'antd'
 
+// Styles
+import './Layout.less'
+
+// Components
 import Sider from './sider'
 import Header from './header'
-
-import './Layout.less'
 
 const { Content } = Layout
 
