@@ -1,7 +1,16 @@
 // Librairies
 import React, { useCallback, useEffect } from 'react'
 import { Form, Input, message, Modal, Select } from 'antd'
-import { capitalize, defaultTo, filter, includes, isEmpty, map } from 'lodash'
+import {
+  capitalize,
+  defaultTo,
+  filter,
+  includes,
+  isArray,
+  isEmpty,
+  isNil,
+  map
+} from 'lodash'
 
 import { creater, updater } from 'lib/swr'
 
@@ -21,9 +30,13 @@ const ManageModel = ({
 
   const modelFields = filter(
     defaultTo(model?.fields, []),
-    ({ name }) =>
-      !includes(['id', ...defaultTo(model?.blackListFields, [])], name)
+    ({ name, relationToFields }) =>
+      (!includes(name.toLowerCase(), 'id') &&
+        !includes(defaultTo(model?.blackListFields, []), name) &&
+        isNil(relationToFields)) ||
+      (isArray(relationToFields) && !isEmpty(relationToFields))
   )
+
   useEffect(() => {
     form.setFieldsValue(modelItem)
   }, [modelItem])
