@@ -1,7 +1,15 @@
 // Libraries
 import React, { useCallback, useEffect, useState } from 'react'
 import { Button, Input, message, Table } from 'antd'
-import { defaultTo, find, includes, isEmpty, isNil, map } from 'lodash'
+import {
+  capitalize,
+  defaultTo,
+  find,
+  includes,
+  isEmpty,
+  isNil,
+  map
+} from 'lodash'
 import useSWR from 'swr'
 import { PlusOutlined } from '@ant-design/icons'
 import { useTranslation } from 'next-i18next'
@@ -21,18 +29,17 @@ import './Table.less'
 // Components
 const { Search } = Input
 
-const TableLayout = ({ model, columns }) => {
+const TableLayout = ({ t, model, columns }) => {
   const [isManageModalVisible, setManageModalVisible] = useState(false)
   const [queryParams, setQueryParams] = useState('')
   const [modelItem, setModelItem] = useState({})
 
-  // I18n
-  const { t } = useTranslation('Common')
-
   const modelName = defaultTo(model?.name, '').toLowerCase()
+  const modelNameTranslated = t('name')
 
   const apiUrl = `/api/${modelName}s`
   const { data, error, mutate } = useSWR([apiUrl, queryParams], fetcher)
+  const nbModelItems = defaultTo(data?.total, 0)
 
   useEffect(() => {
     !isNil(error) &&
@@ -66,7 +73,9 @@ const TableLayout = ({ model, columns }) => {
         <Search
           allowClear
           enterButton
-          placeholder={`Rechercher un(e) ${modelName}`}
+          placeholder={t('Common:table.search', {
+            modelName: modelNameTranslated.toLowerCase()
+          })}
           onSearch={searchModel}
         />
 
@@ -78,13 +87,16 @@ const TableLayout = ({ model, columns }) => {
             setManageModalVisible(!isManageModalVisible)
           }}
         >
-          {t(['Common:create', 'Create'])}
+          {t('Common:action.create')}
         </Button>
       </div>
 
       <div className='table-layout-content'>
         <p>
-          {`Nombre de ${modelName} à afficher: ${defaultTo(data?.total, 0)}`}
+          {t('Common:table.nbElements', {
+            modelName: modelNameTranslated.toLowerCase(),
+            nbModelItems
+          })}
         </p>
         <Table
           rowKey='id'
@@ -114,7 +126,8 @@ const TableLayout = ({ model, columns }) => {
       </div>
       <ManageModel
         visible={isManageModalVisible}
-        model={{ ...model, modelName }}
+        t={t}
+        model={{ ...model, modelName, modelNameTranslated }}
         modelItem={modelItem}
         mutate={mutate}
         url={apiUrl}

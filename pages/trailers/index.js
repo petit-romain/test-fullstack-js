@@ -1,6 +1,7 @@
 // Libraries
 import React from 'react'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useTranslation } from 'next-i18next'
 
 // Helpers
 import { getModelMetadata } from 'helpers/prisma'
@@ -12,35 +13,40 @@ import i18nConfig from 'configs/i18n.config'
 import { TableLayout } from 'components/index'
 
 const Trailers = ({ model = {} }) => {
+  const { t } = useTranslation('Trailer')
+
   const columns = [
     {
-      title: 'Nom du transporteur',
-      dataIndex: 'name',
-      key: 'name'
+      title: t('fields.transporter.title'),
+      dataIndex: 'transporter',
+      key: 'transporter'
     },
     {
-      title: "N° d'immatriculation",
-      dataIndex: 'immatriculation',
-      key: 'immatriculation'
+      title: t('fields.licensePlate.title'),
+      dataIndex: 'licensePlate',
+      key: 'licensePlate'
     }
   ]
 
-  return <TableLayout model={model} columns={columns} />
+  return <TableLayout t={t} model={model} columns={columns} />
 }
 
 export const getServerSideProps = async ({ locale }) => {
   const trailerMetadata = getModelMetadata('Trailer')
 
-  const test = await serverSideTranslations(locale, ['Common'], i18nConfig)
-
-  console.log(test)
+  const translations = await serverSideTranslations(
+    locale,
+    ['Trailer', 'Common'],
+    i18nConfig
+  )
 
   return {
     props: {
       model: {
         ...trailerMetadata,
         blackListFields: []
-      }
+      },
+      ...translations
     }
   }
 }

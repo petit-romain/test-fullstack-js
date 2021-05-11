@@ -3,5 +3,6 @@ module.exports = {
     defaultLocale: 'fr',
     locales: ['fr']
   },
-  defaultNS: 'Common'
+  defaultNS: 'Common',
+  localePath: './locales'
 }

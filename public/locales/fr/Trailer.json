@@ -1,0 +1,11 @@
+{
+  "name": "Brouette",
+  "fields": {
+    "transporter": {
+      "title": "Nom du transporteur"
+    },
+    "licensePlate": {
+      "title": "Plaque d'immatriculation"
+    }
+  }
+}
