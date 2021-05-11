@@ -1,0 +1,17 @@
+{
+  "name": "Boîtier",
+  "fields": {
+    "name": {
+      "title": "Nom"
+    },
+    "devEUI": {
+      "title": "Nom"
+    },
+    "serialNumber": {
+      "title": "Nom"
+    },
+    "box": {
+      "title": "Boîtier"
+    }
+  }
+}

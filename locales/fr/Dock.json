@@ -1,0 +1,11 @@
+{
+  "name": "Quai",
+  "fields": {
+    "name": {
+      "title": "Nom"
+    },
+    "box": {
+      "title": "Boîtier"
+    }
+  }
+}

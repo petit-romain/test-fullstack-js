@@ -1,0 +1,14 @@
+{
+  "name": "Utilisateur",
+  "fields": {
+    "firstName": {
+      "title": "Prénom"
+    },
+    "lastName": {
+      "title": "Nom"
+    },
+    "roles": {
+      "title": "Rôles"
+    }
+  }
+}

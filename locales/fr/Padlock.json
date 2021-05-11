@@ -1,0 +1,11 @@
+{
+  "name": "Cadenas",
+  "fields": {
+    "name": {
+      "title": "Nom"
+    },
+    "reference": {
+      "title": "Référence"
+    }
+  }
+}

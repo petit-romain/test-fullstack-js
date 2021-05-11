@@ -1,0 +1,11 @@
+{
+  "name": "Warehouse",
+  "fields": {
+    "name": {
+      "title": "Nom"
+    },
+    "gates": {
+      "title": "Portes"
+    }
+  }
+}

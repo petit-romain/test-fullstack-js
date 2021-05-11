@@ -1,0 +1,11 @@
+{
+  "name": "Zone de pesée",
+  "fields": {
+    "name": {
+      "title": "Nom"
+    },
+    "box": {
+      "title": "Boîtier"
+    }
+  }
+}

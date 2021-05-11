@@ -1,0 +1,14 @@
+{
+  "name": "Timeslot",
+  "fields": {
+    "name": {
+      "title": "Nom"
+    },
+    "beginTime": {
+      "title": "Heure de début"
+    },
+    "endTime": {
+      "title": "Heure de fin"
+    }
+  }
+}

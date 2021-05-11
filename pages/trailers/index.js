@@ -6,11 +6,11 @@ import { useTranslation } from 'next-i18next'
 // Helpers
 import { getModelMetadata } from 'helpers/prisma'
 
-// I18n
+// Configs
 import i18nConfig from 'configs/i18n.config'
 
 // Components
-import { TableLayout } from 'components/index'
+import TableLayout from 'components/table'
 
 const Trailers = ({ model = {} }) => {
   const { t } = useTranslation('Trailer')

@@ -1,18 +1,9 @@
 // Libraries
 import React, { useCallback, useEffect, useState } from 'react'
 import { Button, Input, message, Table } from 'antd'
-import {
-  capitalize,
-  defaultTo,
-  find,
-  includes,
-  isEmpty,
-  isNil,
-  map
-} from 'lodash'
+import { defaultTo, find, includes, isEmpty, isNil, map } from 'lodash'
 import useSWR from 'swr'
 import { PlusOutlined } from '@ant-design/icons'
-import { useTranslation } from 'next-i18next'
 
 import { fetcher } from 'lib/swr'
 

@@ -1,0 +1,14 @@
+{
+  "name": "Temps de rotation",
+  "fields": {
+    "beginPlace": {
+      "title": "Lieu de départ"
+    },
+    "endingPlace": {
+      "title": "Lieu d'arrivée"
+    },
+    "duration": {
+      "title": "Durée"
+    }
+  }
+}
