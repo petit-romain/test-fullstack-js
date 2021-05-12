@@ -16,7 +16,7 @@ import {
 import { creater, updater } from 'lib/swr'
 
 // Helpers
-import { filterModelFields } from 'helpers/manageModel'
+import { filterModelFields, renderModelField } from 'helpers/manageModel'
 
 // Components
 const { Option } = Select
