@@ -39,6 +39,7 @@ const CustomApp = ({ Component, pageProps, session }) => {
           shouldRetryOnError: false,
           onError: (err) => {
             const status = err?.response?.status
+
             switch (status) {
               case 401:
                 router.push(signInPage)

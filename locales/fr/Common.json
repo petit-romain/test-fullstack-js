@@ -44,7 +44,7 @@
     "error": {
       "create": "Une erreur est survenue lors de la création d'un(e) {{ modelName }}",
       "update": "Une erreur est survenue lors de la modification d'un(e) {{ modelName }}",
-      "401": "Votre session a expiré",
+      "401": "Votre session a expiré, veuillez vous reconnecter",
       "403": "Vous n'avez pas la permission d'effectuer cette action",
       "404": "Désolé, cette action n'existe pas"
     }
