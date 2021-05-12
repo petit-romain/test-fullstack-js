@@ -28,10 +28,12 @@ const App = ({ Component, pageProps }) => {
     (path) => !isEmpty(path)
   ).pop()
 
-  const Container = includes(
-    [defaultTo(process.env.NEXT_PUBLIC_APP_SIGNIN_PAGE, '/auth/signin'), '/'],
-    router.route
+  const signInPage = defaultTo(
+    process.env.NEXT_PUBLIC_APP_SIGNIN_PAGE,
+    '/auth/signin'
   )
+
+  const Container = includes([signInPage, '/'], router.route)
     ? Fragment
     : Layout
 
@@ -44,15 +46,15 @@ const App = ({ Component, pageProps }) => {
             const status = err?.response?.status
             switch (status) {
               case 401:
-                // Redirect
-                t('api.error.401')
-                message.info('401')
+                router.push(signInPage)
+                message.warn(t('api.error.401'))
                 break
               case 403:
+                message.warn(t('api.error.403'))
                 break
               case 404:
               case 500:
-                t(`api.error.${status.toString()}`)
+                router.push(`/${status.toString()}`)
                 break
               default:
                 break
