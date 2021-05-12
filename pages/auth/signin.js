@@ -10,12 +10,12 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 // Configs
 import i18nConfig from 'configs/i18n.config'
 
-// Styles
 import './signin.module.less'
 
 const SignInPage = () => {
   const router = useRouter()
   const [form] = Form.useForm()
+  const { t } = useTranslation('SignIn')
 
   const { t } = useTranslation('SignIn')
 
