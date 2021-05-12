@@ -12,4 +12,4 @@ export default nextConnect({
   attachParams: true
 })
   .use(Authentication)
-  .get('api/users', (...params) => Pagination('user', serializers, ...params))
+  .get('api/users', (req, res) => Pagination('user', serializers, req, res))

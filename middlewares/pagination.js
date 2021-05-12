@@ -6,7 +6,7 @@ import prisma from 'lib/prisma'
 // Helpers
 import { formatFilters, formatSerializer } from 'helpers/prisma'
 
-export default async (model, serializers, req, res, next) => {
+export default async (model, serializers, req, res) => {
   const { query } = req
 
   const filters = JSON.parse(defaultTo(query?.filters, '{}'))

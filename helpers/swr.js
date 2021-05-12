@@ -1,12 +1,4 @@
-import {
-  defaultTo,
-  isEmpty,
-  isNil,
-  isPlainObject,
-  map,
-  omitBy,
-  toString
-} from 'lodash'
+import { defaultTo, isEmpty, isNil, isPlainObject, map, omitBy } from 'lodash'
 
 export const paginationQueryParams = (pagination, filters, sorter) => {
   const limit = defaultTo(pagination?.pageSize, 10)
