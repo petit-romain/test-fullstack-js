@@ -1,7 +1,7 @@
 // Libraries
 import React, { useCallback, useEffect, useState } from 'react'
 import { Button, Input, message, Table } from 'antd'
-import { defaultTo, find, includes, isEmpty, isNil, map } from 'lodash'
+import { defaultTo, isEmpty, isNil } from 'lodash'
 import useSWR from 'swr'
 import { PlusOutlined } from '@ant-design/icons'
 
@@ -11,7 +11,7 @@ import { fetcher } from 'lib/swr'
 import { ManageModel } from 'modals'
 
 // Helpers
-import { sorter, filter } from 'helpers/tableLayout'
+import { formatColumns } from 'helpers/tableLayout'
 import { paginationQueryParams } from 'helpers/swr'
 
 // Styles
@@ -20,17 +20,26 @@ import './Table.less'
 // Components
 const { Search } = Input
 
-const TableLayout = ({ t, model, columns }) => {
+const TableLayout = ({ t, model }) => {
+  // States
   const [isManageModalVisible, setManageModalVisible] = useState(false)
   const [queryParams, setQueryParams] = useState('')
   const [modelItem, setModelItem] = useState({})
+  const [columns, setColumns] = useState([])
 
+  // Model information
   const modelName = defaultTo(model?.name, '').toLowerCase()
   const modelNameTranslated = t('name')
 
+  // API information
   const apiUrl = `/api/${modelName}s`
   const { data, error, mutate } = useSWR([apiUrl, queryParams], fetcher)
   const nbModelItems = defaultTo(data?.total, 0)
+
+  // Table layout information
+  useEffect(() => {
+    setColumns(formatColumns(model, data, t))
+  }, [data, error])
 
   useEffect(() => {
     !isNil(error) &&
@@ -44,19 +53,6 @@ const TableLayout = ({ t, model, columns }) => {
       setQueryParams(`?search=${searchText}`)
     }
   }, [])
-
-  const sortedColumns = map(columns, (column) => {
-    const field = find(model?.fields, ['name', column?.key])
-
-    const isFieldSortable = includes(['String', 'Integer'], field?.type)
-    const isFieldFilterable = !isEmpty(field?.choices) && field?.kind === 'enum'
-
-    return {
-      ...column,
-      sorter: isFieldSortable ? (a, b) => sorter(a, b, field) : null,
-      filters: isFieldFilterable ? filter(field) : null
-    }
-  })
 
   return (
     <div className='table-layout'>
@@ -92,7 +88,7 @@ const TableLayout = ({ t, model, columns }) => {
         <Table
           rowKey='id'
           loading={isNil(data) && isNil(error)}
-          columns={sortedColumns}
+          columns={defaultTo(columns, [])}
           dataSource={defaultTo(data?.results, [])}
           pagination={{
             showSizeChanger: true,

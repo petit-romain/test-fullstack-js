@@ -17,37 +17,7 @@ import TableLayout from 'components/table'
 const Users = ({ model = {} }) => {
   const { t } = useTranslation('User')
 
-  const columns = [
-    {
-      title: 'Nom',
-      dataIndex: 'lastName',
-      key: 'lastName'
-    },
-    {
-      title: 'Prénom',
-      dataIndex: 'firstName',
-      key: 'firstName'
-    },
-    {
-      title: 'Email',
-      dataIndex: 'email',
-      key: 'email'
-    },
-    {
-      title: 'Rôles',
-      dataIndex: 'roles',
-      key: 'roles',
-      render: (roles) => (
-        <Fragment>
-          {map(roles, (role, index) => (
-            <Tag key={index}>{role}</Tag>
-          ))}
-        </Fragment>
-      )
-    }
-  ]
-
-  return <TableLayout t={t} model={model} columns={columns} />
+  return <TableLayout t={t} model={model} />
 }
 
 export const getServerSideProps = async ({ locale }) => {
