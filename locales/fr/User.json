@@ -7,6 +7,9 @@
     "lastName": {
       "title": "Nom"
     },
+    "email": {
+      "title": "Adresse mail"
+    },
     "roles": {
       "title": "Rôles"
     }
