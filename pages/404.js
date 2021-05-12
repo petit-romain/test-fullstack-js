@@ -1,4 +1,7 @@
+// Libraries
 import React from 'react'
+
+// Components
 import Error from 'components/error'
 
 const NotFoundErrorPage = () => {

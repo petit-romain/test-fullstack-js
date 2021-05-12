@@ -4,19 +4,23 @@ import React, { Fragment } from 'react'
 import { Button, Result } from 'antd'
 import { useRouter } from 'next/router'
 import { defaultTo } from 'lodash'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-const ErrorPage = ({ statusCode }) => {
+// Configs
+import i18nConfig from 'configs/i18n.config'
+
+const ErrorPage = ({ t, statusCode }) => {
   const router = useRouter()
 
   return (
     <Fragment>
       <Head>
-        <title> Erreur | {`error.page.${statusCode}.title`} </title>
+        <title> {t(`error.page.${statusCode}.title`)} </title>
       </Head>
       <Result
         status={statusCode}
         title={statusCode}
-        subTitle={`error.page.${statusCode}.description`}
+        subTitle={t(`error.page.${statusCode}.description`)}
         extra={
           <Button
             type='primary'
@@ -26,7 +30,7 @@ const ErrorPage = ({ statusCode }) => {
               )
             }
           >
-            Retourner à l'accueil
+            {t('action.backHome')}
           </Button>
         }
       />
@@ -34,10 +38,17 @@ const ErrorPage = ({ statusCode }) => {
   )
 }
 
-export const getServerSideProps = ({ res, err }) => {
+export const getServerSideProps = async ({ res, err, locale }) => {
+  const translations = await serverSideTranslations(
+    locale,
+    ['Common'],
+    i18nConfig
+  )
+
   return {
     props: {
-      statusCode: res ? res?.statusCode : err ? err?.statusCode : 404
+      statusCode: res ? res?.statusCode : err ? err?.statusCode : 404,
+      ...translations
     }
   }
 }

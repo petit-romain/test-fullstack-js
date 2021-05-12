@@ -2,7 +2,8 @@
   "action": {
     "create": "Créer",
     "update": "Modifier",
-    "cancel": "Annuler"
+    "cancel": "Annuler",
+    "backHome": "Retourner à l'accueil"
   },
   "table": {
     "nbElements": "Nombre de {{ modelName }} à afficher: {{ nbModelItems }}",
@@ -20,6 +21,13 @@
       "placeholder": "Sélectionnez un(e) {{ fieldName }}"
     }
   },
+  "page": {
+    "error": {
+      "404": "Désolé, la page que vous avez demandée n'existe pas",
+      "500": "Une erreur interne au serveur est apparue"
+    }
+  },
+
   "api": {
     "success": {
       "create": "{{ modelName }} créé(e) avec succès",
@@ -27,7 +35,10 @@
     },
     "error": {
       "create": "Une erreur est survenue lors de la création d'un(e) {{ modelName }}",
-      "update": "Une erreur est survenue lors de la modification d'un(e) {{ modelName }}"
+      "update": "Une erreur est survenue lors de la modification d'un(e) {{ modelName }}",
+      "401": "",
+      "403": "Vous n'avez pas la permission d'effectuer cette action",
+      "404": "Désolé, la page que vous avez demandée n'existe pas"
     }
   }
 }

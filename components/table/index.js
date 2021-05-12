@@ -1,7 +1,7 @@
 // Libraries
 import React, { useCallback, useEffect, useState } from 'react'
 import { Button, Input, message, Table } from 'antd'
-import { defaultTo, isEmpty, isNil } from 'lodash'
+import { defaultTo, includes, isEmpty, isNil, keys } from 'lodash'
 import useSWR from 'swr'
 import { PlusOutlined } from '@ant-design/icons'
 
@@ -32,7 +32,7 @@ const TableLayout = ({ t, model }) => {
   const modelNameTranslated = t('name')
 
   // API information
-  const apiUrl = `/api/${modelName}s`
+  const apiUrl = `/api-test/${modelName}s`
   const { data, error, mutate } = useSWR([apiUrl, queryParams], fetcher)
   const nbModelItems = defaultTo(data?.total, 0)
 
@@ -42,9 +42,9 @@ const TableLayout = ({ t, model }) => {
   }, [data, error])
 
   useEffect(() => {
-    !isNil(error) &&
+    error?.response?.status === 400 &&
       message.error(
-        `${error?.response?.data?.key} ${error?.response?.data?.message}`
+        [error?.response?.data?.key, error?.response?.data?.message].join(' ')
       )
   }, [error])
 
