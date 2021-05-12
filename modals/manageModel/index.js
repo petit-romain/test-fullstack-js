@@ -15,6 +15,9 @@ import {
 
 import { creater, updater } from 'lib/swr'
 
+// Helpers
+import { filterModelFields } from 'helpers/manageModel'
+
 // Components
 const { Option } = Select
 
@@ -29,14 +32,7 @@ const ManageModel = ({
 }) => {
   const [form] = Form.useForm()
 
-  const modelFields = filter(
-    defaultTo(model?.fields, []),
-    ({ name, relationToFields }) =>
-      (!includes(name.toLowerCase(), 'id') &&
-        !includes(defaultTo(model?.blackListFields, []), name) &&
-        isNil(relationToFields)) ||
-      (isArray(relationToFields) && !isEmpty(relationToFields))
-  )
+  const modelFields = filterModelFields(model)
 
   useEffect(() => {
     form.setFieldsValue(modelItem)
