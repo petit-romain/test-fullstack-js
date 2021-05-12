@@ -13,6 +13,6 @@ export default nextConnect({
   attachParams: true
 })
   .use(Authentication)
-  .get('api/padlocks', (req, res, next) =>
-    Pagination(req, res, next, 'padlock', serializers)
+  .get('api/padlocks', (...params) =>
+    Pagination('padlock', serializers, ...params)
   )

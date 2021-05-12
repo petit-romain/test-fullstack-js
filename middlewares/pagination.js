@@ -4,12 +4,14 @@ import { defaultTo, isNil, replace } from 'lodash'
 import prisma from 'lib/prisma'
 
 // Helpers
-import { formatSerializer } from 'helpers/prisma'
+import { formatFilters, formatSerializer } from 'helpers/prisma'
 
-export default async (req, res, next, model, serializers) => {
+export default async (model, serializers, req, res, next) => {
   const { query } = req
 
-  const conditions = {}
+  const filters = JSON.parse(defaultTo(query?.filters, '{}'))
+
+  const conditions = formatFilters(filters)
 
   const selectedFields = formatSerializer('list', serializers)
 

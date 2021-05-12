@@ -1,5 +1,18 @@
 import prisma from 'lib/prisma'
-import { defaultTo, find, forEach, map } from 'lodash'
+import {
+  constant,
+  defaultTo,
+  find,
+  forEach,
+  isArray,
+  isEmpty,
+  map,
+  mapValues,
+  merge,
+  reduce,
+  times,
+  zipObject
+} from 'lodash'
 
 const prismaModels = prisma._dmmf.datamodel.models
 const prismaEnums = prisma._dmmf.datamodel.enums
@@ -36,14 +49,31 @@ export const getModelFieldMetadata = (model, fieldName) => {
   }
 }
 
-export const formatSerializer = (service, serializers) => {
-  let selectedFields = {}
+export const formatFilters = (filters) => {
+  const formattedFilters = reduce(
+    filters,
+    (result, value, key) => {
+      forEach(value, (v) => {
+        result.push({
+          [key]: {
+            equals: v
+          }
+        })
+      })
+      return result
+    },
+    []
+  )
 
-  forEach(defaultTo(serializers?.[service], []), (field) => {
-    selectedFields = {
-      ...selectedFields,
-      [field]: true
-    }
-  })
-  return selectedFields
+  return isEmpty(formattedFilters)
+    ? {}
+    : {
+        OR: formattedFilters
+      }
+}
+
+export const formatSerializer = (service, serializers) => {
+  const fields = defaultTo(serializers?.[service], [])
+
+  return zipObject(fields, times(fields.length, constant(true)))
 }
