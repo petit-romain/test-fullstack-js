@@ -2,6 +2,9 @@
 import React from 'react'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useTranslation } from 'next-i18next'
+import { defaultTo, map, merge } from 'lodash'
+
+import prisma from 'lib/prisma'
 
 // Configs
 import i18nConfig from 'configs/i18n.config'
@@ -32,7 +35,17 @@ const WeighingsArea = ({ model = {} }) => {
 }
 
 export const getServerSideProps = async ({ locale }) => {
+  const boxs = await prisma.box.findMany()
+
   const weighingAreaMetadata = getModelMetadata('WeighingArea')
+
+  weighingAreaMetadata.fields = map(
+    defaultTo(weighingAreaMetadata?.fields, []),
+    (field) =>
+      field?.name === 'box'
+        ? merge(field, { kind: 'enum', choices: boxs, selectLabel: 'name' })
+        : field
+  )
 
   const translations = await serverSideTranslations(
     locale,

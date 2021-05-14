@@ -9,6 +9,7 @@ import {
   isArray,
   isEmpty,
   isNil,
+  isPlainObject,
   map
 } from 'lodash'
 
@@ -43,37 +44,42 @@ const ManageModel = ({
 
   const isUpdating = !isEmpty(modelItem)
 
-  const renderField = useCallback(
-    ({ fieldName, fieldNameTranslated, choices, isList, ...field }) => {
-      switch (field?.kind) {
-        case 'enum':
-          return (
-            <Select
-              allowClear
-              mode={isList ? 'multiple' : 'single'}
-              placeholder={t('Common:form.select.placeholder', {
-                fieldName: fieldNameTranslated.toLowerCase()
-              })}
-            >
-              {map(choices, (choice) => (
-                <Option key={choice}>{choice}</Option>
-              ))}
-            </Select>
-          )
-        case 'scalar':
-          return (
-            <Input
-              placeholder={t('Common:form.input.placeholder', {
-                fieldName: fieldNameTranslated.toLowerCase()
-              })}
-            />
-          )
-        default:
-          return <Input />
-      }
-    },
-    []
-  )
+  const renderField = useCallback((field) => {
+    switch (field?.kind) {
+      case 'enum':
+        return (
+          <Select
+            allowClear
+            mode={field?.isList ? 'multiple' : 'single'}
+            placeholder={t('Common:form.select.placeholder', {
+              fieldName: field?.fieldNameTranslated.toLowerCase()
+            })}
+          >
+            {map(defaultTo(field?.choices, []), (choice) => (
+              <Option
+                key={
+                  isPlainObject(choice)
+                    ? choice[defaultTo(choice?.selectKey, 'id')]
+                    : choice
+                }
+              >
+                {isPlainObject(choice) ? choice[field?.selectLabel] : choice}
+              </Option>
+            ))}
+          </Select>
+        )
+      case 'scalar':
+        return (
+          <Input
+            placeholder={t('Common:form.input.placeholder', {
+              fieldName: field?.fieldNameTranslated.toLowerCase()
+            })}
+          />
+        )
+      default:
+        return <Input />
+    }
+  }, [])
 
   const manageModel = useCallback(async (formData) => {
     mutate(url, formData, false)
