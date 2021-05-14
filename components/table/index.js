@@ -29,7 +29,10 @@ const TableLayout = ({ t, model }) => {
 
   // Model information
   const modelName = defaultTo(model?.name, '').toLowerCase()
-  const modelNameTranslated = t('name')
+  const modelNameTranslated = {
+    single: t('name.single'),
+    plural: t('name.plural')
+  }
 
   // API information
   const apiUrl = `/api/${modelName}s`
@@ -61,7 +64,7 @@ const TableLayout = ({ t, model }) => {
           allowClear
           enterButton
           placeholder={t('Common:table.search', {
-            modelName: modelNameTranslated.toLowerCase()
+            modelName: modelNameTranslated.single.toLowerCase()
           })}
           onSearch={searchModel}
         />
@@ -81,7 +84,10 @@ const TableLayout = ({ t, model }) => {
       <div className='table-layout-content'>
         <p>
           {t('Common:table.nbElements', {
-            modelName: modelNameTranslated.toLowerCase(),
+            modelName:
+              nbModelItems > 1
+                ? modelNameTranslated.plural.toLowerCase()
+                : modelNameTranslated.single.toLowerCase(),
             nbModelItems
           })}
         </p>

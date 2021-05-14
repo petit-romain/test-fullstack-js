@@ -1,5 +1,8 @@
 {
-  "name": "Boîtiers",
+  "name": {
+    "single": "Boîtier",
+    "plural": "Boîtiers"
+  },
   "fields": {
     "name": {
       "title": "Nom"

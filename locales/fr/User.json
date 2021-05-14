@@ -1,5 +1,8 @@
 {
-  "name": "Utilisateurs",
+  "name": {
+    "single": "Utilisateur",
+    "plural": "Utilisateurs"
+  },
   "fields": {
     "firstName": {
       "title": "Prénom"

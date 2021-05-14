@@ -1,5 +1,8 @@
 {
-  "name": "Plages horaires",
+  "name": {
+    "single": "Plages horaires",
+    "plural": "Plage horaire"
+  },
   "fields": {
     "name": {
       "title": "Nom"

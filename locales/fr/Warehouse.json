@@ -1,5 +1,8 @@
 {
-  "name": "Magasins",
+  "name": {
+    "single": "Magasin",
+    "plural": "Magasins"
+  },
   "fields": {
     "name": {
       "title": "Nom"

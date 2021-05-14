@@ -1,5 +1,8 @@
 {
-  "name": "Cadenas",
+  "name": {
+    "single": "Cadenas",
+    "plural": "Cadenas"
+  },
   "fields": {
     "name": {
       "title": "Nom"

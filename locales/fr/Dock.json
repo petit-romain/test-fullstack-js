@@ -1,5 +1,8 @@
 {
-  "name": "Quais",
+  "name": {
+    "single": "Quai",
+    "plural": "Qiais"
+  },
   "fields": {
     "name": {
       "title": "Nom"

@@ -83,10 +83,10 @@ const ManageModel = ({
         promise: creater,
         messages: {
           success: t('Common:api.success.create', {
-            modelName: capitalize(model?.modelNameTranslated)
+            modelName: capitalize(model?.modelNameTranslated.single)
           }),
           error: t('Common:api.error.create', {
-            modelName: model?.modelNameTranslated.toLowerCase()
+            modelName: model?.modelNameTranslated.single.toLowerCase()
           })
         }
       },
@@ -94,10 +94,10 @@ const ManageModel = ({
         promise: updater,
         messages: {
           success: t('Common:api.success.update', {
-            modelName: capitalize(model?.modelNameTranslated)
+            modelName: capitalize(model?.modelNameTranslated.single)
           }),
           error: t('Common:api.error.update', {
-            modelName: model?.modelNameTranslated.toLowerCase()
+            modelName: model?.modelNameTranslated.single.toLowerCase()
           })
         }
       }
@@ -121,7 +121,7 @@ const ManageModel = ({
       forceRender
       title={`${
         isUpdating ? t('Common:action.update') : t('Common:action.create')
-      } un(e) ${model?.modelNameTranslated.toLowerCase()}`}
+      } un(e) ${model?.modelNameTranslated.single.toLowerCase()}`}
       okText={
         isUpdating ? t('Common:action.update') : t('Common:action.create')
       }

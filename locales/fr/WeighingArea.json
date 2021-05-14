@@ -1,5 +1,8 @@
 {
-  "name": "Zone de pesée",
+  "name": {
+    "single": "Zone de pesée",
+    "plural": "Zones de pesée"
+  },
   "fields": {
     "name": {
       "title": "Nom"

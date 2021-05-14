@@ -1,5 +1,8 @@
 {
-  "name": "Brouette",
+  "name": {
+    "single": "Brouette",
+    "plural": "Brouettes"
+  },
   "fields": {
     "transporter": {
       "title": "Nom du transporteur"

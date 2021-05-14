@@ -1,5 +1,8 @@
 {
-  "name": "Temps de rotation",
+  "name": {
+    "single": "Temps de rotation",
+    "plural": "Temps de rotation"
+  },
   "fields": {
     "beginPlace": {
       "title": "Lieu de départ"
