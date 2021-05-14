@@ -43,7 +43,10 @@ export const getServerSideProps = async ({ locale }) => {
     defaultTo(weighingAreaMetadata?.fields, []),
     (field) =>
       field?.name === 'box'
-        ? merge(field, { kind: 'enum', choices: boxs, selectLabel: 'name' })
+        ? merge(field, {
+            choices: boxs,
+            label: 'name'
+          })
         : field
   )
 

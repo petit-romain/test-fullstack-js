@@ -1,3 +1,5 @@
+// Libraries
+import React from 'react'
 import {
   defaultTo,
   find,
@@ -9,6 +11,7 @@ import {
   filter
 } from 'lodash'
 import moment from 'moment'
+import { Tag } from 'antd'
 
 const sorter = (a = {}, b = {}, field) => {
   switch (field?.type) {
@@ -35,13 +38,18 @@ const filters = (field) => {
 }
 
 const renderColumn = (field, value, record) => {
-  switch (field?.type) {
-    case 'DateTime':
-      return includes(field?.fieldName.toLowerCase(), 'time')
-        ? moment(value).format('LT')
-        : moment(value).format('L')
-    default:
-      return value
+  if (field?.kind === 'object') {
+    if (field?.isList) {
+      return map(value, (v) => <Tag>{v[defaultTo(field?.label, 'id')]}</Tag>)
+    } else {
+      return <Tag>{value[defaultTo(field?.label, 'id')]}</Tag>
+    }
+  } else if (field?.type === 'DateTime') {
+    return includes(field?.fieldName.toLowerCase(), 'time')
+      ? moment(value).format('LT')
+      : moment(value).format('L')
+  } else {
+    return value
   }
 }
 

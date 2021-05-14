@@ -11,6 +11,7 @@ import { getModelMetadata } from 'helpers/prisma'
 
 // Components
 import TableLayout from 'components/table'
+import { defaultTo, map, merge } from 'lodash'
 
 const Warehouses = ({ model = {} }) => {
   const { t } = useTranslation('Warehouse')
@@ -33,6 +34,12 @@ const Warehouses = ({ model = {} }) => {
 
 export const getServerSideProps = async ({ locale }) => {
   const warehouseMetadata = getModelMetadata('Warehouse')
+
+  warehouseMetadata.fields = map(
+    defaultTo(warehouseMetadata?.fields, []),
+    (field) =>
+      field?.name === 'gates' ? merge(field, { objectLabel: 'name' }) : field
+  )
 
   const translations = await serverSideTranslations(
     locale,

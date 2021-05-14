@@ -45,39 +45,38 @@ const ManageModel = ({
   const isUpdating = !isEmpty(modelItem)
 
   const renderField = useCallback((field) => {
-    switch (field?.kind) {
-      case 'enum':
-        return (
-          <Select
-            allowClear
-            mode={field?.isList ? 'multiple' : 'single'}
-            placeholder={t('Common:form.select.placeholder', {
-              fieldName: field?.fieldNameTranslated.toLowerCase()
-            })}
-          >
-            {map(defaultTo(field?.choices, []), (choice) => (
-              <Option
-                key={
-                  isPlainObject(choice)
-                    ? choice[defaultTo(choice?.selectKey, 'id')]
-                    : choice
-                }
-              >
-                {isPlainObject(choice) ? choice[field?.selectLabel] : choice}
-              </Option>
-            ))}
-          </Select>
-        )
-      case 'scalar':
-        return (
-          <Input
-            placeholder={t('Common:form.input.placeholder', {
-              fieldName: field?.fieldNameTranslated.toLowerCase()
-            })}
-          />
-        )
-      default:
-        return <Input />
+    if (field?.kind === 'enum' || !isEmpty(field?.choices)) {
+      return (
+        <Select
+          allowClear
+          mode={field?.isList ? 'multiple' : 'single'}
+          placeholder={t('Common:form.select.placeholder', {
+            fieldName: field?.fieldNameTranslated.toLowerCase()
+          })}
+        >
+          {map(defaultTo(field?.choices, []), (choice) => (
+            <Option
+              key={
+                isPlainObject(choice)
+                  ? choice[defaultTo(choice?.key, 'id')]
+                  : choice
+              }
+            >
+              {isPlainObject(choice) ? choice[field?.label] : choice}
+            </Option>
+          ))}
+        </Select>
+      )
+    } else if (field?.type === 'String') {
+      return (
+        <Input
+          placeholder={t('Common:form.input.placeholder', {
+            fieldName: field?.fieldNameTranslated.toLowerCase()
+          })}
+        />
+      )
+    } else {
+      return <Input />
     }
   }, [])
 

@@ -4,11 +4,8 @@ import {
   defaultTo,
   find,
   forEach,
-  isArray,
   isEmpty,
   map,
-  mapValues,
-  merge,
   reduce,
   times,
   zipObject
