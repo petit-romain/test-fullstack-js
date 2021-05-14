@@ -143,52 +143,49 @@ const ManageModel = ({
       }}
     >
       <Form form={form} layout='vertical'>
-        {map(
-          modelFields,
-          ({ kind, type, choices, isRequired, ...field }, index) => {
-            const fieldName = defaultTo(field?.name, '')
-            const fieldNameTranslated = t(`fields.${fieldName}.title`)
+        {map(modelFields, ({ kind, ...field }, index) => {
+          const fieldName = defaultTo(field?.name, '')
+          const fieldNameTranslated = t(`fields.${fieldName}.title`)
 
-            let rules = [
+          let rules = [
+            {
+              required: defaultTo(field?.isRequired, false),
+              message: t('Common:form.requiredMessage', {
+                fieldName: fieldNameTranslated.toLowerCase()
+              })
+            }
+          ]
+
+          if (
+            includes(fieldName, 'mail') &&
+            defaultTo(field?.type, 'String') === 'String'
+          ) {
+            rules = [
+              ...rules,
               {
-                required: isRequired,
-                message: t('Common:form.requiredMessage', {
+                type: 'email',
+                message: t('Common:form.patternMessage.required', {
                   fieldName: fieldNameTranslated.toLowerCase()
                 })
               }
             ]
-
-            if (includes(fieldName, 'mail') && type === 'String') {
-              rules = [
-                ...rules,
-                {
-                  type: 'email',
-                  message: t('Common:form.patternMessage.required', {
-                    fieldName: fieldNameTranslated.toLowerCase()
-                  })
-                }
-              ]
-            }
-
-            return (
-              <Form.Item
-                key={index}
-                name={fieldName}
-                label={fieldNameTranslated}
-                rules={rules}
-              >
-                {renderField({
-                  ...field,
-                  kind,
-                  fieldName,
-                  fieldNameTranslated,
-                  isRequired,
-                  choices
-                })}
-              </Form.Item>
-            )
           }
-        )}
+
+          return (
+            <Form.Item
+              key={index}
+              name={fieldName}
+              label={fieldNameTranslated}
+              rules={rules}
+            >
+              {renderField({
+                ...field,
+                fieldName,
+                fieldNameTranslated
+              })}
+            </Form.Item>
+          )
+        })}
       </Form>
     </Modal>
   )

@@ -8,6 +8,7 @@ import {
   reject,
   filter
 } from 'lodash'
+import moment from 'moment'
 
 const sorter = (a = {}, b = {}, field) => {
   switch (field?.type) {
@@ -33,6 +34,17 @@ const filters = (field) => {
   }))
 }
 
+const renderColumn = (field, value, record) => {
+  switch (field?.type) {
+    case 'DateTime':
+      return includes(field?.fieldName.toLowerCase(), 'time')
+        ? moment(value).format('LT')
+        : moment(value).format('L')
+    default:
+      return value
+  }
+}
+
 export const formatColumns = (model, data, t) => {
   const dataFields = filter(
     keys(defaultTo(data?.results?.pop(), {})),
@@ -54,7 +66,9 @@ export const formatColumns = (model, data, t) => {
       dataIndex: fieldName,
       key: fieldName,
       sorter: isFieldSortable ? (a, b) => sorter(a, b, field) : null,
-      filters: isFieldFilterable ? filters(field) : null
+      filters: isFieldFilterable ? filters(field) : null,
+      render: (value, record) =>
+        renderColumn({ ...field, fieldName }, value, record)
     }
   })
 }
