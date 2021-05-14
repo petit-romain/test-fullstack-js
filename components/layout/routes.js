@@ -3,7 +3,16 @@ import {
   DashboardOutlined,
   LockOutlined,
   SettingOutlined,
-  TeamOutlined
+  ShopOutlined,
+  ExperimentOutlined,
+  CarOutlined,
+  EnvironmentOutlined,
+  HourglassOutlined,
+  WifiOutlined,
+  TeamOutlined,
+  SyncOutlined,
+  ScheduleOutlined,
+  CarryOutOutlined
 } from '@ant-design/icons'
 
 const routes = [
@@ -15,19 +24,19 @@ const routes = [
   {
     key: 'settings',
     icon: SettingOutlined,
-    roles: ['UBIADMIN', 'SUPERADMIN', 'ADMIN'],
+    roles: ['UBIADMIN', 'SUPERADMIN', 'ADMIN', 'MANAGER', 'READER'],
     screens: [
       {
         key: 'warehouses',
-        icon: TeamOutlined
+        icon: ShopOutlined
       },
       {
         key: 'weighingsArea',
-        icon: TeamOutlined
+        icon: ExperimentOutlined
       },
       {
         key: 'trailers',
-        icon: TeamOutlined
+        icon: CarOutlined
       },
       {
         key: 'timeslots',
@@ -35,15 +44,15 @@ const routes = [
       },
       {
         key: 'docks',
-        icon: TeamOutlined
+        icon: EnvironmentOutlined
       },
       {
         key: 'rotationTimes',
-        icon: TeamOutlined
+        icon: HourglassOutlined
       },
       {
         key: 'boxes',
-        icon: TeamOutlined
+        icon: WifiOutlined
       },
       {
         key: 'padlocks',
@@ -52,6 +61,25 @@ const routes = [
       {
         key: 'users',
         icon: TeamOutlined
+      }
+    ]
+  },
+  {
+    key: 'discharges',
+    icon: DashboardOutlined,
+    roles: ['UBIADMIN', 'SUPERADMIN', 'ADMIN', 'MANAGER', 'READER'],
+    screens: [
+      {
+        key: 'active',
+        icon: SyncOutlined
+      },
+      {
+        key: 'scheduled',
+        icon: ScheduleOutlined
+      },
+      {
+        key: 'completed',
+        icon: CarryOutOutlined
       }
     ]
   }

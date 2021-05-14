@@ -6,16 +6,16 @@ import { useTranslation } from 'next-i18next'
 // Configs
 import i18nConfig from 'configs/i18n.config'
 
-const Dashboard = ({ model = {} }) => {
+const ActiveDischarge = () => {
   const { t } = useTranslation('Dock')
 
-  return <div>Dashboard</div>
+  return <div>Profile page</div>
 }
 
 export const getServerSideProps = async ({ locale }) => {
   const translations = await serverSideTranslations(
     locale,
-    ['Dashboard', 'Common'],
+    ['Discharge', 'Common'],
     i18nConfig
   )
 
@@ -24,4 +24,4 @@ export const getServerSideProps = async ({ locale }) => {
   }
 }
 
-export default Dashboard
+export default ActiveDischarge

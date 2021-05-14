@@ -4,7 +4,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useTranslation } from 'next-i18next'
 
 // Configs
-import i18nConfig from '../../configs/i18n.config'
+import i18nConfig from '../../../configs/i18n.config'
 
 // Helpers
 import { getModelMetadata } from 'helpers/prisma'

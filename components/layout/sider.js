@@ -44,13 +44,16 @@ const CustomSider = ({ session }) => {
             <Menu.SubMenu
               key={route?.key}
               icon={<MenuIcon />}
-              title={t(`layout.sider.${route?.key}`)}
+              title={t(`layout.sider.${route?.key}.title`)}
             >
               {map(defaultTo(route?.screens, []), (screen) => {
                 const SubMenuIcon = screen?.icon
                 return (
-                  <Menu.Item key={screen?.key} icon={<SubMenuIcon />}>
-                    {t(`layout.sider.${screen?.key}`)}
+                  <Menu.Item
+                    key={[route?.key, screen?.key].join('/')}
+                    icon={<SubMenuIcon />}
+                  >
+                    {t(`layout.sider.${route?.key}.${screen?.key}`)}
                   </Menu.Item>
                 )
               })}
