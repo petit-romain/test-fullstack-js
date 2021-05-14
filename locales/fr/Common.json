@@ -11,7 +11,7 @@
     "backHome": "Retourner à l'accueil"
   },
   "table": {
-    "nbElements": "Nombre de {{ modelName }} à afficher: {{ nbModelItems }}",
+    "nbElements": "Nombre de/d' {{ modelName }} à afficher: {{ nbModelItems }}",
     "search": "Rechercher un(e) {{ modelName }}"
   },
   "form": {
@@ -46,7 +46,7 @@
       "update": "Une erreur est survenue lors de la modification d'un(e) {{ modelName }}",
       "401": "Votre session a expiré",
       "403": "Vous n'avez pas la permission d'effectuer cette action",
-      "404": "Désolé, la page que vous avez demandée n'existe pas"
+      "404": "Désolé, cette action n'existe pas"
     }
   },
   "layout": {
@@ -59,7 +59,7 @@
       "dashboard": "Dashboard",
       "settings": {
         "title": "Paramètres",
-        "warehouses": "Magasins et portes",
+        "warehouses": "Magasins",
         "weighingsArea": "Zones de pesée",
         "trailers": "Brouettes",
         "timeslots": "Plages horaires",

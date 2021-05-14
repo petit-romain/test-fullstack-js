@@ -1,5 +1,5 @@
 {
-  "name": "Utilisateur",
+  "name": "Utilisateurs",
   "fields": {
     "firstName": {
       "title": "Prénom"

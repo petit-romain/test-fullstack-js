@@ -1,5 +1,5 @@
 {
-  "name": "Timeslot",
+  "name": "Plages horaires",
   "fields": {
     "name": {
       "title": "Nom"
