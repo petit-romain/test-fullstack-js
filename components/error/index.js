@@ -4,9 +4,12 @@ import React, { Fragment } from 'react'
 import { Button, Result } from 'antd'
 import { useRouter } from 'next/router'
 import { defaultTo } from 'lodash'
+import { useTranslation } from 'next-i18next'
 
-const ErrorPage = ({ t, statusCode }) => {
+const ErrorPage = ({ statusCode }) => {
   const router = useRouter()
+
+  const { t } = useTranslation('Common')
 
   return (
     <Fragment>
