@@ -1,4 +1,13 @@
-import { defaultTo, find, includes, isEmpty, keys, map, reject } from 'lodash'
+import {
+  defaultTo,
+  find,
+  includes,
+  isEmpty,
+  keys,
+  map,
+  reject,
+  filter
+} from 'lodash'
 
 const sorter = (a = {}, b = {}, field) => {
   switch (field?.type) {
@@ -24,7 +33,10 @@ const filters = (field) => {
 }
 
 export const formatColumns = (model, data, t) => {
-  const dataFields = keys(defaultTo(data?.results?.pop(), {}))
+  const dataFields = filter(
+    keys(defaultTo(data?.results?.pop(), {})),
+    (key) => !includes(key.toLowerCase(), 'id')
+  )
 
   return map(dataFields, (fieldKey) => {
     const field = find(defaultTo(model?.fields, []), ['name', fieldKey])
