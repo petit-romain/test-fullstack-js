@@ -15,7 +15,7 @@ const CustomSider = ({ session }) => {
   const { t } = useTranslation('Common')
 
   const [menuSelectedKey, setMenuSelectedKey] = useState(
-    router.route.split('/')[1]
+    router.route.substring(1)
   )
 
   const handleOnClick = useCallback((screen) => {
