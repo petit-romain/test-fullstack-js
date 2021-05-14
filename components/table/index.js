@@ -1,7 +1,7 @@
 // Libraries
 import React, { useCallback, useEffect, useState } from 'react'
 import { Button, Input, message, Table } from 'antd'
-import { defaultTo, includes, isEmpty, isNil, keys } from 'lodash'
+import { defaultTo, isEmpty, isNil } from 'lodash'
 import useSWR from 'swr'
 import { PlusOutlined } from '@ant-design/icons'
 
@@ -32,7 +32,7 @@ const TableLayout = ({ t, model }) => {
   const modelNameTranslated = t('name')
 
   // API information
-  const apiUrl = `/api-test/${modelName}s`
+  const apiUrl = `/api/${modelName}s`
   const { data, error, mutate } = useSWR([apiUrl, queryParams], fetcher)
   const nbModelItems = defaultTo(data?.total, 0)
 
