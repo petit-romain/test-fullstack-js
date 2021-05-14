@@ -1,11 +1,11 @@
 // Libraries
 import React, { Fragment } from 'react'
-import { Provider } from 'next-auth/client'
+import App from 'next/app'
+import { getSession, Provider } from 'next-auth/client'
 import { useRouter } from 'next/router'
 import { SWRConfig } from 'swr'
 import Head from 'next/head'
 import { appWithTranslation, useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { message } from 'antd'
 import { capitalize, isEmpty, filter, defaultTo, includes } from 'lodash'
 
@@ -18,7 +18,7 @@ import Layout from 'components/layout'
 // Styles
 import './_app.module.less'
 
-const App = ({ Component, pageProps }) => {
+const CustomApp = ({ Component, pageProps, session }) => {
   const router = useRouter()
 
   const { t } = useTranslation('Common')
@@ -38,7 +38,7 @@ const App = ({ Component, pageProps }) => {
     : Layout
 
   return (
-    <Provider session={pageProps.session}>
+    <Provider session={session}>
       <SWRConfig
         value={{
           shouldRetryOnError: false,
@@ -73,23 +73,18 @@ const App = ({ Component, pageProps }) => {
               height: 100%;
             }`}
           </style>
-          <Component {...pageProps} />
+          <Component {...pageProps} session={session} />
         </Container>
       </SWRConfig>
     </Provider>
   )
 }
 
-export const getServerSideProps = async ({ locale }) => {
-  const translations = await serverSideTranslations(
-    locale,
-    ['Common'],
-    i18nConfig
-  )
+CustomApp.getInitialProps = async (appContext) => {
+  const appProps = await App.getInitialProps(appContext)
+  const session = await getSession(appContext)
 
-  return {
-    props: translations
-  }
+  return { ...appProps, session }
 }
 
-export default appWithTranslation(App, i18nConfig)
+export default appWithTranslation(CustomApp, i18nConfig)
