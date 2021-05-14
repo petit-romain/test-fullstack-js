@@ -9,7 +9,7 @@ import i18nConfig from 'configs/i18n.config'
 const ScheduledDischarge = () => {
   const { t } = useTranslation('Dock')
 
-  return <div>Profile page</div>
+  return <div>Scheduled discharge page</div>
 }
 
 export const getServerSideProps = async ({ locale }) => {

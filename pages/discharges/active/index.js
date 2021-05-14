@@ -9,7 +9,7 @@ import i18nConfig from 'configs/i18n.config'
 const ActiveDischarge = () => {
   const { t } = useTranslation('Dock')
 
-  return <div>Profile page</div>
+  return <div>Active Discharge page</div>
 }
 
 export const getServerSideProps = async ({ locale }) => {
