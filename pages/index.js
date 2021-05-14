@@ -33,7 +33,7 @@ const Home = ({ session }) => {
 
   return (
     <div className={styles.page}>
-      <Spin tip={t('loading')} />
+      <Spin tip={t('app.loading')} />
     </div>
   )
 }
