@@ -7,26 +7,21 @@ import { SWRConfig } from 'swr'
 import Head from 'next/head'
 import { appWithTranslation, useTranslation } from 'next-i18next'
 import { message } from 'antd'
-import { capitalize, isEmpty, filter, defaultTo, includes } from 'lodash'
+import { defaultTo, includes } from 'lodash'
 
 // I18n
 import i18nConfig from 'configs/i18n.config'
 
-// Components
-import Layout from 'components/layout'
-
 // Styles
 import './_app.module.less'
+
+// Components
+import Layout from 'components/layout'
 
 const CustomApp = ({ Component, pageProps, session }) => {
   const router = useRouter()
 
   const { t } = useTranslation('Common')
-
-  const pageTitle = filter(
-    router.route.split('/'),
-    (path) => !isEmpty(path)
-  ).pop()
 
   const signInPage = defaultTo(
     process.env.NEXT_PUBLIC_APP_SIGNIN_PAGE,
@@ -50,11 +45,13 @@ const CustomApp = ({ Component, pageProps, session }) => {
                 message.warn(t('api.error.401'))
                 break
               case 403:
-                message.warn(t('api.error.403'))
+                message.info(t(`api.error.403`))
                 break
               case 404:
+                message.warn(t(`api.error.404`))
+                break
               case 500:
-                router.push(`/${status.toString()}`)
+                message.info()
                 break
               default:
                 break
@@ -64,9 +61,7 @@ const CustomApp = ({ Component, pageProps, session }) => {
       >
         <Container>
           <Head>
-            <title>{`${process.env.NEXT_PUBLIC_APP_NAME} | ${capitalize(
-              pageTitle
-            )}`}</title>
+            <title>{process.env.NEXT_PUBLIC_APP_NAME}</title>
           </Head>
           <style>
             {`#__next {
