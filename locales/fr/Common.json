@@ -1,9 +1,13 @@
 {
-  "loading": "Chargement en cours ...",
+  "app": {
+    "loading": "Chargement en cours ...",
+    "welcome": "Bienvenue sur {{ appName }}"
+  },
   "action": {
     "create": "Créer",
     "update": "Modifier",
     "cancel": "Annuler",
+    "next": "Suivant",
     "backHome": "Retourner à l'accueil"
   },
   "table": {

@@ -1,0 +1,22 @@
+{
+  "api": {
+    "success": {
+      "login": "Connexion réusssie"
+    },
+    "error": {
+      "NOT_FOUND": "Compte introuvable"
+    }
+  },
+  "fields": {
+    "login": {
+      "title": "Nom d'utilisateur",
+      "placeholder": "Renseignez un nom d'utilisateur",
+      "requiredMessage": "Veuillez renseigner un nom d'utilisateur"
+    },
+    "password": {
+      "title": "Mot de passe",
+      "placeholder": "Renseignez un mot de passe",
+      "requiredMessage": "Veuillez renseigner un mot de passe"
+    }
+  }
+}

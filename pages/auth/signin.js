@@ -1,14 +1,23 @@
+// Libraries
 import React, { useCallback } from 'react'
 import { signIn } from 'next-auth/client'
 import { Button, Card, Form, Input, message } from 'antd'
 import { defaultTo, isNil } from 'lodash'
-
-import './signin.module.less'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
+// Configs
+import i18nConfig from 'configs/i18n.config'
+
+// Styles
+import './signin.module.less'
 
 const SignInPage = () => {
   const router = useRouter()
   const [form] = Form.useForm()
+
+  const { t } = useTranslation('SignIn')
 
   const handleOnClick = useCallback(() => {
     form.validateFields().then(({ login, password }) => {
@@ -22,10 +31,10 @@ const SignInPage = () => {
           router.push(
             defaultTo(process.env.NEXT_PUBLIC_APP_HOME_PAGE, '/dashboard')
           )
-          message.success('success.login')
+          message.success(t('api.success.login'))
         })
         .catch((error) => {
-          message.error(`api.error.${defaultTo(error?.message, 'default')}`)
+          message.error(t(`api.error.${defaultTo(error?.message, 'default')}`))
         })
     })
   }, [])
@@ -33,7 +42,11 @@ const SignInPage = () => {
   return (
     <div className='login-page'>
       <div className='description'>
-        <h1> {`Bienvenue sur ${process.env.NEXT_PUBLIC_APP_NAME}`} </h1>
+        <h1>
+          {t('Common:app.welcome', {
+            appName: process.env.NEXT_PUBLIC_APP_NAME
+          })}
+        </h1>
         <h2> {process.env.NEXT_PUBLIC_APP_DESCRIPTION} </h2>
       </div>
       <Card
@@ -44,7 +57,7 @@ const SignInPage = () => {
             htmlType='submit'
             onClick={handleOnClick}
           >
-            Suivant
+            {t('Common:action.next')}
           </Button>
         ]}
       >
@@ -57,33 +70,48 @@ const SignInPage = () => {
           }}
         >
           <Form.Item
-            label="Nom d'utilisateur"
+            label={t('fields.login.title')}
             name='login'
             rules={[
               {
                 required: true,
-                message: "Veuillez renseigner un nom d'utilisateur"
+                message: t('fields.login.requiredMessage')
               }
             ]}
           >
-            <Input placeholder="Nom d'utilisateur" />
+            <Input placeholder={t('fields.login.placeholder')} />
           </Form.Item>
           <Form.Item
-            label='Mot de passe'
+            label={t('fields.password.title')}
             name='password'
             rules={[
               {
                 required: true,
-                message: 'Veuillez renseigner un mot de passe'
+                message: t('fields.password.requiredMessage')
               }
             ]}
           >
-            <Input type='password' placeholder='Mot de passe' />
+            <Input
+              type='password'
+              placeholder={t('fields.password.placeholder')}
+            />
           </Form.Item>
         </Form>
       </Card>
     </div>
   )
+}
+
+export const getServerSideProps = async ({ locale }) => {
+  const translations = await serverSideTranslations(
+    locale,
+    ['SignIn', 'Common'],
+    i18nConfig
+  )
+
+  return {
+    props: translations
+  }
 }
 
 export default SignInPage
