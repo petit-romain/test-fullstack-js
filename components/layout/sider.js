@@ -3,14 +3,14 @@ import React, { useCallback, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { Layout, Menu } from 'antd'
-import { defaultTo, isEmpty, isNil, map } from 'lodash'
+import { defaultTo, isEmpty, isNil, map, filter, some, includes } from 'lodash'
 
 // Components
 import routes from './routes'
 
 const { Sider } = Layout
 
-const CustomSider = () => {
+const CustomSider = ({ session }) => {
   const router = useRouter()
   const { t } = useTranslation('Common')
 
@@ -23,6 +23,12 @@ const CustomSider = () => {
     router.push(`/${screen}`)
   }, [])
 
+  const filteredRoutes = filter(routes, ({ roles = [], ...route }) => {
+    return some(roles, (role) =>
+      includes(defaultTo(session?.user?.roles, []), role)
+    )
+  })
+
   return (
     <Sider collapsible width={230}>
       <Menu
@@ -30,7 +36,7 @@ const CustomSider = () => {
         selectedKeys={[menuSelectedKey]}
         onClick={({ key }) => handleOnClick(key)}
       >
-        {map(routes, (route) => {
+        {map(filteredRoutes, (route) => {
           const MenuIcon = route?.icon
           const isSubMenu = !isNil(route?.screens) && !isEmpty(route?.screens)
 

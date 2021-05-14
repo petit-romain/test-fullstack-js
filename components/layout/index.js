@@ -16,7 +16,7 @@ const CustomLayout = ({ children, session }) => {
     <Layout>
       <Header session={session} />
       <Layout>
-        <Sider />
+        <Sider session={session} />
         <Content>{children}</Content>
       </Layout>
     </Layout>
