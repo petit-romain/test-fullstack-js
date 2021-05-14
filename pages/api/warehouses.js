@@ -5,8 +5,8 @@ import nextConnect from 'next-connect'
 import { Authentication, Pagination } from 'middlewares'
 
 const serializers = {
-  list: ['id'],
-  retrieve: ['id']
+  list: ['id', 'name'],
+  retrieve: ['id', 'name']
 }
 
 export default nextConnect({
