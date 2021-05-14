@@ -12,6 +12,7 @@ import {
 const sorter = (a = {}, b = {}, field) => {
   switch (field?.type) {
     case 'String':
+    case 'DateTime':
       return defaultTo(a?.key, '').localeCompare(defaultTo(b?.key, ''))
     case 'Integer':
       return defaultTo(a?.key, 0) - defaultTo(b?.key, 0)
@@ -42,7 +43,10 @@ export const formatColumns = (model, data, t) => {
     const field = find(defaultTo(model?.fields, []), ['name', fieldKey])
     const fieldName = defaultTo(field?.name, '')
 
-    const isFieldSortable = includes(['String', 'Integer'], field?.type)
+    const isFieldSortable = includes(
+      ['String', 'Integer', 'DateTime'],
+      field?.type
+    )
     const isFieldFilterable = !isEmpty(field?.choices) && field?.kind === 'enum'
 
     return {
