@@ -14,6 +14,7 @@
   },
   "scripts": {
     "start": "env-cmd -f .env.local next dev",
+    "build": "env-cmd -f .env.local next build",
     "start:dev": "env-cmd -f .env.dev next dev",
     "build:dev": "env-cmd -f .env.dev next build",
     "postbuild:dev": "env-cmd -f .env.dev yarn prisma migrate reset --force",
