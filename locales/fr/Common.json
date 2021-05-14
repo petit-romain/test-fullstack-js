@@ -54,6 +54,19 @@
       "profile": "Page de profil",
       "logout": "Déconnexion",
       "version": "Version {{ version }}"
+    },
+    "sider": {
+      "dashboard": "Dashboard",
+      "settings": "Paramètres",
+      "warehouses": "Magasins et portes",
+      "weighingsArea": "Zones de pesée",
+      "trailers": "Brouettes",
+      "timeslots": "Plages horaires",
+      "docks": "Quais",
+      "rotationTimes": "Temps de rotation",
+      "boxes": "Boîtiers",
+      "padlocks": "Cadenas",
+      "users": "Utilisateurs"
     }
   }
 }

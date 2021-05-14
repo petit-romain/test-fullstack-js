@@ -1,6 +1,7 @@
 // Libraries
 import React, { useCallback, useState } from 'react'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 import { Layout, Menu } from 'antd'
 import { defaultTo, isEmpty, isNil, map } from 'lodash'
 
@@ -11,6 +12,7 @@ const { Sider } = Layout
 
 const CustomSider = () => {
   const router = useRouter()
+  const { t } = useTranslation('Common')
 
   const [menuSelectedKey, setMenuSelectedKey] = useState(
     router.route.split('/')[1]
@@ -36,20 +38,20 @@ const CustomSider = () => {
             <Menu.SubMenu
               key={route?.key}
               icon={<MenuIcon />}
-              title={route?.title}
+              title={t(`layout.sider.${route?.key}`)}
             >
               {map(defaultTo(route?.screens, []), (screen) => {
                 const SubMenuIcon = screen?.icon
                 return (
                   <Menu.Item key={screen?.key} icon={<SubMenuIcon />}>
-                    {screen?.title}
+                    {t(`layout.sider.${screen?.key}`)}
                   </Menu.Item>
                 )
               })}
             </Menu.SubMenu>
           ) : (
             <Menu.Item key={route?.key} icon={<MenuIcon />}>
-              {route?.title}
+              {t(`layout.sider.${route?.key}`)}
             </Menu.Item>
           )
         })}
