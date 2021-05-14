@@ -51,8 +51,7 @@ const CustomApp = ({ Component, pageProps, session }) => {
                 message.warn(t(`api.error.404`))
                 break
               case 500:
-                message.info()
-                break
+                throw new Error(err?.response?.data)
               default:
                 break
             }
