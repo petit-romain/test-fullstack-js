@@ -1,4 +1,5 @@
 {
+  "loading": "Chargement en cours ...",
   "action": {
     "create": "Créer",
     "update": "Modifier",
