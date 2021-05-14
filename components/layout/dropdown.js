@@ -2,12 +2,14 @@
 import { Avatar, Dropdown, Menu, message } from 'antd'
 import { DownOutlined, LogoutOutlined, UserOutlined } from '@ant-design/icons'
 import React, { useCallback } from 'react'
-import { signOut } from 'next-auth/client'
+import { getSession, signOut } from 'next-auth/client'
 import { defaultTo } from 'lodash'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 
 const CustomDropdown = ({ session }) => {
   const router = useRouter()
+  const { t } = useTranslation('Common')
 
   const handleOnSignOut = useCallback(() => {
     signOut({
@@ -25,7 +27,7 @@ const CustomDropdown = ({ session }) => {
         key='profile'
         onClick={() => router.push('/profile')}
       >
-        Page de profile
+        {t('layout.breadcrumb.profile')}
       </Menu.Item>
 
       <Menu.Item
@@ -33,11 +35,15 @@ const CustomDropdown = ({ session }) => {
         key='logout'
         onClick={handleOnSignOut}
       >
-        Déconnexion
+        {t('layout.breadcrumb.logout')}
       </Menu.Item>
 
       <Menu.Item key='versions' disabled>
-        <span>{`Version ${process.env.NEXT_PUBLIC_APP_VERSION}`}</span>
+        <span>
+          {t('layout.breadcrumb.version', {
+            version: process.env.NEXT_PUBLIC_APP_VERSION
+          })}
+        </span>
       </Menu.Item>
     </Menu>
   )
@@ -57,6 +63,14 @@ const CustomDropdown = ({ session }) => {
       </span>
     </Dropdown>
   )
+}
+
+export const getServerSideProps = async (context) => {
+  const session = await getSession(context)
+  console.warn(session)
+  return {
+    props: {}
+  }
 }
 
 export default CustomDropdown

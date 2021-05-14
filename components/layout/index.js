@@ -11,10 +11,10 @@ import Header from './header'
 
 const { Content } = Layout
 
-const CustomLayout = ({ children }) => {
+const CustomLayout = ({ children, session }) => {
   return (
     <Layout>
-      <Header />
+      <Header session={session} />
       <Layout>
         <Sider />
         <Content>{children}</Content>

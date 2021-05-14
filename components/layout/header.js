@@ -1,18 +1,19 @@
 // Libraries
 import React from 'react'
 import { useRouter } from 'next/router'
-import { useSession } from 'next-auth/client'
 import { Layout } from 'antd'
 import { defaultTo } from 'lodash'
 
 // Components
 import Dropdown from './dropdown'
+import { useTranslation } from 'next-i18next'
 
 const { Header } = Layout
 
-const CustomHeader = () => {
-  const [session] = useSession()
+const CustomHeader = ({ session }) => {
   const router = useRouter()
+
+  const { t } = useTranslation('Common')
 
   return (
     <Header>

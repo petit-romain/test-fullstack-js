@@ -58,7 +58,7 @@ const CustomApp = ({ Component, pageProps, session }) => {
           }
         }}
       >
-        <Container>
+        <Container session={session}>
           <Head>
             <title>{process.env.NEXT_PUBLIC_APP_NAME}</title>
           </Head>
