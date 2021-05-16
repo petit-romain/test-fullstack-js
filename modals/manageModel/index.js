@@ -111,7 +111,10 @@ const ManageModel = ({
     manageMethod
       ?.promise(url, formData)
       .then(() => message.success(manageMethod?.messages?.success))
-      .catch(() => message.error(manageMethod?.messages?.error))
+      .catch((err) => {
+        err?.response?.status === 400 &&
+          message.error(manageMethod?.messages?.error)
+      })
 
     mutate(url)
   }, [])

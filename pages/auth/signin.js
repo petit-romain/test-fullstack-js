@@ -17,8 +17,6 @@ const SignInPage = () => {
   const [form] = Form.useForm()
   const { t } = useTranslation('SignIn')
 
-  const { t } = useTranslation('SignIn')
-
   const handleOnClick = useCallback(() => {
     form.validateFields().then(({ login, password }) => {
       signIn('credentials', {
