@@ -11,8 +11,7 @@ import paginate from 'helpers/pagination'
 import { formatSerializer } from 'helpers/prisma'
 
 const serializers = {
-  list: ['id', 'name', 'beginTime', 'endTime'],
-  retrieve: ['id', 'name', 'beginTime', 'endTime']
+  list: ['id', 'firstName', 'lastName', 'email', 'roles']
 }
 
 const permissions = {
@@ -27,16 +26,16 @@ export default nextConnect({
     Authentication,
     (req, res, next) => Permissions(req, res, next, permissions)
   ])
-  .get('api/trailers', async (req, res, next) => {
-    const pagination = await paginate('trailer', serializers, req)
+  .get('api/users', async (req, res, next) => {
+    const pagination = await paginate('user', serializers, req)
     return res.status(206).json(pagination)
   })
-  .get('api/trailers/:id', async (req, res) => {
+  .get('api/users/:id', async (req, res) => {
     const id = parseInt(req?.params?.id)
 
     const selectedFields = formatSerializer('retrieve', serializers)
 
-    const padlock = await prisma.trailer.findUnique({
+    const padlock = await prisma.user.findUnique({
       select: selectedFields,
       where: { id }
     })
