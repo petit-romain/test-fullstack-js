@@ -1,0 +1,38 @@
+import i18next from 'i18next'
+
+i18next.addResourceBundle('fr', 'User', {
+  name: 'Utilisateur',
+  name_plural: 'Utilisateurs',
+  fields: {
+    firstName: {
+      title: 'Prénom'
+    },
+    lastName: {
+      title: 'Nom'
+    },
+    email: {
+      title: 'Adresse mail'
+    },
+    roles: {
+      title: 'Rôles'
+    }
+  }
+})
+i18next.addResourceBundle('en', 'User', {
+  name: 'User',
+  name_plural: 'Users',
+  fields: {
+    firstName: {
+      title: 'First name'
+    },
+    lastName: {
+      title: 'Last name'
+    },
+    email: {
+      title: 'Mail address'
+    },
+    roles: {
+      title: 'Roles'
+    }
+  }
+})

@@ -4,11 +4,8 @@ import { Form, Input, message, Modal, Select } from 'antd'
 import {
   capitalize,
   defaultTo,
-  filter,
   includes,
-  isArray,
   isEmpty,
-  isNil,
   isPlainObject,
   map
 } from 'lodash'
@@ -16,7 +13,7 @@ import {
 import { creater, updater } from 'lib/swr'
 
 // Helpers
-import { filterModelFields, renderModelField } from 'helpers/manageModel'
+import { filterModelFields } from 'helpers/manageModel'
 
 // Components
 const { Option } = Select

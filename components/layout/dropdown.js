@@ -5,11 +5,14 @@ import React, { useCallback } from 'react'
 import { getSession, signOut } from 'next-auth/client'
 import { defaultTo } from 'lodash'
 import { useRouter } from 'next/router'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'react-i18next'
+
+// I18n
+import './Layout.i18n'
 
 const CustomDropdown = ({ session }) => {
   const router = useRouter()
-  const { t } = useTranslation('Common')
+  const { t } = useTranslation('Layout')
 
   const handleOnSignOut = useCallback(() => {
     signOut({
@@ -27,7 +30,7 @@ const CustomDropdown = ({ session }) => {
         key='profile'
         onClick={() => router.push('/profile')}
       >
-        {t('layout.breadcrumb.profile')}
+        {t('breadcrumb.profile')}
       </Menu.Item>
 
       <Menu.Item
@@ -35,12 +38,12 @@ const CustomDropdown = ({ session }) => {
         key='logout'
         onClick={handleOnSignOut}
       >
-        {t('layout.breadcrumb.logout')}
+        {t('breadcrumb.logout')}
       </Menu.Item>
 
       <Menu.Item key='versions' disabled>
         <span>
-          {t('layout.breadcrumb.version', {
+          {t('breadcrumb.version', {
             version: process.env.NEXT_PUBLIC_APP_VERSION
           })}
         </span>
@@ -67,7 +70,6 @@ const CustomDropdown = ({ session }) => {
 
 export const getServerSideProps = async (context) => {
   const session = await getSession(context)
-  console.warn(session)
   return {
     props: {}
   }

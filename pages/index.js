@@ -4,18 +4,13 @@ import { getSession } from 'next-auth/client'
 import { useRouter } from 'next/router'
 import { Spin } from 'antd'
 import { defaultTo, isNil } from 'lodash'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { useTranslation } from 'next-i18next'
-
-// Configs
-import i18nConfig from 'configs/i18n.config'
+import { useTranslation } from 'react-i18next'
 
 // Styles
-import styles from './Home.module.css'
+import './_app/_app.module.less'
 
 const Home = ({ session }) => {
   const router = useRouter()
-
   const { t } = useTranslation('Common')
 
   useEffect(() => {
@@ -32,23 +27,24 @@ const Home = ({ session }) => {
   }, [])
 
   return (
-    <div className={styles.page}>
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'column',
+        height: '100%'
+      }}
+    >
       <Spin tip={t('app.loading')} />
     </div>
   )
 }
 
-export const getServerSideProps = async ({ req, locale }) => {
-  const translations = await serverSideTranslations(
-    locale,
-    ['Common'],
-    i18nConfig
-  )
-
+export const getServerSideProps = async ({ req }) => {
   return {
     props: {
-      session: await getSession({ req }),
-      ...translations
+      session: await getSession({ req })
     }
   }
 }

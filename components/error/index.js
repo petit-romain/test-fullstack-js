@@ -4,7 +4,10 @@ import React, { Fragment } from 'react'
 import { Button, Result } from 'antd'
 import { useRouter } from 'next/router'
 import { defaultTo } from 'lodash'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'react-i18next'
+
+// I18n
+import './Error.i18n'
 
 const ErrorPage = ({ statusCode }) => {
   const router = useRouter()
@@ -14,12 +17,12 @@ const ErrorPage = ({ statusCode }) => {
   return (
     <Fragment>
       <Head>
-        <title> {t(`page.${statusCode}.title`)} </title>
+        <title> {t(`${statusCode}.title`)} </title>
       </Head>
       <Result
         status={statusCode}
         title={statusCode}
-        subTitle={t(`page.${statusCode}.description`)}
+        subTitle={t(`${statusCode}.description`)}
         extra={
           <Button
             type='primary'

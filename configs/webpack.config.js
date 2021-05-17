@@ -8,7 +8,8 @@ module.exports = {
       middlewares: path.resolve(__dirname, '../middlewares'),
       components: path.resolve(__dirname, '../components'),
       modals: path.resolve(__dirname, '../modals'),
-      helpers: path.resolve(__dirname, '../helpers')
+      helpers: path.resolve(__dirname, '../helpers'),
+      pages: path.resolve(__dirname, '../pages')
     }
   }
 }

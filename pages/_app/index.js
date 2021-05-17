@@ -4,11 +4,11 @@ import App from 'next/app'
 import { getSession, Provider } from 'next-auth/client'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
-import { appWithTranslation } from 'next-i18next'
 import { defaultTo, includes } from 'lodash'
 
 // I18n
-import i18nConfig from 'configs/i18n.config'
+import 'lib/i18n'
+import './Common.i18n'
 
 // Styles
 import './_app.module.less'
@@ -52,4 +52,4 @@ CustomApp.getInitialProps = async (appContext) => {
   return { ...appProps, session }
 }
 
-export default appWithTranslation(CustomApp, i18nConfig)
+export default CustomApp

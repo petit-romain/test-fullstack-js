@@ -1,9 +1,12 @@
 // Libraries
 import React, { useCallback, useState } from 'react'
 import { useRouter } from 'next/router'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'react-i18next'
 import { Layout, Menu } from 'antd'
 import { defaultTo, isEmpty, isNil, map, filter, some, includes } from 'lodash'
+
+// I18n
+import './Layout.i18n'
 
 // Components
 import routes from './routes'
@@ -12,7 +15,7 @@ const { Sider } = Layout
 
 const CustomSider = ({ session }) => {
   const router = useRouter()
-  const { t } = useTranslation('Common')
+  const { t } = useTranslation('Layout')
 
   const [menuSelectedKey, setMenuSelectedKey] = useState(
     router.route.substring(1)
@@ -44,7 +47,7 @@ const CustomSider = ({ session }) => {
             <Menu.SubMenu
               key={route?.key}
               icon={<MenuIcon />}
-              title={t(`layout.sider.${route?.key}.title`)}
+              title={t(`sider.${route?.key}.title`)}
             >
               {map(defaultTo(route?.screens, []), (screen) => {
                 const SubMenuIcon = screen?.icon
@@ -53,14 +56,14 @@ const CustomSider = ({ session }) => {
                     key={[route?.key, screen?.key].join('/')}
                     icon={<SubMenuIcon />}
                   >
-                    {t(`layout.sider.${route?.key}.${screen?.key}`)}
+                    {t(`sider.${route?.key}.${screen?.key}`)}
                   </Menu.Item>
                 )
               })}
             </Menu.SubMenu>
           ) : (
             <Menu.Item key={route?.key} icon={<MenuIcon />}>
-              {t(`layout.sider.${route?.key}`)}
+              {t(`sider.${route?.key}`)}
             </Menu.Item>
           )
         })}

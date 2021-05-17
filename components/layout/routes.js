@@ -51,7 +51,7 @@ const routes = [
         icon: HourglassOutlined
       },
       {
-        key: 'boxes',
+        key: 'boxs',
         icon: WifiOutlined
       },
       {
