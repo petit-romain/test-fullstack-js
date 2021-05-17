@@ -13,6 +13,15 @@ i18next.addResourceBundle('fr', 'Common', {
     next: 'Suivant',
     backHome: "Retourner à l'accueil"
   },
+  user: {
+    roles: {
+      UBIADMIN: 'Administrateur Ubidreams',
+      SUPERADMIN: 'Super Administrateur',
+      ADMIN: 'Administrateur',
+      MANAGER: 'Gestionnaire',
+      READER: 'Lecteur'
+    }
+  },
   api: {
     success: {
       create: '{{ modelName }} créé(e) avec succès',
@@ -42,6 +51,15 @@ i18next.addResourceBundle('en', 'Common', {
     cancel: 'Cancel',
     next: 'Next',
     backHome: 'Back home page'
+  },
+  user: {
+    roles: {
+      UBIADMIN: 'Ubidreams Administrator',
+      SUPERADMIN: 'Super Administrator',
+      ADMIN: 'Administrator',
+      MANAGER: 'Manager',
+      READER: 'Reader'
+    }
   },
   api: {
     success: {
