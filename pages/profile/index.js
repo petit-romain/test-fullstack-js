@@ -1,27 +1,14 @@
 // Libraries
 import React from 'react'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'react-i18next'
 
-// Configs
-import i18nConfig from 'configs/i18n.config'
+// I18n
+import './Profile.i18n'
 
 const Profile = ({ model = {} }) => {
-  const { t } = useTranslation('Dock')
+  const { t } = useTranslation('Profile')
 
   return <div>Profile page</div>
-}
-
-export const getServerSideProps = async ({ locale }) => {
-  const translations = await serverSideTranslations(
-    locale,
-    ['Profile', 'Common'],
-    i18nConfig
-  )
-
-  return {
-    props: translations
-  }
 }
 
 export default Profile
