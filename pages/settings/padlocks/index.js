@@ -22,10 +22,7 @@ export const getServerSideProps = async () => {
 
   return {
     props: {
-      model: {
-        ...padlockMetadata,
-        blackListFields: []
-      }
+      model: padlockMetadata
     }
   }
 }

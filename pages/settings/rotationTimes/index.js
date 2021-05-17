@@ -22,10 +22,7 @@ export const getServerSideProps = async () => {
 
   return {
     props: {
-      model: {
-        ...rotationTimeMetadata,
-        blackListFields: []
-      }
+      model: rotationTimeMetadata
     }
   }
 }

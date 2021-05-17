@@ -22,16 +22,7 @@ export const getServerSideProps = async () => {
 
   return {
     props: {
-      model: {
-        ...userMetadata,
-        blackListFields: [
-          'email',
-          'emailVerified',
-          'image',
-          'createdAt',
-          'updatedAt'
-        ]
-      }
+      model: userMetadata
     }
   }
 }

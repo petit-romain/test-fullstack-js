@@ -10,7 +10,6 @@ import './Warehouse.i18n'
 
 // Components
 import TableLayout from 'components/table'
-import { defaultTo, map, merge } from 'lodash'
 
 const Warehouses = ({ model = {} }) => {
   const { t } = useTranslation('Warehouse')
@@ -21,18 +20,9 @@ const Warehouses = ({ model = {} }) => {
 export const getServerSideProps = async () => {
   const warehouseMetadata = getModelMetadata('Warehouse')
 
-  warehouseMetadata.fields = map(
-    defaultTo(warehouseMetadata?.fields, []),
-    (field) =>
-      field?.name === 'gates' ? merge(field, { label: 'name' }) : field
-  )
-
   return {
     props: {
-      model: {
-        ...warehouseMetadata,
-        blackListFields: []
-      }
+      model: warehouseMetadata
     }
   }
 }

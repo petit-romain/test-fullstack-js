@@ -22,10 +22,7 @@ export const getServerSideProps = async () => {
 
   return {
     props: {
-      model: {
-        ...trailerMetadata,
-        blackListFields: []
-      }
+      model: trailerMetadata
     }
   }
 }

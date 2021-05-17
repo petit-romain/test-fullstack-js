@@ -1,9 +1,6 @@
 // Libraries
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { defaultTo, map, merge } from 'lodash'
-
-import prisma from 'lib/prisma'
 
 // Helpers
 import { getModelMetadata } from 'helpers/prisma'
@@ -21,27 +18,11 @@ const WeighingsArea = ({ model = {} }) => {
 }
 
 export const getServerSideProps = async () => {
-  const boxs = await prisma.box.findMany()
-
   const weighingAreaMetadata = getModelMetadata('WeighingArea')
-
-  weighingAreaMetadata.fields = map(
-    defaultTo(weighingAreaMetadata?.fields, []),
-    (field) =>
-      field?.name === 'box'
-        ? merge(field, {
-            choices: boxs,
-            label: 'name'
-          })
-        : field
-  )
 
   return {
     props: {
-      model: {
-        ...weighingAreaMetadata,
-        blackListFields: []
-      }
+      model: weighingAreaMetadata
     }
   }
 }
