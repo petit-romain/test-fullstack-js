@@ -4,12 +4,12 @@ import { signIn } from 'next-auth/client'
 import { Button, Card, Form, Input, message } from 'antd'
 import { defaultTo, isNil } from 'lodash'
 import { useRouter } from 'next/router'
-import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useTranslation } from 'react-i18next'
 
-// Configs
-import i18nConfig from 'configs/i18n.config'
+// I18n
+import './SignIn.i18n'
 
+// Styles
 import './signin.module.less'
 
 const SignInPage = () => {
@@ -98,18 +98,6 @@ const SignInPage = () => {
       </Card>
     </div>
   )
-}
-
-export const getServerSideProps = async ({ locale }) => {
-  const translations = await serverSideTranslations(
-    locale,
-    ['SignIn', 'Common'],
-    i18nConfig
-  )
-
-  return {
-    props: translations
-  }
 }
 
 export default SignInPage
