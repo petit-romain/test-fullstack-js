@@ -1,9 +1,11 @@
+// Libraries
 import prisma from 'lib/prisma'
 import {
   constant,
   defaultTo,
   find,
   forEach,
+  includes,
   isEmpty,
   map,
   reduce,
@@ -32,17 +34,14 @@ export const getModelFieldMetadata = (model, fieldName) => {
 
   const choices =
     field?.kind === 'enum'
-      ? find(prismaEnums, ['name', field?.type]).values
+      ? defaultTo(find(prismaEnums, ['name', field?.type])?.values, [])
       : []
-
-  const object = field?.kind === 'object' ? {} : {}
 
   return {
     ...field,
     kind: field?.kind,
     type: field?.type,
-    choices: field?.kind === 'enum' ? map(choices, 'name') : [],
-    object
+    choices: field?.kind === 'enum' ? map(choices, 'name') : []
   }
 }
 
