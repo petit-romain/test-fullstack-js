@@ -46,6 +46,7 @@
     "next-plugin-antd-less": "1.1.4",
     "prisma": "2.19.0",
     "react": "17.0.1",
+    "react-country-flag": "2.3.0",
     "react-dom": "17.0.1",
     "react-i18next": "11.4.0",
     "swr": "0.5.5",
