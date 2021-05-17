@@ -15,6 +15,9 @@ import { creater, updater } from 'lib/swr'
 // Helpers
 import { filterModelFields } from 'helpers/manageModel'
 
+// I18n
+import './ManageModel.i18n'
+
 // Components
 const { Option } = Select
 
@@ -43,7 +46,7 @@ const ManageModel = ({
         <Select
           allowClear
           mode={field?.isList ? 'multiple' : 'single'}
-          placeholder={t('Common:form.select.placeholder', {
+          placeholder={t('ManageModel:form.select.placeholder', {
             fieldName: field?.fieldNameTranslated.toLowerCase()
           })}
         >
@@ -63,7 +66,7 @@ const ManageModel = ({
     } else if (field?.type === 'String') {
       return (
         <Input
-          placeholder={t('Common:form.input.placeholder', {
+          placeholder={t('ManageModel:form.input.placeholder', {
             fieldName: field?.fieldNameTranslated.toLowerCase()
           })}
         />

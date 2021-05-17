@@ -1,6 +1,6 @@
 import i18next from 'i18next'
 
-i18next.addResourceBundle('fr', 'Layout', {
+i18next.addResourceBundle('fr', 'ManageModel', {
   form: {
     requiredMessage: 'Veuillez saisir un(e) {{ fieldName }}',
     patternMessage: {
