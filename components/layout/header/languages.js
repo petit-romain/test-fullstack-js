@@ -3,6 +3,7 @@ import { Dropdown, Menu } from 'antd'
 import React, { useCallback } from 'react'
 import { defaultTo, map } from 'lodash'
 import i18next from 'i18next'
+import moment from 'moment'
 import ReactCountryFlag from 'react-country-flag'
 
 const Languages = () => {
@@ -16,6 +17,7 @@ const Languages = () => {
 
   const handleOnLanguageSelected = useCallback((lng) => {
     i18next.changeLanguage(lng)
+    moment.locale(lng)
   }, [])
 
   const overlay = (

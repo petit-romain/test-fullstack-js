@@ -6,12 +6,12 @@ import { Layout, Menu } from 'antd'
 import { defaultTo, isEmpty, isNil, map, filter, some, includes } from 'lodash'
 
 // I18n
-import './Layout.i18n'
+import '../Layout.i18n'
 
 // Components
 import routes from './routes'
 
-const { Sider } = Layout
+const { Sider: Index } = Layout
 
 const CustomSider = ({ session }) => {
   const router = useRouter()
@@ -33,7 +33,7 @@ const CustomSider = ({ session }) => {
   })
 
   return (
-    <Sider collapsible width={230}>
+    <Index collapsible width={230}>
       <Menu
         mode='inline'
         selectedKeys={[menuSelectedKey]}
@@ -68,7 +68,7 @@ const CustomSider = ({ session }) => {
           )
         })}
       </Menu>
-    </Sider>
+    </Index>
   )
 }
 

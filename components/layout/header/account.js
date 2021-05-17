@@ -8,7 +8,7 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'react-i18next'
 
 // I18n
-import './Layout.i18n'
+import '../Layout.i18n'
 
 const CustomDropdown = ({ session }) => {
   const router = useRouter()
