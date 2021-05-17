@@ -29,10 +29,6 @@ const TableLayout = ({ t, model }) => {
 
   // Model information
   const modelName = defaultTo(model?.name, '').toLowerCase()
-  const modelNameTranslated = {
-    single: t('name.single'),
-    plural: t('name.plural')
-  }
 
   // API information
   const apiUrl = `/api/${modelName}s`
@@ -110,7 +106,7 @@ const TableLayout = ({ t, model }) => {
       <ManageModel
         visible={isManageModalVisible}
         t={t}
-        model={{ ...model, modelName, modelNameTranslated }}
+        model={model}
         modelItem={modelItem}
         mutate={mutate}
         url={apiUrl}

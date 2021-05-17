@@ -1,25 +1,15 @@
 // Librairies
 import React, { useCallback, useEffect } from 'react'
-import { Form, Input, message, Modal, Select } from 'antd'
-import {
-  capitalize,
-  defaultTo,
-  includes,
-  isEmpty,
-  isPlainObject,
-  map
-} from 'lodash'
+import { Form, message, Modal } from 'antd'
+import { capitalize, defaultTo, includes, isEmpty, map } from 'lodash'
 
 import { creater, updater } from 'lib/swr'
 
 // Helpers
-import { filterModelFields } from 'helpers/manageModel'
+import { filterModelFields, renderModelField } from 'helpers/manageModel'
 
 // I18n
 import './ManageModel.i18n'
-
-// Components
-const { Option } = Select
 
 const ManageModel = ({
   visible,
@@ -40,42 +30,6 @@ const ManageModel = ({
 
   const isUpdating = !isEmpty(modelItem)
 
-  const renderField = useCallback((field) => {
-    if (field?.kind === 'enum' || !isEmpty(field?.choices)) {
-      return (
-        <Select
-          allowClear
-          mode={field?.isList ? 'multiple' : 'single'}
-          placeholder={t('ManageModel:form.select.placeholder', {
-            fieldName: field?.fieldNameTranslated.toLowerCase()
-          })}
-        >
-          {map(defaultTo(field?.choices, []), (choice) => (
-            <Option
-              key={
-                isPlainObject(choice)
-                  ? choice[defaultTo(choice?.key, 'id')]
-                  : choice
-              }
-            >
-              {isPlainObject(choice) ? choice[field?.label] : choice}
-            </Option>
-          ))}
-        </Select>
-      )
-    } else if (field?.type === 'String') {
-      return (
-        <Input
-          placeholder={t('ManageModel:form.input.placeholder', {
-            fieldName: field?.fieldNameTranslated.toLowerCase()
-          })}
-        />
-      )
-    } else {
-      return <Input />
-    }
-  }, [])
-
   const manageModel = useCallback(async (formData) => {
     mutate(url, formData, false)
 
@@ -84,10 +38,10 @@ const ManageModel = ({
         promise: creater,
         messages: {
           success: t('Common:api.success.create', {
-            modelName: capitalize(model?.modelNameTranslated.single)
+            modelName: capitalize(t('name'))
           }),
           error: t('Common:api.error.create', {
-            modelName: model?.modelNameTranslated.single.toLowerCase()
+            modelName: t('name').toLowerCase()
           })
         }
       },
@@ -95,10 +49,10 @@ const ManageModel = ({
         promise: updater,
         messages: {
           success: t('Common:api.success.update', {
-            modelName: capitalize(model?.modelNameTranslated.single)
+            modelName: capitalize(t('name'))
           }),
           error: t('Common:api.error.update', {
-            modelName: model?.modelNameTranslated.single.toLowerCase()
+            modelName: t('name').toLowerCase()
           })
         }
       }
@@ -123,9 +77,7 @@ const ManageModel = ({
     <Modal
       visible={visible}
       forceRender
-      title={`${
-        isUpdating ? t('Common:action.update') : t('Common:action.create')
-      } un(e) ${model?.modelNameTranslated.single.toLowerCase()}`}
+      title={isUpdating ? t('modals.update.title') : t('modals.create.title')}
       okText={
         isUpdating ? t('Common:action.update') : t('Common:action.create')
       }
@@ -141,14 +93,14 @@ const ManageModel = ({
       }}
     >
       <Form form={form} layout='vertical'>
-        {map(modelFields, ({ kind, ...field }, index) => {
+        {map(modelFields, (field, index) => {
           const fieldName = defaultTo(field?.name, '')
           const fieldNameTranslated = t(`fields.${fieldName}.title`)
 
           let rules = [
             {
               required: defaultTo(field?.isRequired, false),
-              message: t('Common:form.requiredMessage', {
+              message: t('ManageModel:form.requiredMessage', {
                 fieldName: fieldNameTranslated.toLowerCase()
               })
             }
@@ -162,7 +114,7 @@ const ManageModel = ({
               ...rules,
               {
                 type: 'email',
-                message: t('Common:form.patternMessage.required', {
+                message: t('ManageModel:form.patternMessage.required', {
                   fieldName: fieldNameTranslated.toLowerCase()
                 })
               }
@@ -176,11 +128,14 @@ const ManageModel = ({
               label={fieldNameTranslated}
               rules={rules}
             >
-              {renderField({
-                ...field,
-                fieldName,
-                fieldNameTranslated
-              })}
+              {renderModelField(
+                {
+                  ...field,
+                  fieldName,
+                  fieldNameTranslated
+                },
+                t
+              )}
             </Form.Item>
           )
         })}
