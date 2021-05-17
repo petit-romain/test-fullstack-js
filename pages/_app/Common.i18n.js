@@ -51,9 +51,9 @@ i18next.addResourceBundle('en', 'Common', {
     error: {
       create: 'An error occurred on {{ modelName }} creation',
       update: 'An error occurred on {{ modelName }} update',
-      401: 'Your session has expired, you have to loggin again',
-      403: 'You do not have permission to perform this action',
-      404: 'Sorry, this action does not exist'
+      '401': 'Your session has expired, you have to loggin again',
+      '403': 'You do not have permission to perform this action',
+      '404': 'Sorry, this action does not exist'
     }
   }
 })

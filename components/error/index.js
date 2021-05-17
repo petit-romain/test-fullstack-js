@@ -9,20 +9,20 @@ import { useTranslation } from 'react-i18next'
 // I18n
 import './Error.i18n'
 
-const ErrorPage = ({ statusCode }) => {
+const ErrorPage = ({ statusCode = '' }) => {
   const router = useRouter()
 
-  const { t } = useTranslation('Common')
+  const { t } = useTranslation('Error')
 
   return (
     <Fragment>
       <Head>
-        <title> {t(`${statusCode}.title`)} </title>
+        <title> {t(`${statusCode.toString()}.title`)} </title>
       </Head>
       <Result
         status={statusCode}
         title={statusCode}
-        subTitle={t(`${statusCode}.description`)}
+        subTitle={t(`${statusCode.toString()}.description`)}
         extra={
           <Button
             type='primary'
@@ -32,7 +32,7 @@ const ErrorPage = ({ statusCode }) => {
               )
             }
           >
-            {t('action.backHome')}
+            {t('Common:action.backHome')}
           </Button>
         }
       />
