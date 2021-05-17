@@ -1,13 +1,12 @@
 // Libraries
 import React from 'react'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { useTranslation } from 'next-i18next'
-
-// Configs
-import i18nConfig from 'configs/i18n.config'
+import { useTranslation } from 'react-i18next'
 
 // Helpers
 import { getModelMetadata } from 'helpers/prisma'
+
+// I18n
+import './Box.i18n'
 
 // Components
 import TableLayout from 'components/table'
@@ -15,43 +14,18 @@ import TableLayout from 'components/table'
 const Boxes = ({ model = {} }) => {
   const { t } = useTranslation('Box')
 
-  const columns = [
-    {
-      title: 'Numéro de série',
-      dataIndex: 'serialNumber',
-      key: 'serialNumber'
-    },
-    {
-      title: 'Identifiant Lora',
-      dataIndex: 'deviceAddress',
-      key: 'deviceAddress'
-    },
-    {
-      title: 'Lieu associé',
-      dataIndex: 'box',
-      key: 'box'
-    }
-  ]
-
-  return <TableLayout t={t} model={model} columns={columns} />
+  return <TableLayout t={t} model={model} />
 }
 
-export const getServerSideProps = async ({ locale }) => {
+export const getServerSideProps = async () => {
   const boxMetadata = getModelMetadata('Box')
-
-  const translations = await serverSideTranslations(
-    locale,
-    ['Box', 'Common'],
-    i18nConfig
-  )
 
   return {
     props: {
       model: {
         ...boxMetadata,
         blackListFields: []
-      },
-      ...translations
+      }
     }
   }
 }

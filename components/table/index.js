@@ -63,9 +63,7 @@ const TableLayout = ({ t, model }) => {
         <Search
           allowClear
           enterButton
-          placeholder={t('Common:table.search', {
-            modelName: modelNameTranslated.single.toLowerCase()
-          })}
+          placeholder={t('table.search')}
           onSearch={searchModel}
         />
 
@@ -82,15 +80,7 @@ const TableLayout = ({ t, model }) => {
       </div>
 
       <div className='table-layout-content'>
-        <p>
-          {t('Common:table.nbElements', {
-            modelName:
-              nbModelItems > 1
-                ? modelNameTranslated.plural.toLowerCase()
-                : modelNameTranslated.single.toLowerCase(),
-            nbModelItems
-          })}
-        </p>
+        <p>{t('table.nbElement', { count: nbModelItems })}</p>
         <Table
           rowKey='id'
           loading={isNil(data) && isNil(error)}

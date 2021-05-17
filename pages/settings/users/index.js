@@ -1,15 +1,12 @@
 // Libraries
-import React, { Fragment } from 'react'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { useTranslation } from 'next-i18next'
-import { map } from 'lodash'
-import { Tag } from 'antd'
-
-// Configs
-import i18nConfig from 'configs/i18n.config'
+import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 // Helpers
 import { getModelMetadata } from 'helpers/prisma'
+
+// I18n
+import './User.i18n'
 
 // Components
 import TableLayout from 'components/table'
@@ -20,14 +17,8 @@ const Users = ({ model = {} }) => {
   return <TableLayout t={t} model={model} />
 }
 
-export const getServerSideProps = async ({ locale }) => {
+export const getServerSideProps = async () => {
   const userMetadata = getModelMetadata('User')
-
-  const translations = await serverSideTranslations(
-    locale,
-    ['User', 'Common'],
-    i18nConfig
-  )
 
   return {
     props: {
@@ -40,8 +31,7 @@ export const getServerSideProps = async ({ locale }) => {
           'createdAt',
           'updatedAt'
         ]
-      },
-      ...translations
+      }
     }
   }
 }

@@ -18,6 +18,11 @@ i18next.addResourceBundle('fr', 'RotationTime', {
 i18next.addResourceBundle('en', 'RotationTime', {
   name: 'Rotation time',
   name_plural: 'Rotation times',
+  table: {
+    nbElement: '{{ count }} rotation time to display',
+    nbElement_plural: '{{ count }} rotation times to display',
+    search: 'Find a rotation time'
+  },
   fields: {
     beginPlace: {
       title: 'Begin place'

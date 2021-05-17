@@ -1,13 +1,12 @@
 // Libraries
 import React from 'react'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { useTranslation } from 'next-i18next'
-
-// Configs
-import i18nConfig from 'configs/i18n.config'
+import { useTranslation } from 'react-i18next'
 
 // Helpers
 import { getModelMetadata } from 'helpers/prisma'
+
+// I18n
+import './RotationTime.i18n'
 
 // Components
 import TableLayout from 'components/table'
@@ -15,43 +14,18 @@ import TableLayout from 'components/table'
 const RotationTimes = ({ model = {} }) => {
   const { t } = useTranslation('RotationTime')
 
-  const columns = [
-    {
-      title: 'Lieu de départ',
-      dataIndex: 'beginningPlace',
-      key: 'beginningPlace'
-    },
-    {
-      title: "Lieu d'arrivée",
-      dataIndex: 'endingPlace',
-      key: 'endingPlace'
-    },
-    {
-      title: 'Durée',
-      dataIndex: 'duration',
-      key: 'duration'
-    }
-  ]
-
-  return <TableLayout t={t} model={model} columns={columns} />
+  return <TableLayout t={t} model={model} />
 }
 
-export const getServerSideProps = async ({ locale }) => {
+export const getServerSideProps = async () => {
   const rotationTimeMetadata = getModelMetadata('RotationTime')
-
-  const translations = await serverSideTranslations(
-    locale,
-    ['RotationTime', 'Common'],
-    i18nConfig
-  )
 
   return {
     props: {
       model: {
         ...rotationTimeMetadata,
         blackListFields: []
-      },
-      ...translations
+      }
     }
   }
 }
