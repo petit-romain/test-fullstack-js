@@ -1,18 +1,18 @@
 import {
+  CarOutlined,
+  CarryOutOutlined,
   ClockCircleOutlined,
   DashboardOutlined,
+  EnvironmentOutlined,
+  ExperimentOutlined,
+  HourglassOutlined,
   LockOutlined,
+  ScheduleOutlined,
   SettingOutlined,
   ShopOutlined,
-  ExperimentOutlined,
-  CarOutlined,
-  EnvironmentOutlined,
-  HourglassOutlined,
-  WifiOutlined,
-  TeamOutlined,
   SyncOutlined,
-  ScheduleOutlined,
-  CarryOutOutlined
+  TeamOutlined,
+  WifiOutlined
 } from '@ant-design/icons'
 
 const routes = [

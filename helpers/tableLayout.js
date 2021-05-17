@@ -2,13 +2,13 @@
 import React from 'react'
 import {
   defaultTo,
+  filter,
   find,
   includes,
   isEmpty,
   keys,
   map,
-  reject,
-  filter
+  reject
 } from 'lodash'
 import moment from 'moment'
 import { Tag } from 'antd'

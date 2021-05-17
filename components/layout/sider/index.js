@@ -3,7 +3,7 @@ import React, { useCallback, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'react-i18next'
 import { Layout, Menu } from 'antd'
-import { defaultTo, isEmpty, isNil, map, filter, some, includes } from 'lodash'
+import { defaultTo, filter, includes, isEmpty, isNil, map, some } from 'lodash'
 
 // I18n
 import '../Layout.i18n'
