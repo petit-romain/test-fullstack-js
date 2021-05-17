@@ -1,5 +1,5 @@
 // Libraries
-import React, { Fragment, useCallback, useEffect, useState } from 'react'
+import React, { Fragment, useCallback, useState } from 'react'
 import App from 'next/app'
 import { getSession, Provider } from 'next-auth/client'
 import { useRouter } from 'next/router'
