@@ -1,34 +1,27 @@
 // Libraries
+import React from 'react'
 import { Dropdown, Menu } from 'antd'
-import React, { useCallback } from 'react'
-import { defaultTo, map } from 'lodash'
+import { defaultTo, filter, map } from 'lodash'
 import i18next from 'i18next'
-import moment from 'moment'
 import ReactCountryFlag from 'react-country-flag'
 
-const Languages = () => {
+const Languages = ({ onLanguageChange = () => {} }) => {
   const currentLanguage = defaultTo(i18next?.language, 'en')
-  const languages = defaultTo(i18next?.languages, [])
+  const languages = filter(
+    defaultTo(i18next?.languages, []),
+    (language) => language !== currentLanguage
+  )
 
   const countryFlags = {
     fr: 'FR',
     en: 'GB'
   }
 
-  const handleOnLanguageSelected = useCallback((lng) => {
-    i18next.changeLanguage(lng)
-    moment.locale(lng)
-  }, [])
-
   const overlay = (
     <Menu>
       {map(languages, (language) => {
         return (
-          <Menu.Item
-            key={language}
-            disabled={language === currentLanguage}
-            onClick={() => handleOnLanguageSelected(language)}
-          >
+          <Menu.Item key={language} onClick={() => onLanguageChange(language)}>
             <ReactCountryFlag countryCode={countryFlags?.[language]} svg />
           </Menu.Item>
         )

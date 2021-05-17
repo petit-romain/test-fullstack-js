@@ -11,10 +11,10 @@ import Header from './header'
 
 const { Content } = Layout
 
-const CustomLayout = ({ children, session }) => {
+const CustomLayout = ({ children, session, onLanguageChange = () => {} }) => {
   return (
     <Layout>
-      <Header session={session} />
+      <Header session={session} onLanguageChange={onLanguageChange} />
       <Layout>
         <Sider session={session} />
         <Content>{children}</Content>

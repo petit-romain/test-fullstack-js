@@ -85,7 +85,7 @@ const TableLayout = ({ t, model }) => {
           rowKey='id'
           loading={isNil(data) && isNil(error)}
           columns={defaultTo(columns, [])}
-          dataSource={defaultTo(data?.results, [])}
+          // dataSource={defaultTo(data?.results, [])}
           pagination={{
             showSizeChanger: true,
             total: defaultTo(data?.total, 0),

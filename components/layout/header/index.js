@@ -15,7 +15,7 @@ import Languages from './languages'
 
 const { Header } = Layout
 
-const CustomHeader = ({ session }) => {
+const CustomHeader = ({ session, onLanguageChange = () => {} }) => {
   const router = useRouter()
 
   const { t } = useTranslation('Layout')
@@ -35,7 +35,7 @@ const CustomHeader = ({ session }) => {
       </div>
       <div className='dropdowns'>
         <Account session={session} />
-        <Languages />
+        <Languages onLanguageChange={onLanguageChange} />
       </div>
     </Header>
   )
