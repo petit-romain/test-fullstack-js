@@ -8,6 +8,14 @@ i18next.addResourceBundle('fr', 'Box', {
     nbElement_plural: '{{ count }} boîtiers à afficher',
     search: 'Recherchez un boîtier'
   },
+  modals: {
+    create: {
+      title: 'Créer un boîtier'
+    },
+    update: {
+      title: 'Modifier un boîtier'
+    }
+  },
   fields: {
     name: {
       title: 'Nom'
@@ -30,6 +38,14 @@ i18next.addResourceBundle('en', 'Box', {
     nbElement: '{{ count }} box to display',
     nbElement_plural: '{{ count }} boxs to display',
     search: 'Find a box'
+  },
+  modals: {
+    create: {
+      title: 'Box creation'
+    },
+    update: {
+      title: 'Box update'
+    }
   },
   fields: {
     name: {

@@ -3,6 +3,14 @@ import i18next from 'i18next'
 i18next.addResourceBundle('fr', 'RotationTime', {
   name: 'Temps de rotation',
   name_plural: 'Temps de rotation',
+  modals: {
+    create: {
+      title: 'Créer un temps de rotation'
+    },
+    update: {
+      title: 'Modifier un temps de rotation'
+    }
+  },
   fields: {
     beginPlace: {
       title: 'Lieu de départ'
@@ -22,6 +30,14 @@ i18next.addResourceBundle('en', 'RotationTime', {
     nbElement: '{{ count }} rotation time to display',
     nbElement_plural: '{{ count }} rotation times to display',
     search: 'Find a rotation time'
+  },
+  modals: {
+    create: {
+      title: 'Rotation time creation'
+    },
+    update: {
+      title: 'Rotation time update'
+    }
   },
   fields: {
     beginPlace: {

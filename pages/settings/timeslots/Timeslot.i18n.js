@@ -8,6 +8,14 @@ i18next.addResourceBundle('fr', 'Timeslot', {
     nbElement_plural: '{{ count }} plages horaires à afficher',
     search: 'Recherchez une plage horaire'
   },
+  modals: {
+    create: {
+      title: 'Créer une plage horaire'
+    },
+    update: {
+      title: 'Modifier une plage horaire'
+    }
+  },
   fields: {
     name: {
       title: 'Nom'
@@ -27,6 +35,14 @@ i18next.addResourceBundle('en', 'Timeslot', {
     nbElement: '{{ count }} timeslot to display',
     nbElement_plural: '{{ count }} timeslots to display',
     search: 'Find a timeslot'
+  },
+  modals: {
+    create: {
+      title: 'Timeslot creation'
+    },
+    update: {
+      title: 'Timeslot update'
+    }
   },
   fields: {
     name: {

@@ -35,7 +35,7 @@ export const renderModelField = (field, t) => {
         <Select
           allowClear
           mode={field?.isList ? 'multiple' : 'single'}
-          placeholder={t('Common:form.select.placeholder', {
+          placeholder={t('ManageModel:form.select.placeholder', {
             fieldName: field?.fieldNameTranslated.toLowerCase()
           })}
         >
@@ -47,7 +47,7 @@ export const renderModelField = (field, t) => {
     case 'scalar':
       return (
         <Input
-          placeholder={t('Common:form.input.placeholder', {
+          placeholder={t('ManageModel:form.input.placeholder', {
             fieldName: field?.fieldNameTranslated.toLowerCase()
           })}
         />

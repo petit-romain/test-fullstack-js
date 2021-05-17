@@ -8,6 +8,14 @@ i18next.addResourceBundle('fr', 'Padlock', {
     nbElement_plural: '{{ count }} cadenas à afficher',
     search: 'Recherchez un cadenas'
   },
+  modals: {
+    create: {
+      title: 'Créer un cadenas'
+    },
+    update: {
+      title: 'Modifier un cadenas'
+    }
+  },
   fields: {
     name: {
       title: 'Nom'
@@ -24,6 +32,14 @@ i18next.addResourceBundle('en', 'Padlock', {
     nbElement: '{{ count }} padlocks to display',
     nbElement_plural: '{{ count }} padlocks to display',
     search: 'Find a padlock'
+  },
+  modals: {
+    create: {
+      title: 'Padlock creation'
+    },
+    update: {
+      title: 'Padlock update'
+    }
   },
   fields: {
     name: {

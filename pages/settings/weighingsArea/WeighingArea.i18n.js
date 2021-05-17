@@ -8,6 +8,14 @@ i18next.addResourceBundle('fr', 'WeighingArea', {
     nbElement_plural: '{{ count }} zones de pesée à afficher',
     search: 'Recherchez une zone de pesée'
   },
+  modals: {
+    create: {
+      title: 'Créer une zone de pesée'
+    },
+    update: {
+      title: 'Modifier un boîtier'
+    }
+  },
   fields: {
     name: {
       title: 'Nom'
@@ -24,6 +32,14 @@ i18next.addResourceBundle('en', 'WeighingArea', {
     nbElement: '{{ count }} weighing area to display',
     nbElement_plural: '{{ count }} weighing areas to display',
     search: 'Find a weighing area'
+  },
+  modals: {
+    create: {
+      title: 'Weighing area creation'
+    },
+    update: {
+      title: 'Weighing area update'
+    }
   },
   fields: {
     name: {

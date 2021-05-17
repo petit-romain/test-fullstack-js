@@ -8,6 +8,14 @@ i18next.addResourceBundle('fr', 'Trailer', {
     nbElement_plural: '{{ count }} brouettes à afficher',
     search: 'Recherchez une brouette'
   },
+  modals: {
+    create: {
+      title: 'Créer une brouette'
+    },
+    update: {
+      title: 'Modifier une brouette'
+    }
+  },
   fields: {
     transporter: {
       title: 'Nom du transporteur'
@@ -24,6 +32,14 @@ i18next.addResourceBundle('en', 'Trailer', {
     nbElement: '{{ count }} trailer to display',
     nbElement_plural: '{{ count }} trailers to display',
     search: 'Find a trailer'
+  },
+  modals: {
+    create: {
+      title: 'Trailer creation'
+    },
+    update: {
+      title: 'Trailer update'
+    }
   },
   fields: {
     transporter: {

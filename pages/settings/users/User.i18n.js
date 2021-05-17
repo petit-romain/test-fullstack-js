@@ -8,6 +8,14 @@ i18next.addResourceBundle('fr', 'User', {
     nbElement_plural: '{{ count }} utilisateurs à afficher',
     search: 'Recherchez un utilisateur'
   },
+  modals: {
+    create: {
+      title: 'Créer un utilisateur'
+    },
+    update: {
+      title: 'Modifier un utilisateur'
+    }
+  },
   fields: {
     firstName: {
       title: 'Prénom'
@@ -30,6 +38,14 @@ i18next.addResourceBundle('en', 'User', {
     nbElement: '{{ count }} user to display',
     nbElement_plural: '{{ count }} users to display',
     search: 'Recherchez un utilisateur'
+  },
+  modals: {
+    create: {
+      title: 'User creation'
+    },
+    update: {
+      title: 'User update'
+    }
   },
   fields: {
     firstName: {

@@ -8,6 +8,14 @@ i18next.addResourceBundle('fr', 'Dock', {
     nbElement_plural: '{{ count }} quais à afficher',
     search: 'Recherchez un quai'
   },
+  modals: {
+    create: {
+      title: 'Créer un quai'
+    },
+    update: {
+      title: 'Modifier un quai'
+    }
+  },
   fields: {
     name: {
       title: 'Nom'
@@ -24,6 +32,14 @@ i18next.addResourceBundle('en', 'Dock', {
     nbElement: '{{ count }} dock to display',
     nbElement_plural: '{{ count }} docks to display',
     search: 'Find a dock'
+  },
+  modals: {
+    create: {
+      title: 'Dock creation'
+    },
+    update: {
+      title: 'Dock update'
+    }
   },
   fields: {
     name: {

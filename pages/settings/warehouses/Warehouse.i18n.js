@@ -8,6 +8,14 @@ i18next.addResourceBundle('fr', 'Warehouse', {
     nbElement_plural: '{{ count }} magasins à afficher',
     search: 'Recherchez un magasin'
   },
+  modals: {
+    create: {
+      title: 'Créer un magasin'
+    },
+    update: {
+      title: 'Modifier un magasin'
+    }
+  },
   fields: {
     name: {
       title: 'Nom'
@@ -24,6 +32,14 @@ i18next.addResourceBundle('en', 'Warehouse', {
     nbElement: '{{ count }} warehouse to display',
     nbElement_plural: '{{ count }} warehouses to display',
     search: 'Find a warehouse'
+  },
+  modals: {
+    create: {
+      title: 'Warehouse creation'
+    },
+    update: {
+      title: 'Warehouse update'
+    }
   },
   fields: {
     name: {
