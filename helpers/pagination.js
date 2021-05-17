@@ -6,7 +6,7 @@ import prisma from 'lib/prisma'
 // Helpers
 import { formatFilters, formatSerializer } from 'helpers/prisma'
 
-export default async (model, serializers, req, res) => {
+export default async (model, serializers, req) => {
   const { query } = req
 
   const filters = JSON.parse(defaultTo(query?.filters, '{}'))
@@ -17,7 +17,7 @@ export default async (model, serializers, req, res) => {
 
   const sortOrder = replace(defaultTo(query?.sortOrder, 'ascend'), 'end', '')
 
-  const [modelsCount, models] = await prisma.$transaction([
+  const [modelItems, modelItemsCount] = await prisma.$transaction([
     prisma[model].count({ where: conditions }),
     prisma[model].findMany({
       take: parseInt(defaultTo(query?.limit, '10')),
@@ -28,8 +28,8 @@ export default async (model, serializers, req, res) => {
     })
   ])
 
-  res.status(206).json({
-    total: modelsCount,
-    results: models
-  })
+  return {
+    total: modelItemsCount,
+    results: modelItems
+  }
 }

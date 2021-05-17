@@ -1,8 +1,7 @@
-import nextConnect from 'next-connect'
 import { defaultTo, isNil } from 'lodash'
 import { getSession } from 'next-auth/client'
 
-export default nextConnect().use(async (req, res, next) => {
+export default async (req, res, next) => {
   const session = await getSession({ req })
 
   if (isNil(session?.user)) {
@@ -14,5 +13,6 @@ export default nextConnect().use(async (req, res, next) => {
   }
 
   req.user = defaultTo(session?.user, {})
+
   next()
-})
+}

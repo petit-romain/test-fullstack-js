@@ -1,4 +1,4 @@
 import Authentication from './authentication'
-import Pagination from './pagination'
+import Permissions from './permissions'
 
-export { Authentication, Pagination }
+export { Authentication, Permissions }
