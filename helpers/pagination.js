@@ -17,7 +17,7 @@ export default async (model, serializers, req) => {
 
   const sortOrder = replace(defaultTo(query?.sortOrder, 'ascend'), 'end', '')
 
-  const [modelItems, modelItemsCount] = await prisma.$transaction([
+  const [modelItemsCount, modelItems] = await prisma.$transaction([
     prisma[model].count({ where: conditions }),
     prisma[model].findMany({
       take: parseInt(defaultTo(query?.limit, '10')),
