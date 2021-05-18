@@ -40,7 +40,9 @@ const filters = (field) => {
 const renderColumn = (field, value, record) => {
   if (field?.kind === 'object') {
     if (field?.isList) {
-      return map(value, (v) => <Tag>{v[defaultTo(field?.label, 'id')]}</Tag>)
+      return map(value, (v, index) => (
+        <Tag key={index}>{v[defaultTo(field?.label, 'id')]}</Tag>
+      ))
     } else {
       return <Tag>{value[defaultTo(field?.label, 'id')]}</Tag>
     }
@@ -63,16 +65,18 @@ export const formatColumns = (model, data, t) => {
     const field = find(defaultTo(model?.fields, []), ['name', fieldKey])
     const fieldName = defaultTo(field?.name, '')
 
-    const isFieldSortable = includes(
-      ['String', 'Integer', 'DateTime'],
-      field?.type
-    )
+    const isFieldSortable =
+      includes(['String', 'Integer', 'DateTime'], field?.type) ||
+      field?.kind === 'object'
+
     const isFieldFilterable = !isEmpty(field?.choices) && field?.kind === 'enum'
+
+    const key = field?.kind === 'object' ? `box.name` : fieldName
 
     return {
       title: t(`fields.${fieldName}.title`),
       dataIndex: fieldName,
-      key: fieldName,
+      key,
       sorter: isFieldSortable ? (a, b) => sorter(a, b, field) : null,
       filters: isFieldFilterable ? filters(field) : null,
       render: (value, record) =>

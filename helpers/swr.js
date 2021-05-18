@@ -10,7 +10,7 @@ export const paginationQueryParams = (pagination, filters, sorter) => {
       limit,
       offset: defaultTo((pagination?.current - 1) * limit, 0),
       filters: isEmpty(filteredFilters) ? null : filteredFilters,
-      sortField: isNil(sortOrder) ? null : sorter?.field,
+      sortField: isNil(sortOrder) ? null : sorter?.columnKey,
       sortOrder
     },
     isNil
