@@ -114,7 +114,7 @@ const ManageModel = ({
               ...rules,
               {
                 type: 'email',
-                message: t('ManageModel:form.patternMessage.required', {
+                message: t('ManageModel:form.patternMessage.email', {
                   fieldName: fieldNameTranslated.toLowerCase()
                 })
               }

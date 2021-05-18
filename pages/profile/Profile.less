@@ -1,16 +1,31 @@
-.profile-header {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.5em;
-
-  .information {
+.profile {
+  &-header {
     display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
+    padding: 0.5em;
 
-    .ant-avatar {
-      margin-right: 0.5em;
+    .information {
+      display: flex;
+      align-items: center;
+
+      .avatar {
+        margin-right: 0.5em;
+        cursor: pointer;
+      }
+    }
+  }
+
+  &-main {
+    .ant-card-actions {
+      display: flex;
+      justify-content: flex-start;
+      margin: 0 24px;
+
+        .ant-btn {
+          float: right;
+        }
     }
   }
 }
