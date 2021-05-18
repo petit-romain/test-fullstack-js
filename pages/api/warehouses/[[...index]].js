@@ -16,7 +16,6 @@ const serializers = {
 }
 
 const permissions = {
-  list: ['READER'],
   retrieve: ['READER']
 }
 
