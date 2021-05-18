@@ -15,6 +15,14 @@ i18next.addResourceBundle('fr', 'Profile', {
     lastName: {
       title: 'Nom'
     }
+  },
+  api: {
+    success: {
+      update: 'Profil modifié avec succès'
+    },
+    error: {
+      update: 'Une erreur est survenue lors de la modification de votre profil'
+    }
   }
 })
 
@@ -31,6 +39,14 @@ i18next.addResourceBundle('en', 'Profile', {
     },
     lastName: {
       title: 'Lastname'
+    }
+  },
+  api: {
+    success: {
+      update: 'Profile updated'
+    },
+    error: {
+      update: 'An error occurred on profile update'
     }
   }
 })

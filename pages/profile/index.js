@@ -1,9 +1,12 @@
 // Libraries
-import React, { Fragment, useCallback, useState } from 'react'
+import React, { Fragment, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Avatar, Button, Card, Form, Input, Tag, message, Upload } from 'antd'
+import { mutate } from 'swr'
+import { Avatar, Button, Card, Form, Input, message, Tag, Upload } from 'antd'
 import { LockOutlined, UserOutlined } from '@ant-design/icons'
 import { defaultTo, map } from 'lodash'
+
+import { updater } from 'lib/swr'
 
 // Modals
 import { ManageUserPassword } from 'modals'
@@ -17,6 +20,8 @@ import { getRoleColor } from 'helpers/user'
 
 // Styles
 import './Profile.less'
+import { getSession } from 'next-auth/client'
+
 const Profile = ({ session }) => {
   const [isPasswordModalVisible, setPasswordModalVisible] = useState(false)
   const [form] = Form.useForm()
@@ -24,9 +29,23 @@ const Profile = ({ session }) => {
 
   const user = defaultTo(session?.user, {})
 
+  useEffect(() => {
+    form.setFieldsValue(user)
+  }, [])
+
   const handleSubmit = useCallback(() => {
-    form.validateFields().then(() => {
-      message.success()
+    const url = `/api/users/${user?.id}`
+
+    form.validateFields().then(async (formData) => {
+      await mutate(url, formData, false)
+
+      mutate(url, updater(url, formData))
+        .then(() => message.success(t('api.success.update')))
+        .catch((err) => {
+          err?.response?.status === 400 && message.error(t('api.error.update'))
+        })
+
+      await getSession()
     })
   }, [])
 

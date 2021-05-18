@@ -2,6 +2,7 @@
 import nextConnect from 'next-connect'
 
 import prisma from 'lib/prisma'
+import { defaultTo } from 'lodash'
 
 // Middlewares
 import { Authentication, Permissions } from 'middlewares'
@@ -11,7 +12,8 @@ import paginate from 'helpers/pagination'
 import { formatSerializer } from 'helpers/prisma'
 
 const serializers = {
-  list: ['id', 'firstName', 'lastName', 'email', 'roles']
+  list: ['id', 'firstName', 'lastName', 'email', 'roles'],
+  update: ['id', 'firstName', 'lastName', 'email']
 }
 
 const permissions = {
@@ -41,4 +43,18 @@ export default nextConnect({
     })
 
     res.status(200).json(padlock)
+  })
+  .patch('api/users/:id', async (req, res) => {
+    const id = parseInt(req?.params?.id)
+    const body = defaultTo(req?.body, {})
+
+    const selectedFields = formatSerializer('update', serializers)
+
+    const user = await prisma.user.update({
+      select: selectedFields,
+      where: { id },
+      data: body
+    })
+
+    res.status(200).json(user)
   })
