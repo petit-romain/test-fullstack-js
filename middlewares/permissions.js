@@ -1,4 +1,4 @@
-import { defaultTo, includes, isNil, some, get } from 'lodash'
+import { defaultTo, includes, isNil, some, get, isEmpty } from 'lodash'
 
 export default async (req, res, next, permissions) => {
   const isList = isNil(req?.params?.id)
@@ -14,7 +14,10 @@ export default async (req, res, next, permissions) => {
       ? defaultTo(permissions?.delete, [])
       : []
 
-  if (!some(roles, (role) => includes(servicePermissions, role))) {
+  if (
+    !isEmpty(servicePermissions) &&
+    !some(roles, (role) => includes(servicePermissions, role))
+  ) {
     res.status(403).json({
       key: 'PERMISSION_DENIED',
       message: 'You do not have permission to perform this action'
