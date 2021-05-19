@@ -41,12 +41,4 @@ const Home = ({ session }) => {
   )
 }
 
-export const getServerSideProps = async ({ req }) => {
-  return {
-    props: {
-      session: await getSession({ req })
-    }
-  }
-}
-
 export default Home

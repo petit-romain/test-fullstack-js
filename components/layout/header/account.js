@@ -2,7 +2,7 @@
 import { Avatar, Dropdown, Menu, message } from 'antd'
 import { DownOutlined, LogoutOutlined, UserOutlined } from '@ant-design/icons'
 import React, { useCallback } from 'react'
-import { getSession, signOut } from 'next-auth/client'
+import { signOut } from 'next-auth/client'
 import { defaultTo } from 'lodash'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'react-i18next'
@@ -23,6 +23,7 @@ const CustomDropdown = ({ session }) => {
       message.error('api.error.signout')
     })
   }, [])
+
   const overlay = (
     <Menu>
       <Menu.Item
@@ -66,13 +67,6 @@ const CustomDropdown = ({ session }) => {
       </span>
     </Dropdown>
   )
-}
-
-export const getServerSideProps = async (context) => {
-  const session = await getSession(context)
-  return {
-    props: {}
-  }
 }
 
 export default CustomDropdown

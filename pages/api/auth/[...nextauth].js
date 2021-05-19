@@ -35,6 +35,7 @@ export default NextAuth({
           email: session?.user?.email
         }
       })
+
       return {
         ...session,
         user
