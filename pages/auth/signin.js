@@ -1,6 +1,6 @@
 // Libraries
 import React, { useCallback } from 'react'
-import { signIn } from 'next-auth/client'
+import { getSession, signIn } from 'next-auth/client'
 import { Button, Card, Form, Input, message } from 'antd'
 import { defaultTo, isNil } from 'lodash'
 import { useRouter } from 'next/router'
@@ -12,7 +12,7 @@ import './SignIn.i18n'
 // Styles
 import './signin.module.less'
 
-const SignInPage = () => {
+const SignInPage = ({ onSessionChange = () => {} }) => {
   const router = useRouter()
   const [form] = Form.useForm()
   const { t } = useTranslation('SignIn')
@@ -24,8 +24,10 @@ const SignInPage = () => {
         password,
         redirect: false
       })
-        .then((body) => {
+        .then(async (body) => {
           if (!isNil(body?.error)) throw new Error(body?.error)
+          const session = await getSession()
+          onSessionChange(session)
           router.push(
             defaultTo(process.env.NEXT_PUBLIC_APP_HOME_PAGE, '/dashboard')
           )

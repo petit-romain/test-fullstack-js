@@ -1,7 +1,6 @@
 // Libraries
 import React, { Fragment, useCallback, useState } from 'react'
-import App from 'next/app'
-import { getSession, Provider } from 'next-auth/client'
+import { Provider } from 'next-auth/client'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import moment from 'moment'
@@ -29,11 +28,12 @@ const locales = {
   en: enGb
 }
 
-const CustomApp = ({ Component, pageProps, initSession }) => {
-  const [session, setSession] = useState(initSession)
+const CustomApp = ({ Component, pageProps }) => {
+  const [session, setSession] = useState({})
   const [locale, setLocale] = useState(
     defaultTo(locales[i18next.language], enGb)
   )
+
   const router = useRouter()
 
   const signInPage = defaultTo(
@@ -41,24 +41,24 @@ const CustomApp = ({ Component, pageProps, initSession }) => {
     '/auth/signin'
   )
 
-  const Container = includes([signInPage, '/'], router.route)
-    ? Fragment
-    : Layout
-
   const onLanguageChange = useCallback(async (lng) => {
     i18next.changeLanguage(lng)
     moment.locale(lng)
     setLocale(defaultTo(locales[lng], enGb))
   }, [])
 
-  const onProfileUpdate = useCallback(async (newSession) => {
+  const onSessionChange = useCallback(async (newSession) => {
     setSession(newSession)
-  })
+  }, [])
+
+  const Container = includes([signInPage, '/'], router.route)
+    ? { Component: Fragment, props: {} }
+    : { Component: Layout, props: { session, onLanguageChange } }
 
   return (
     <ConfigProvider locale={locale}>
       <Provider session={session}>
-        <Container session={session} onLanguageChange={onLanguageChange}>
+        <Container.Component {...Container.props}>
           <Head>
             <title>{process.env.NEXT_PUBLIC_APP_NAME}</title>
           </Head>
@@ -70,19 +70,12 @@ const CustomApp = ({ Component, pageProps, initSession }) => {
           <Component
             {...pageProps}
             session={session}
-            onProfileUpdate={onProfileUpdate}
+            onSessionChange={onSessionChange}
           />
-        </Container>
+        </Container.Component>
       </Provider>
     </ConfigProvider>
   )
-}
-
-CustomApp.getInitialProps = async (appContext) => {
-  const appProps = await App.getInitialProps(appContext)
-  const initSession = await getSession(appContext)
-
-  return { ...appProps, initSession }
 }
 
 export default CustomApp

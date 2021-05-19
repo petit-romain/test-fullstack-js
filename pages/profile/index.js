@@ -22,7 +22,7 @@ import { getRoleColor } from 'helpers/user'
 // Styles
 import './Profile.less'
 
-const Profile = ({ session, onProfileUpdate = () => {} }) => {
+const Profile = ({ session, onSessionChange = () => {} }) => {
   const [isPasswordModalVisible, setPasswordModalVisible] = useState(false)
   const [form] = Form.useForm()
   const { t } = useTranslation('Profile')
@@ -42,7 +42,7 @@ const Profile = ({ session, onProfileUpdate = () => {} }) => {
       mutate(url, updater(url, formData))
         .then(async () => {
           const session = await getSession()
-          onProfileUpdate(session)
+          onSessionChange(session)
 
           message.success(t('api.success.update'))
         })
