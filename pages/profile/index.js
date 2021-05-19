@@ -1,5 +1,6 @@
 // Libraries
 import React, { Fragment, useCallback, useEffect, useState } from 'react'
+import { getSession } from 'next-auth/client'
 import { useTranslation } from 'react-i18next'
 import { mutate } from 'swr'
 import { Avatar, Button, Card, Form, Input, message, Tag, Upload } from 'antd'
@@ -20,9 +21,8 @@ import { getRoleColor } from 'helpers/user'
 
 // Styles
 import './Profile.less'
-import { getSession } from 'next-auth/client'
 
-const Profile = ({ session }) => {
+const Profile = ({ session, onProfileUpdate = () => {} }) => {
   const [isPasswordModalVisible, setPasswordModalVisible] = useState(false)
   const [form] = Form.useForm()
   const { t } = useTranslation('Profile')
@@ -40,12 +40,15 @@ const Profile = ({ session }) => {
       await mutate(url, formData, false)
 
       mutate(url, updater(url, formData))
-        .then(() => message.success(t('api.success.update')))
+        .then(async () => {
+          const session = await getSession()
+          onProfileUpdate(session)
+
+          message.success(t('api.success.update'))
+        })
         .catch((err) => {
           err?.response?.status === 400 && message.error(t('api.error.update'))
         })
-
-      await getSession()
     })
   }, [])
 

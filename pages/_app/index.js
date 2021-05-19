@@ -29,7 +29,8 @@ const locales = {
   en: enGb
 }
 
-const CustomApp = ({ Component, pageProps, session }) => {
+const CustomApp = ({ Component, pageProps, initSession }) => {
+  const [session, setSession] = useState(initSession)
   const [locale, setLocale] = useState(
     defaultTo(locales[i18next.language], enGb)
   )
@@ -44,11 +45,15 @@ const CustomApp = ({ Component, pageProps, session }) => {
     ? Fragment
     : Layout
 
-  const onLanguageChange = useCallback((lng) => {
+  const onLanguageChange = useCallback(async (lng) => {
     i18next.changeLanguage(lng)
     moment.locale(lng)
     setLocale(defaultTo(locales[lng], enGb))
   }, [])
+
+  const onProfileUpdate = useCallback(async (newSession) => {
+    setSession(newSession)
+  })
 
   return (
     <ConfigProvider locale={locale}>
@@ -62,7 +67,11 @@ const CustomApp = ({ Component, pageProps, session }) => {
               height: 100%;
             }`}
           </style>
-          <Component {...pageProps} session={session} />
+          <Component
+            {...pageProps}
+            session={session}
+            onProfileUpdate={onProfileUpdate}
+          />
         </Container>
       </Provider>
     </ConfigProvider>
@@ -71,9 +80,9 @@ const CustomApp = ({ Component, pageProps, session }) => {
 
 CustomApp.getInitialProps = async (appContext) => {
   const appProps = await App.getInitialProps(appContext)
-  const session = await getSession(appContext)
+  const initSession = await getSession(appContext)
 
-  return { ...appProps, session }
+  return { ...appProps, initSession }
 }
 
 export default CustomApp
