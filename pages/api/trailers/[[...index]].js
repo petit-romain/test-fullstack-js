@@ -15,8 +15,8 @@ const serializers = {
 }
 
 const permissions = {
-  list: ['READER'],
-  retrieve: ['READER']
+  list: ['UBIADMIN', 'SUPERADMIN', 'ADMIN', 'MANAGER', 'READER'],
+  retrieve: ['UBIADMIN', 'SUPERADMIN', 'ADMIN', 'MANAGER', 'READER']
 }
 
 export default nextConnect({
