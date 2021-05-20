@@ -21,7 +21,7 @@ const Boxs = ({ model = {} }) => {
 }
 
 export const getServerSideProps = async () => {
-  const boxMetadata = getModelMetadata('box')
+  const boxMetadata = getModelMetadata('Box')
 
   return {
     props: {
