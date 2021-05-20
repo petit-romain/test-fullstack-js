@@ -27,10 +27,16 @@ i18next.addResourceBundle('fr', 'User', {
       title: 'Adresse mail'
     },
     roles: {
-      title: 'Rôles'
+      title: 'Rôles',
+      UBIADMIN: 'Administrateur Ubidreams',
+      SUPERADMIN: 'Super Administrateur',
+      ADMIN: 'Administrateur',
+      MANAGER: 'Gestionnaire',
+      READER: 'Lecteur'
     }
   }
 })
+
 i18next.addResourceBundle('en', 'User', {
   name: 'User',
   name_plural: 'Users',
@@ -58,7 +64,12 @@ i18next.addResourceBundle('en', 'User', {
       title: 'Mail address'
     },
     roles: {
-      title: 'Roles'
+      title: 'Roles',
+      UBIADMIN: 'Ubidreams Administrator',
+      SUPERADMIN: 'Super Administrator',
+      ADMIN: 'Administrator',
+      MANAGER: 'Manager',
+      READER: 'Reader'
     }
   }
 })

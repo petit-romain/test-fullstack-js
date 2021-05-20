@@ -1,9 +1,11 @@
 // Libraries
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import { getSession } from 'next-auth/client'
+import { defaultTo, find, includes, map, merge, reject } from 'lodash'
 
 // Helpers
-import { getModelMetadata } from 'helpers/prisma'
+import { getModelMetadata, prismaEnums } from 'helpers/prisma'
 
 // API
 import { serializers } from 'pages/api/users/[[...index]]'
@@ -20,8 +22,17 @@ const Users = ({ model = {} }) => {
   return <ModelList t={t} model={model} />
 }
 
-export const getServerSideProps = async () => {
+export const getServerSideProps = async (context) => {
   const userMetadata = getModelMetadata('User')
+
+  const roleEnums = reject(
+    map(defaultTo(find(prismaEnums, ['name', 'Role'])?.values, []), 'name'),
+    (role) => role === 'UBIADMIN'
+  )
+
+  userMetadata.fields = map(userMetadata.fields, (field) =>
+    field?.name === 'roles' ? { ...field, choices: roleEnums } : field
+  )
 
   return {
     props: {

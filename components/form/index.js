@@ -1,7 +1,24 @@
 // Libraries
 import React, { useEffect } from 'react'
-import { Button, Card, DatePicker, Form, Input, Select, TimePicker } from 'antd'
-import { defaultTo, includes, isEmpty, map } from 'lodash'
+import {
+  Button,
+  Card,
+  DatePicker,
+  Form,
+  Input,
+  Select,
+  TimePicker,
+  Radio
+} from 'antd'
+import {
+  defaultTo,
+  includes,
+  isEmpty,
+  isObject,
+  isString,
+  map,
+  reject
+} from 'lodash'
 
 // Helpers
 import { filterModelFields } from 'helpers/form'
@@ -36,6 +53,11 @@ const FormLayout = ({ t, model }) => {
       <Form form={form} layout='vertical'>
         {map(modelFields, (field, index) => {
           const isFieldRequired = defaultTo(field?.isRequired, false)
+          const fieldChoices = defaultTo(field?.choices, [])
+
+          const placeholder = t(`FormLayout:input.placeholder`, {
+            fieldName: t(`fields.${field?.name}.title`).toLowerCase()
+          })
 
           let rules = [
             {
@@ -58,10 +80,6 @@ const FormLayout = ({ t, model }) => {
             ]
           }
 
-          const placeholder = t(`FormLayout:input.placeholder`, {
-            fieldName: t(`fields.${field?.name}.title`).toLowerCase()
-          })
-
           return (
             <Form.Item
               key={index}
@@ -73,28 +91,41 @@ const FormLayout = ({ t, model }) => {
               {/* Simple input field (String) */}
               {field?.type === 'String' && <Input placeholder={placeholder} />}
 
-              {/* Enum field */}
-              {field?.kind === 'enum' && (
+              {/* Object Enums field */}
+              {!isEmpty(fieldChoices) && isObject(fieldChoices[0]) && (
                 <Select
                   allowClear
                   mode={field?.isList ? 'multiple' : 'single'}
                   placeholder={placeholder}
                 >
-                  {map(defaultTo(field?.choices, []), (choice) => (
+                  {map(fieldChoices, (choice) => (
                     <Select.Option key={choice}>{choice}</Select.Option>
                   ))}
                 </Select>
               )}
 
-              {/* Datetime and Time field */}
-              {field?.type === 'DateTime' ||
-              includes(field?.name.toLowerCase(), 'time') ? (
-                <TimePicker placeholder={placeholder} />
-              ) : (
+              {/* String enums */}
+              {!isEmpty(fieldChoices) && isString(fieldChoices[0]) && (
+                <Radio.Group>
+                  {map(fieldChoices, (choice) => (
+                    <Radio value={choice}>
+                      {t(`fields.${field?.name}.${choice}`)}
+                    </Radio>
+                  ))}
+                </Radio.Group>
+              )}
+
+              {/* Datetime field */}
+              {field?.type === 'DateTime' &&
                 includes(field?.name.toLowerCase(), 'date') && (
                   <DatePicker placeholder={placeholder} />
-                )
-              )}
+                )}
+
+              {/* Time field */}
+              {field?.type === 'DateTime' &&
+                includes(field?.name.toLowerCase(), 'time') && (
+                  <TimePicker placeholder={placeholder} />
+                )}
             </Form.Item>
           )
         })}

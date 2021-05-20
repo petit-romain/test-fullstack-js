@@ -5,7 +5,6 @@ import {
   defaultTo,
   find,
   forEach,
-  includes,
   isEmpty,
   map,
   reduce,
@@ -13,8 +12,8 @@ import {
   zipObject
 } from 'lodash'
 
-const prismaModels = prisma._dmmf.datamodel.models
-const prismaEnums = prisma._dmmf.datamodel.enums
+export const prismaModels = prisma._dmmf.datamodel.models
+export const prismaEnums = prisma._dmmf.datamodel.enums
 
 export const getModelMetadata = (modelName) => {
   const model = find(prismaModels, ['name', modelName])
@@ -30,19 +29,7 @@ export const getModelMetadata = (modelName) => {
 }
 
 export const getModelFieldMetadata = (model, fieldName) => {
-  const field = find(model?.fields, ['name', fieldName])
-
-  const choices =
-    field?.kind === 'enum'
-      ? defaultTo(find(prismaEnums, ['name', field?.type])?.values, [])
-      : []
-
-  return {
-    ...field,
-    kind: field?.kind,
-    type: field?.type,
-    choices: field?.kind === 'enum' ? map(choices, 'name') : []
-  }
+  return find(model?.fields, ['name', fieldName])
 }
 
 export const formatFilters = (filters) => {
