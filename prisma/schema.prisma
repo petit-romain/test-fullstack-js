@@ -77,8 +77,9 @@ model Box {
   name          String
   serialNumber  String          @unique
   devEUI        String          @unique
-  weighingArea  WeighingArea?   @relation("weighingBox")
   dock          Dock?           @relation("dockBox")
+  weighingArea  WeighingArea?   @relation("weighingBox")
+  gate          Gate?           @relation("gateBox")
   beginRT       RotationTime?   @relation("beginPlaceBox")
   endingRT      RotationTime?   @relation("endingPlaceBox")
 }
@@ -86,9 +87,10 @@ model Box {
 model Gate {
   id            Int             @default(autoincrement()) @id
   name          String
-  place         String          @default("GATE")
   store         Warehouse       @relation(fields: [storeId], references: [id])
   storeId       Int
+  boxId         Int
+  box           Box             @relation("gateBox", fields: [boxId], references: [id])
 }
 
 model Warehouse {
