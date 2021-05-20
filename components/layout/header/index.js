@@ -7,7 +7,6 @@ import { useTranslation } from 'react-i18next'
 
 // I18n
 import '../Layout.i18n'
-import 'pages/_app/Common.i18n'
 
 // Components
 import Account from './account'
