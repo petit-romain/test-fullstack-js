@@ -2,10 +2,10 @@
 import React from 'react'
 
 // Components
-import Error from 'components/error'
+import { ErrorLayout } from 'components'
 
 const NotFoundError = () => {
-  return <Error statusCode='404' />
+  return <ErrorLayout statusCode='404' />
 }
 
 export default NotFoundError

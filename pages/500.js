@@ -2,10 +2,10 @@
 import React from 'react'
 
 // Components
-import Error from 'components/error'
+import { ErrorLayout } from 'components'
 
 const InternalServerError = () => {
-  return <Error statusCode='500' />
+  return <ErrorLayout statusCode='500' />
 }
 
 export default InternalServerError
