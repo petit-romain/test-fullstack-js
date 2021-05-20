@@ -10,12 +10,14 @@ import { Authentication, Permissions } from 'middlewares'
 import paginate from 'helpers/pagination'
 import { formatSerializer } from 'helpers/prisma'
 
-const serializers = {
+export const serializers = {
   list: ['id', 'name', 'devEUI', 'serialNumber'],
-  retrieve: ['id', 'name', 'devEUI', 'serialNumber']
+  retrieve: ['id', 'name', 'devEUI', 'serialNumber'],
+  create: ['id', 'name', 'devEUI', 'serialNumber'],
+  update: ['id', 'name', 'devEUI', 'serialNumber']
 }
 
-const permissions = {
+export const permissions = {
   list: ['UBIADMIN', 'SUPERADMIN', 'ADMIN', 'MANAGER', 'READER'],
   retrieve: ['UBIADMIN', 'SUPERADMIN', 'ADMIN', 'MANAGER', 'READER']
 }

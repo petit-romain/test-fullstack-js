@@ -5,19 +5,19 @@ import { useTranslation } from 'react-i18next'
 // Helpers
 import { getModelMetadata } from 'helpers/prisma'
 
-// Serializers
+// API
 import { serializers } from 'pages/api/warehouses/[[...index]]'
 
 // I18n
 import './Warehouse.i18n'
 
-// Components
-import TableLayout from 'components/table'
+// Templates
+import { ModelList } from 'templates'
 
 const Warehouses = ({ model = {} }) => {
   const { t } = useTranslation('Warehouse')
 
-  return <TableLayout t={t} model={model} />
+  return <ModelList t={t} model={model} />
 }
 
 export const getServerSideProps = async () => {

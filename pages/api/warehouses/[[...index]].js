@@ -14,7 +14,8 @@ import { defaultTo } from 'lodash'
 export const serializers = {
   list: ['id', 'name', 'gates'],
   retrieve: ['id', 'name', 'gates'],
-  create: ['id', 'name', 'gates']
+  create: ['id', 'name', 'gates'],
+  update: ['id', 'name', 'gates']
 }
 
 export const permissions = {

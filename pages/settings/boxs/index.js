@@ -5,29 +5,29 @@ import { useTranslation } from 'react-i18next'
 // Helpers
 import { getModelMetadata } from 'helpers/prisma'
 
+// API
+import { serializers } from 'pages/api/boxs/[[...index]]'
+
 // I18n
 import './Box.i18n'
 
-// Components
-import TableLayout from 'components/table'
+// Templates
+import { ModelList } from 'templates'
 
-const Boxes = ({ model = {} }) => {
+const Boxs = ({ model = {} }) => {
   const { t } = useTranslation('Box')
 
-  return <TableLayout t={t} model={model} />
+  return <ModelList t={t} model={model} />
 }
 
 export const getServerSideProps = async () => {
-  const boxMetadata = getModelMetadata('Box')
+  const boxMetadata = getModelMetadata('box')
 
   return {
     props: {
-      model: {
-        ...boxMetadata,
-        blackListFields: []
-      }
+      model: { ...boxMetadata, serializers }
     }
   }
 }
 
-export default Boxes
+export default Boxs

@@ -1,6 +1,6 @@
 import { defaultTo, isEmpty, isNil, isPlainObject, map, omitBy } from 'lodash'
 
-export const paginationQueryParams = (pagination, filters, sorter) => {
+export const formatQueryParams = (pagination, filters, sorter) => {
   const limit = defaultTo(pagination?.pageSize, 10)
   const filteredFilters = omitBy(filters, isNil)
   const sortOrder = sorter?.order

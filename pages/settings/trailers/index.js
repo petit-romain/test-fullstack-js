@@ -5,16 +5,19 @@ import { useTranslation } from 'react-i18next'
 // Helpers
 import { getModelMetadata } from 'helpers/prisma'
 
+// API
+import { serializers } from 'pages/api/trailers/[[...index]]'
+
 // I18n
 import './Trailer.i18n'
 
-// Components
-import TableLayout from 'components/table'
+// Templates
+import { ModelList } from 'templates'
 
 const Trailers = ({ model = {} }) => {
   const { t } = useTranslation('Trailer')
 
-  return <TableLayout t={t} model={model} />
+  return <ModelList t={t} model={model} />
 }
 
 export const getServerSideProps = async () => {
@@ -22,7 +25,7 @@ export const getServerSideProps = async () => {
 
   return {
     props: {
-      model: trailerMetadata
+      model: { ...trailerMetadata, serializers }
     }
   }
 }

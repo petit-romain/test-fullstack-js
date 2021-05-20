@@ -3,7 +3,7 @@ import React, { Fragment, useCallback, useEffect, useState } from 'react'
 import { getSession } from 'next-auth/client'
 import { useTranslation } from 'react-i18next'
 import { mutate } from 'swr'
-import { Avatar, Button, Card, Form, Input, message, Tag, Upload } from 'antd'
+import { Avatar, Button, Form, message, Tag, Upload } from 'antd'
 import { LockOutlined, UserOutlined } from '@ant-design/icons'
 import { defaultTo, map } from 'lodash'
 
@@ -12,17 +12,22 @@ import { updater } from 'lib/swr'
 // Modals
 import { ManageUserPassword } from 'modals'
 
+import { serializers } from 'pages/api/users/[[...index]]'
+
 // I18n
 import './Profile.i18n'
-import 'modals/manageModel/ManageModel.i18n'
 
 // Helpers
 import { getRoleColor } from 'helpers/user'
+import { getModelMetadata } from 'helpers/prisma'
 
 // Styles
 import './Profile.less'
 
-const Profile = ({ session, onSessionChange = () => {} }) => {
+// Components
+import { FormLayout } from 'components'
+
+const Profile = ({ session, onSessionChange = () => {}, model = {} }) => {
   const [isPasswordModalVisible, setPasswordModalVisible] = useState(false)
   const [form] = Form.useForm()
   const { t } = useTranslation('Profile')
@@ -53,8 +58,8 @@ const Profile = ({ session, onSessionChange = () => {} }) => {
   }, [])
 
   return (
-    <Fragment>
-      <header className='profile-header'>
+    <div className='profile-page'>
+      <header>
         <div className='information'>
           <Upload className='avatar' name='avatar' listType='picture'>
             <Avatar size={64} icon={<UserOutlined />} src={user?.image} />
@@ -80,84 +85,26 @@ const Profile = ({ session, onSessionChange = () => {} }) => {
           {t('action.setPassword')}
         </Button>
       </header>
-      <Card
-        className='profile-main'
-        actions={[
-          <Button key='update' type='primary' onClick={handleSubmit}>
-            {t('action.updateProfile')}
-          </Button>
-        ]}
-      >
-        <Form form={form} layout='vertical'>
-          <Form.Item
-            name='firstName'
-            label={t('fields.firstName.title')}
-            rules={[
-              {
-                required: true,
-                message: t('ManageModel:form.requiredMessage', {
-                  fieldName: t('fields.firstName.title').toLowerCase()
-                })
-              }
-            ]}
-          >
-            <Input
-              placeholder={t('ManageModel:form.input.placeholder', {
-                fieldName: t('fields.firstName.title').toLowerCase()
-              })}
-            />
-          </Form.Item>
-          <Form.Item
-            name='lastName'
-            label={t('fields.lastName.title')}
-            rules={[
-              {
-                required: true,
-                message: t('ManageModel:form.requiredMessage', {
-                  fieldName: t('fields.lastName.title').toLowerCase()
-                })
-              }
-            ]}
-          >
-            <Input
-              placeholder={t('ManageModel:form.input.placeholder', {
-                fieldName: t('fields.lastName.title').toLowerCase()
-              })}
-            />
-          </Form.Item>
-          <Form.Item
-            name='email'
-            label={t('fields.email.title')}
-            rules={[
-              {
-                required: true,
-                message: t('ManageModel:form.requiredMessage', {
-                  fieldName: t('fields.email.title').toLowerCase()
-                })
-              },
-              {
-                type: 'email',
-                message: t('ManageModel:form.patternMessage.email', {
-                  fieldName: t('fields.email.title').toLowerCase()
-                })
-              }
-            ]}
-          >
-            <Input
-              placeholder={t('ManageModel:form.input.placeholder', {
-                fieldName: t('fields.email.title').toLowerCase()
-              })}
-            />
-          </Form.Item>
-        </Form>
-      </Card>
+      <main>
+        <FormLayout t={t} model={model} />
+      </main>
       <ManageUserPassword
         visible={isPasswordModalVisible}
         t={t}
         onCancel={() => setPasswordModalVisible(false)}
       />
-    </Fragment>
+    </div>
   )
+}
+
+export const getServerSideProps = async () => {
+  const userMetadata = getModelMetadata('User')
+
+  return {
+    props: {
+      model: { ...userMetadata, serializers }
+    }
+  }
 }
 
 export default Profile

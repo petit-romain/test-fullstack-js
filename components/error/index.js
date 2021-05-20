@@ -10,7 +10,7 @@ import { defaultTo } from 'lodash'
 // I18n
 import './Error.i18n'
 
-const ErrorPage = ({ statusCode = '404' }) => {
+const ErrorLayout = ({ statusCode = '404' }) => {
   const router = useRouter()
 
   const { t } = useTranslation('Error')
@@ -41,11 +41,11 @@ const ErrorPage = ({ statusCode = '404' }) => {
   )
 }
 
-ErrorPage.propTypes = {
+ErrorLayout.propTypes = {
   /**
    * Error status code
    */
   statusCode: PropTypes.oneOf(['404', '500'])
 }
 
-export default ErrorPage
+export default ErrorLayout
