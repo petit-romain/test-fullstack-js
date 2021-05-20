@@ -1,12 +1,12 @@
 {
-  "name": "@whazzark/cyclone-template-back",
+  "name": "test-fullstack-js",
   "version": "0.1.2",
   "author": "Romain Petit",
   "license": "MIT",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "ssh://git@github.com/whazzark/cyclone.git",
+    "url": "ssh://git@github.com:whazzark/test-fullstack-js.git",
     "directory": "packages/cyclone-template-back"
   },
   "publishConfig": {
@@ -25,10 +25,11 @@
     "build:production": "env-cmd -f .env.production next build",
     "postbuild:production": "env-cmd -f .env.production yarn prisma migrate deploy",
     "serve": "next start",
+    "test": "jest --config ./configs/jest.config.js --passWithNoTests",
     "lint": "eslint --ext .js .",
     "lint:fix": "eslint --ext .js . --fix --quiet",
-    "storybook": "env-cmd -f .env start-storybook -p 6006",
-    "storybook:build": "env-cmd -f .env build-storybook"
+    "storybook": "env-cmd -f .env start-storybook --port 5000 --ci",
+    "storybook:deploy": "env-cmd -f .env storybook-to-ghpages --out build"
   },
   "dependencies": {
     "@ant-design/icons": "4.5.0",
@@ -63,6 +64,9 @@
     "@storybook/addon-links": "6.2.9",
     "@storybook/preset-ant-design": "0.0.2",
     "@storybook/react": "6.2.9",
+    "@storybook/storybook-deployer": "2.8.8",
+    "@testing-library/jest-dom": "5.12.0",
+    "@testing-library/react": "11.2.7",
     "babel-loader": "8.2.2",
     "cross-env": "7.0.2",
     "dayjs": "1.8.30",
