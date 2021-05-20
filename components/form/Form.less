@@ -8,6 +8,39 @@
           width: 100%;
         }
       }
+
+      .many-to-many-field {
+        &-item {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          .anticon {
+            color: red;
+          }
+        }
+
+        .icon {
+          display: flex;
+          justify-content: center;
+          width: 100%;
+          padding: 1px;
+          border: 1px dashed dimgrey;
+          cursor: pointer;
+
+          svg {
+            height: 11px;
+            width: 11px;
+            object-fit: contain;
+            color: dimgrey;
+          }
+
+          .anticon {
+            //border: 0;
+            //border: 1px solid red;
+          }
+        }
+      }
     }
 
     &-actions {

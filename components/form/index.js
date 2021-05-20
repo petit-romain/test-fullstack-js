@@ -1,5 +1,5 @@
 // Libraries
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Button,
   Card,
@@ -10,8 +10,10 @@ import {
   TimePicker,
   Radio
 } from 'antd'
+import { DeleteOutlined, PlusOutlined } from '@ant-design/icons'
 import {
   defaultTo,
+  has,
   includes,
   isEmpty,
   isObject,
@@ -30,6 +32,10 @@ import './Form.i18n'
 import './Form.less'
 
 const FormLayout = ({ t, model }) => {
+  /* States */
+  const [mToMFields, setMtoMFields] = useState([])
+  const [mToMFieldHovered, setMToMFieldHovered] = useState(1)
+
   /* Form information */
   const [form] = Form.useForm()
   useEffect(() => {
@@ -80,6 +86,8 @@ const FormLayout = ({ t, model }) => {
             ]
           }
 
+          console.warn(mToMFields)
+
           return (
             <Form.Item
               key={index}
@@ -128,6 +136,40 @@ const FormLayout = ({ t, model }) => {
                 includes(field?.name.toLowerCase(), 'time') && (
                   <TimePicker placeholder={placeholder} />
                 )}
+
+              {/* One to Many */}
+              {field?.isList && has(field, 'children') && (
+                <div className='many-to-many-field'>
+                  {map(['test', ...mToMFields], (f, index) => (
+                    <div
+                      className='many-to-many-field-item'
+                      onMouseEnter={() => setMToMFieldHovered(index + 1)}
+                      onMouseLeave={() => setMToMFieldHovered(0)}
+                    >
+                      <Input placeholder={placeholder} />
+                      <Select placeholder={placeholder} />
+                      {index !== 0 && index + 1 === mToMFieldHovered && (
+                        <DeleteOutlined
+                          onClick={() =>
+                            setMtoMFields(
+                              reject(
+                                mToMFields,
+                                (field) => field === setMtoMFields
+                              )
+                            )
+                          }
+                        />
+                      )}
+                    </div>
+                  ))}
+                  <div
+                    className='icon'
+                    onClick={() => setMtoMFields([...mToMFields, 'test'])}
+                  >
+                    <PlusOutlined />
+                  </div>
+                </div>
+              )}
             </Form.Item>
           )
         })}
