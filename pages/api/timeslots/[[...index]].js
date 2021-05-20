@@ -11,10 +11,10 @@ import paginate from 'helpers/pagination'
 import { formatSerializer } from 'helpers/prisma'
 
 export const serializers = {
-  list: ['id', 'transporter', 'licensePlate'],
-  retrieve: ['id', 'transporter', 'licensePlate'],
-  create: ['id', 'transporter', 'licensePlate'],
-  update: ['id', 'transporter', 'licensePlate']
+  list: ['id', 'name', 'beginTime', 'endTime'],
+  retrieve: ['id', 'name', 'beginTime', 'endTime'],
+  create: ['id', 'name', 'beginTime', 'endTime'],
+  update: ['id', 'name', 'beginTime', 'endTime']
 }
 
 export const permissions = {

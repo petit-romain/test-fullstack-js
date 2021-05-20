@@ -13,8 +13,8 @@ import { formatSerializer } from 'helpers/prisma'
 
 export const serializers = {
   list: ['id', 'firstName', 'lastName', 'email', 'roles'],
-  create: ['id', 'firstName', 'lastName', 'email'],
-  update: ['id', 'firstName', 'lastName', 'email']
+  create: ['id', 'firstName', 'lastName', 'email', 'roles'],
+  update: ['id', 'firstName', 'lastName', 'email', 'roles']
 }
 
 export const permissions = {
