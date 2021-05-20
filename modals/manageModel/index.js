@@ -22,7 +22,7 @@ const ManageModel = ({
 }) => {
   const [form] = Form.useForm()
 
-  const modelFields = filterModelFields(model)
+  const modelFields = filterModelFields(model, 'create')
 
   useEffect(() => {
     form.setFieldsValue(modelItem)
@@ -62,15 +62,12 @@ const ManageModel = ({
       ? manageMethods?.update
       : manageMethods?.create
 
-    manageMethod
-      ?.promise(url, formData)
+    mutate(url, manageMethod?.promise(url, formData))
       .then(() => message.success(manageMethod?.messages?.success))
       .catch((err) => {
         err?.response?.status === 400 &&
           message.error(manageMethod?.messages?.error)
       })
-
-    mutate(url)
   }, [])
 
   return (
