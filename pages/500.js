@@ -5,7 +5,7 @@ import React from 'react'
 import Error from 'components/error'
 
 const InternalServerError = () => {
-  return <Error statusCode={500} />
+  return <Error statusCode='500' />
 }
 
 export default InternalServerError

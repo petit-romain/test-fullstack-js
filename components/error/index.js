@@ -1,15 +1,16 @@
 // Libraries
-import Head from 'next/head'
 import React, { Fragment } from 'react'
-import { Button, Result } from 'antd'
+import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { defaultTo } from 'lodash'
 import { useTranslation } from 'react-i18next'
+import PropTypes from 'prop-types'
+import { Button, Result } from 'antd'
+import { defaultTo } from 'lodash'
 
 // I18n
 import './Error.i18n'
 
-const ErrorPage = ({ statusCode = '' }) => {
+const ErrorPage = ({ statusCode = '404' }) => {
   const router = useRouter()
 
   const { t } = useTranslation('Error')
@@ -17,12 +18,12 @@ const ErrorPage = ({ statusCode = '' }) => {
   return (
     <Fragment>
       <Head>
-        <title> {t(`${statusCode.toString()}.title`)} </title>
+        <title> {t(`${statusCode}.title`)} </title>
       </Head>
       <Result
         status={statusCode}
         title={statusCode}
-        subTitle={t(`${statusCode.toString()}.description`)}
+        subTitle={t(`${statusCode}.description`)}
         extra={
           <Button
             type='primary'
@@ -38,6 +39,13 @@ const ErrorPage = ({ statusCode = '' }) => {
       />
     </Fragment>
   )
+}
+
+ErrorPage.propTypes = {
+  /**
+   * Error status code
+   */
+  statusCode: PropTypes.oneOf(['404', '500'])
 }
 
 export default ErrorPage

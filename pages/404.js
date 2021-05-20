@@ -5,7 +5,7 @@ import React from 'react'
 import Error from 'components/error'
 
 const NotFoundError = () => {
-  return <Error statusCode={404} />
+  return <Error statusCode='404' />
 }
 
 export default NotFoundError
