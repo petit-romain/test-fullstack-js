@@ -28,7 +28,8 @@ i18next.addResourceBundle('fr', 'Profile', {
 
 i18next.addResourceBundle('en', 'Profile', {
   action: {
-    updatePassword: 'Update your password'
+    setPassword: 'Update your password',
+    updateProfile: 'Update profile'
   },
   fields: {
     email: {
