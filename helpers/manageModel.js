@@ -12,20 +12,17 @@ import { Input, Select } from 'antd'
 
 const { Option } = Select
 
-export const filterModelFields = (model) =>
+export const filterModelFields = (model, serializer) =>
   filter(defaultTo(model?.fields, []), ({ name, relationToFields }) => {
     const isIdField = includes(name.toLowerCase(), 'id')
-    const isBlacklistedField = includes(
-      defaultTo(model?.blackListFields, []),
+    const isSerializerField = includes(
+      defaultTo(model?.serializers?.[serializer], []),
       name
     )
     const isRelationToFieldsId =
       isArray(relationToFields) && !isEmpty(relationToFields)
 
-    return (
-      (!isIdField && !isBlacklistedField && isNil(relationToFields)) ||
-      isRelationToFieldsId
-    )
+    return (!isIdField && isSerializerField) || isRelationToFieldsId
   })
 
 export const renderModelField = (field, t) => {
