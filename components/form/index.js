@@ -99,7 +99,9 @@ const FormLayout = ({ t, model }) => {
                   placeholder={placeholder}
                 >
                   {map(fieldChoices, (choice) => (
-                    <Select.Option key={choice}>{choice}</Select.Option>
+                    <Select.Option key={choice?.id}>
+                      {choice[field?.label]}
+                    </Select.Option>
                   ))}
                 </Select>
               )}
