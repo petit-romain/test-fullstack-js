@@ -5,6 +5,9 @@ import { useTranslation } from 'react-i18next'
 // Helpers
 import { getModelMetadata } from 'helpers/prisma'
 
+// Serializers
+import { serializers } from 'pages/api/warehouses/[[...index]]'
+
 // I18n
 import './Warehouse.i18n'
 
@@ -22,7 +25,7 @@ export const getServerSideProps = async () => {
 
   return {
     props: {
-      model: warehouseMetadata
+      model: { ...warehouseMetadata, serializers }
     }
   }
 }

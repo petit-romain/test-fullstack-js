@@ -12,7 +12,8 @@ import { formatSerializer } from 'helpers/prisma'
 
 const serializers = {
   list: ['id', 'name', 'box'],
-  retrieve: ['id', 'name', 'box']
+  retrieve: ['id', 'name', 'box'],
+  create: ['id', 'name', 'box']
 }
 
 const permissions = {

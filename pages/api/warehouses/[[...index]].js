@@ -9,15 +9,17 @@ import { Authentication, Permissions } from 'middlewares'
 // Helpers
 import paginate from 'helpers/pagination'
 import { formatSerializer } from 'helpers/prisma'
+import { defaultTo } from 'lodash'
 
-const serializers = {
+export const serializers = {
   list: ['id', 'name', 'gates'],
-  retrieve: ['id', 'name', 'gates']
+  retrieve: ['id', 'name', 'gates'],
+  create: ['id', 'name', 'gates']
 }
 
-const permissions = {
-  list: ['UBIADMIN', 'SUPERADMIN', 'ADMIN', 'MANAGER', 'READER'],
-  retrieve: ['UBIADMIN', 'SUPERADMIN', 'ADMIN', 'MANAGER', 'READER']
+export const permissions = {
+  list: ['UBIADMIN', 'SUPERADMIN', 'ADMIN'],
+  retrieve: ['UBIADMIN', 'SUPERADMIN', 'ADMIN']
 }
 
 export default nextConnect({
@@ -42,4 +44,13 @@ export default nextConnect({
     })
 
     res.status(200).json(padlock)
+  })
+  .post('api/warehouses', async (req, res) => {
+    const selectedFields = formatSerializer('create', serializers)
+
+    const warehouse = await prisma.warehouse.create({
+      data: defaultTo(req?.body, {})
+    })
+
+    res.status(201).json(warehouse)
   })
