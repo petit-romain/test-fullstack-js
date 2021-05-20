@@ -52,9 +52,9 @@ model VerificationRequest {
 
 model User {
   id            Int         @default(autoincrement()) @id
-  firstName     String?
-  lastName      String?
-  email         String?     @unique
+  firstName     String
+  lastName      String
+  email         String     @unique
   emailVerified DateTime?   @map(name: "email_verified")
   image         String?
   createdAt     DateTime    @default(now()) @map(name: "created_at")
@@ -75,8 +75,8 @@ enum Role {
 model Box {
   id            Int             @default(autoincrement()) @id
   name          String
-  devEUI        String          @unique
   serialNumber  String          @unique
+  devEUI        String          @unique
   weighingArea  WeighingArea?   @relation("weighingBox")
   dock          Dock?           @relation("dockBox")
   beginRT       RotationTime?   @relation("beginPlaceBox")
