@@ -26,7 +26,9 @@
     "postbuild:production": "env-cmd -f .env.production yarn prisma migrate deploy",
     "serve": "next start",
     "lint": "eslint --ext .js .",
-    "lint:fix": "eslint --ext .js . --fix --quiet"
+    "lint:fix": "eslint --ext .js . --fix --quiet",
+    "storybook": "env-cmd -f .env start-storybook -p 6006",
+    "storybook:build": "env-cmd -f .env build-storybook"
   },
   "dependencies": {
     "@ant-design/icons": "4.5.0",
@@ -45,6 +47,7 @@
     "next-connect": "0.10.1",
     "next-plugin-antd-less": "1.1.4",
     "prisma": "2.19.0",
+    "prop-types": "15.7.2",
     "react": "17.0.1",
     "react-country-flag": "2.3.0",
     "react-dom": "17.0.1",
@@ -55,6 +58,12 @@
   "devDependencies": {
     "@babel/core": "7.13.16",
     "@babel/eslint-parser": "7.13.14",
+    "@storybook/addon-actions": "6.2.9",
+    "@storybook/addon-essentials": "6.2.9",
+    "@storybook/addon-links": "6.2.9",
+    "@storybook/preset-ant-design": "0.0.2",
+    "@storybook/react": "6.2.9",
+    "babel-loader": "8.2.2",
     "cross-env": "7.0.2",
     "dayjs": "1.8.30",
     "eslint": "7.25.0",
@@ -68,8 +77,10 @@
     "eslint-plugin-react": "7.20.6",
     "eslint-plugin-standard": "4.0.1",
     "husky": ">=4",
+    "jest": "26.6.3",
     "lint-staged": ">=10",
-    "prettier": "2.0.4"
+    "prettier": "2.0.4",
+    "storybook": "6.2.9"
   },
   "husky": {
     "hooks": {

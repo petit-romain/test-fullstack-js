@@ -1,4 +1,4 @@
-import i18next from 'i18next'
+import i18next from 'lib/i18n'
 
 i18next.addResourceBundle('fr', 'Error', {
   '404': {
