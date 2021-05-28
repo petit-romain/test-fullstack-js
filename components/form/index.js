@@ -1,14 +1,14 @@
 // Libraries
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import {
   Button,
   Card,
   DatePicker,
   Form,
   Input,
+  Radio,
   Select,
-  TimePicker,
-  Radio
+  TimePicker
 } from 'antd'
 import { DeleteOutlined, PlusOutlined } from '@ant-design/icons'
 import {
@@ -22,6 +22,8 @@ import {
   reject
 } from 'lodash'
 
+import { creater, updater } from 'lib/swr'
+
 // Helpers
 import { filterModelFields } from 'helpers/form'
 
@@ -31,27 +33,52 @@ import './Form.i18n'
 // Styles
 import './Form.less'
 
-const FormLayout = ({ t, model }) => {
+const FormLayout = ({ t, model, mutate, apiUrl }) => {
   /* States */
   const [mToMFields, setMtoMFields] = useState([])
   const [mToMFieldHovered, setMToMFieldHovered] = useState(1)
 
-  /* Form information */
+  /* Form initialization */
   const [form] = Form.useForm()
-  useEffect(() => {
-    form.setFieldsValue(model)
-  }, [model])
 
   /* Model Information */
   const isCreating = isEmpty(model)
   const modelFields = filterModelFields(model, isCreating ? 'create' : 'update')
+
+  /* Form */
+  useEffect(() => {
+    form.setFieldsValue(model)
+  }, [model])
+
+  const handleSubmit = useCallback(() => {
+    const manageMethods = {
+      create: {
+        promise: creater,
+        api: {
+          success: 'succcess create',
+          error: 'error create'
+        }
+      },
+      update: {
+        promise: updater,
+        api: {
+          success: 'succcess update',
+          error: 'error update'
+        }
+      }
+    }
+
+    form.validateFields().then((formData) => {
+      // mutate(apiUrl, fo)
+    })
+  }, [])
 
   return (
     <Card
       className='form-layout'
       bordered={false}
       actions={[
-        <Button key='manage-button' type='primary'>
+        <Button key='manage-button' type='primary' onClick={handleSubmit}>
           {isCreating ? t('Common:action.create') : t('Common:action.update')}
         </Button>
       ]}
@@ -152,10 +179,7 @@ const FormLayout = ({ t, model }) => {
                         <DeleteOutlined
                           onClick={() =>
                             setMtoMFields(
-                              reject(
-                                mToMFields,
-                                (field) => field === setMtoMFields
-                              )
+                              reject(mToMFields, (field) => field === 'test')
                             )
                           }
                         />

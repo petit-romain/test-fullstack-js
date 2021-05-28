@@ -27,7 +27,7 @@ const ModelList = ({ t = () => {}, model = {} }) => {
 
   /* API information */
   const apiUrl = `/api/${modelName}s`
-  const { data, error } = useSWR([apiUrl, queryParams], fetcher)
+  const { data, error, mutate } = useSWR([apiUrl, queryParams], fetcher)
 
   /* Handling API error */
   useEffect(() => {
@@ -81,7 +81,7 @@ const ModelList = ({ t = () => {}, model = {} }) => {
         />
       </main>
 
-      {/* ManageModal */}
+      {/* Manage Modal */}
       <Modal
         className='model-modal-manage'
         visible={isManageModalVisible}
@@ -93,7 +93,7 @@ const ModelList = ({ t = () => {}, model = {} }) => {
           setModelItem({})
         }}
       >
-        <FormLayout t={t} model={model} />
+        <FormLayout t={t} model={model} mutate={mutate} apiUrl={apiUrl} />
       </Modal>
     </div>
   )
