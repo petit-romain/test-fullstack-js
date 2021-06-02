@@ -4,7 +4,11 @@
   "author": "Romain Petit",
   "license": "MIT",
   "private": true,
-  "repository": "https://github.com/whazzark/test-fullstack-js.git",
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com/whazzark/cyclone.git",
+    "directory": "packages/cyclone-template-back"
+  },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
   },
@@ -70,7 +74,6 @@
     "@testing-library/react": "11.2.7",
     "auto-changelog": "2.3.0",
     "babel-loader": "8.2.2",
-    "conventional-changelog-eslint": "3.0.9",
     "cross-env": "7.0.2",
     "dayjs": "1.8.30",
     "eslint": "7.25.0",
