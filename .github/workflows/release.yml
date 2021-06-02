@@ -22,4 +22,4 @@ jobs:
           release_name: ${{ github.ref }}
           body: "Changelog: test"
           draft: false
-          prerelease: contains(${{ github.ref }}, '-')
+          prerelease: true
