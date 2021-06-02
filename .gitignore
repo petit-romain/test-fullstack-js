@@ -6,6 +6,9 @@ node_modules/
 yarn.lock
 .npmrc
 
+# Environments
+environments/*.local
+
 # Next JS
 .next/
 
