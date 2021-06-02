@@ -13,10 +13,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Test
-        run: echo ${{ github.ref }}
-
-      - name: Create Release
+      - name: Generate Release
         uses: actions/create-release@latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
