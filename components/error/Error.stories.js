@@ -11,6 +11,10 @@ import ErrorComponent from './'
 
 export const Error = (args) => <ErrorComponent {...args} />
 
+Error.parameters = {
+  jest: ['Error.test.js']
+}
+
 export default {
   title: 'Components',
   component: ErrorComponent

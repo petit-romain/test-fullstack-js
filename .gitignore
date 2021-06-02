@@ -1,12 +1,21 @@
+# Jetbrains IDE configs
 .idea/
 
+# JS Environment
 node_modules/
 yarn.lock
+.npmrc
+
+# Next JS
 .next/
+
+# Jest
+.jest-test-results.json
+
+# Builds folder
 build/
 out/
 
-.npmrc
-
+# Logs
 yarn-error.log
 lerna-debug.log

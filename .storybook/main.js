@@ -8,6 +8,7 @@ module.exports = {
     addons: [
         "@storybook/addon-links",
         "@storybook/addon-essentials",
+        "@storybook/addon-jest",
         '@storybook/preset-ant-design',
     ],
     webpackFinal: config => merge(config, webpackConfig)
