@@ -12,6 +12,12 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
   },
+  "auto-changelog": {
+    "replaceText": {
+      "(Feature|Fix|Update)": "",
+      ":": ""
+    }
+  },
   "scripts": {
     "start": "env-cmd -f environments/.env.local next dev",
     "build": "env-cmd -f environments/.env.local next build",
@@ -33,7 +39,7 @@
     "prestorybook:build": "yarn test:generate",
     "storybook:build": "env-cmd -f environments/.env build-storybook --config-dir .storybook --output-dir build",
     "storybook:deploy": "env-cmd -f environments/.env storybook-to-ghpages --out build",
-    "changelog": "auto-changelog"
+    "changelog": "auto-changelog --template changelog-template.hbs"
   },
   "dependencies": {
     "@ant-design/icons": "4.5.0",
