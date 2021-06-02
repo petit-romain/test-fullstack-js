@@ -4,11 +4,7 @@
   "author": "Romain Petit",
   "license": "MIT",
   "private": true,
-  "repository": {
-    "type": "git",
-    "url": "ssh://git@github.com:whazzark/test-fullstack-js.git",
-    "directory": "packages/cyclone-template-back"
-  },
+  "repository": "https://github.com/whazzark/test-fullstack-js.git",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
   },
