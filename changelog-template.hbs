@@ -4,42 +4,37 @@
     ## [{{title}}]({{href}})
 
     {{! Breadking change commits list }}
-    {{#commit-list commits heading='###  Breaking Changes' message='Breaking change: '}}
+    {{#commit-list commits heading='### :warning: Breaking Changes' message='Breaking change: '}}
         - {{subject}} [`{{shorthash}}`]({{href}})
     {{/commit-list}}
 
     {{! Feature commits list }}
-    {{#commit-list commits heading='### 🛠 Features' message='Feature:'}}
+    {{#commit-list commits heading='### :hammer_and_wrench: Features' message='Feature:'}}
         - {{subject}} [`{{shorthash}}`]({{href}})
     {{/commit-list}}
 
     {{! Update commits list }}
-    {{#commit-list commits heading='### ✌🏼 Enhancements' message='Update:'}}
+    {{#commit-list commits heading='### :v: Enhancements' message='Update:'}}
         - {{subject}} [`{{shorthash}}`]({{href}})
     {{/commit-list}}
 
     {{! Fix commits list }}
-    {{#commit-list commits heading='### 🐞 Fixes' message='Fix:'}}
+    {{#commit-list commits heading='### :beetle: Fixes' message='Fix:'}}
         - {{subject}} [`{{shorthash}}`]({{href}})
     {{/commit-list}}
 
     {{! Delete commits list }}
-    {{#commit-list commits heading='### Deletes' message='Delete'}}
+    {{#commit-list commits heading='### :no_entry_sign: Delete' message='Delete:'}}
         - {{subject}} [`{{shorthash}}`]({{href}})
     {{/commit-list}}
 
-    {{! Partial commits list }}
-    {{#commit-list commits heading='### PARTIAL COMMIT' message='PARTIAL COMMIT'}}
-        - {{subject}} [`{{shorthash}}`]({{href}})
-    {{/commit-list}}
-
-    {{! Partial commits list }}
-    {{#commit-list commits heading='### 🦖 Documentation' message='PARTIAL COMMIT'}}
+    {{! Documentation commits list }}
+    {{#commit-list commits heading='### :dragong: Documentation' message='Doc:'}}
         - {{subject}} [`{{shorthash}}`]({{href}})
     {{/commit-list}}
 
     {{! Miscellaneous commits list }}
-    {{#commit-list commits heading='### Miscellaneous' exclude='Update, Feature' }}
+    {{#commit-list commits heading='### :pushpin: Miscellaneous' exclude='PARTIAL COMMIT' }}
         - {{subject}} [`{{shorthash}}`]({{href}})
     {{/commit-list}}
 {{/each}}

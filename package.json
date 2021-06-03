@@ -14,7 +14,7 @@
   },
   "auto-changelog": {
     "replaceText": {
-      "(Feature|Fix|Update)": "",
+      "(Feature|Fix|Update|Delete|PARTIAL COMMIT)": "",
       ":": ""
     }
   },
@@ -39,7 +39,7 @@
     "prestorybook:build": "yarn test:generate",
     "storybook:build": "env-cmd -f environments/.env build-storybook --config-dir .storybook --output-dir build",
     "storybook:deploy": "env-cmd -f environments/.env storybook-to-ghpages --out build",
-    "changelog": "auto-changelog --template changelog-template.hbs"
+    "changelog": "auto-changelog --template changelog-template.hbs --commit-limit false"
   },
   "dependencies": {
     "@ant-design/icons": "4.5.0",
