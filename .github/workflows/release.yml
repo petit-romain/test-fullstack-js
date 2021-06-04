@@ -20,7 +20,7 @@ jobs:
       - name: Generate changelog body
         id: changelog
         run: |
-          npx auto-changelog --template changelog-template.hbs --commit-limit false --starting-version ${{ github.ref }}
+          npx auto-changelog --template changelog-template.hbs --commit-limit false --starting-version v0.1.0
           cat CHANGELOG.md
           echo "::set-output name=release::$(cat CHANGELOG.md)"
 
