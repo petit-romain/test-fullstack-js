@@ -2,35 +2,36 @@ name: Release
 
 on:
   push:
-    branches:
-      - master
-      - dev
+    tags:
+      - "v*"
 
 jobs:
   release:
-    name: Release
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
       - name: Set Release type
-        run: echo "IS_PRERELEASE=$([[ ${{ github.ref }} == *"-"* ]] && echo true || echo false)" >> $GITHUB_ENV
+        run: |
+          echo "IS_PRERELEASE=$([[ ${{ github.ref }} == *"-"* ]] && echo true || echo false)" >> $GITHUB_ENV
+          echo ${{ env.IS_PRERELEASE }}
 
       - name: Generate changelog body
         id: changelog
         run: |
-          npx auto-changelog --template changelog-template.hbs --commit-limit false --starting-version v0.1.0
+          npx auto-changelog --template changelog-template.hbs --commit-limit false --starting-version v0.2.0
           cat CHANGELOG.md
           echo "::set-output name=release::$(cat CHANGELOG.md)"
 
       - name: Generate Release
-        uses: actions/create-release@latest
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: ${{ github.ref }}
-          body: ${{ steps.changelog.outputs.release}}
-          draft: false
-          prerelease: ${{ env.IS_PRERELEASE }}
+        run: echo ${{ steps.changelog.outputs.release }}
+#        uses: actions/create-release@latest
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        with:
+#          tag_name: ${{ github.ref }}
+#          release_name: ${{ github.ref }}
+#          body: ${{ steps.changelog.outputs.release }}
+#          draft: false
+#          prerelease: ${{ env.IS_PRERELEASE }}
