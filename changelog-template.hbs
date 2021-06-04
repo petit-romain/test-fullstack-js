@@ -32,9 +32,4 @@
     {{#commit-list commits heading='### :dragong: Documentation' message='Doc:'}}
         - {{subject}} [`{{shorthash}}`]({{href}})
     {{/commit-list}}
-
-    {{! Miscellaneous commits list }}
-    {{#commit-list commits heading='### :pushpin: Miscellaneous' exclude='PARTIAL COMMIT' }}
-        - {{subject}} [`{{shorthash}}`]({{href}})
-    {{/commit-list}}
 {{/each}}
