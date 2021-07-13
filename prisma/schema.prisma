@@ -82,6 +82,8 @@ model Box {
   gate          Gate?           @relation("gateBox")
   beginRT       RotationTime?   @relation("beginPlaceBox")
   endingRT      RotationTime?   @relation("endingPlaceBox")
+
+  @@map(name: "boxes")
 }
 
 model Gate {
@@ -91,12 +93,16 @@ model Gate {
   storeId       Int
   boxId         Int
   box           Box             @relation("gateBox", fields: [boxId], references: [id])
+
+  @@map(name: "gates")
 }
 
 model Warehouse {
   id            Int             @default(autoincrement()) @id
   name          String
   gates         Gate[]
+
+  @@map(name: "warehouses")
 }
 
 model WeighingArea {
@@ -104,12 +110,16 @@ model WeighingArea {
   name          String
   boxId         Int
   box           Box             @relation("weighingBox", fields: [boxId], references: [id])
+
+  @@map(name: "weighing_areas")
 }
 
 model Trailer {
  id             Int             @default(autoincrement()) @id
  licensePlate   String          @unique
  transporter    String
+
+  @@map(name: "trailers")
 }
 
 model Timeslot {
@@ -117,6 +127,8 @@ model Timeslot {
  name           String
  beginTime      DateTime
  endTime        DateTime
+
+  @@map(name: "timeslots")
 }
 
 model Dock {
@@ -124,6 +136,8 @@ model Dock {
   name          String
   boxId         Int
   box           Box             @relation("dockBox", fields: [boxId], references: [id])
+
+  @@map(name: "docks")
 }
 
 model RotationTime {
@@ -132,12 +146,16 @@ model RotationTime {
   beginPlace    Box             @relation("beginPlaceBox", fields: [beginPlaceId], references: [id])
   endingPlaceId Int
   endingPlace   Box             @relation("endingPlaceBox", fields: [endingPlaceId], references: [id])
+
+  @@map(name: "rotation_times")
 }
 
 model Padlock {
   id            Int             @default(autoincrement()) @id
   name          String
   reference     String
+
+  @@map(name: "padlocks")
 }
 
 
