@@ -1,14 +1,13 @@
 const { PrismaClient } = require('@prisma/client')
-const { forEach } = require('lodash')
 
 const { users } = require('./fixtures')
 
 const prisma = new PrismaClient()
 
 const main = async () => {
-  forEach(users, async (user) => {
+  for (const user of users) {
     await prisma.user.upsert({ ...user, update: {} })
-  })
+  }
 }
 
 main()
